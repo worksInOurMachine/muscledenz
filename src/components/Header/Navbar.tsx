@@ -51,7 +51,7 @@ const Navbar = () => {
                     <a href={"/"}><img className="xl:w-[154px] md:w-[120px] w-[80px] xl:h-[74px] lg:h-[60px] md:h-[60px] h-[50px] lg:pb-[10px] lg:pt-0 pt-[12px]" src={"./logo/md-logo.png"} alt="muscledenz" /></a>
                 </div>
 
-                <div className='w-full'>
+                <div className='w-full lg:flex hidden'>
                     <PlaceholdersAndVanishInput
                         placeholders={placeholders}
                         onChange={handleChange}
