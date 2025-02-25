@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "www.avvatarindia.com",
+        protocol: "https",
+        pathname: "**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
