@@ -1,5 +1,6 @@
 import { CategoryResType } from "@/types/category";
 
+
 export const categories: CategoryResType[] = [
   {
     id: "1",
