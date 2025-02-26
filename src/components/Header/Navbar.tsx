@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Drawer from "./Drawer";
-import { FaUser } from "react-icons/fa6";
+import { FaUser, FaX } from "react-icons/fa6";
 import Link from "next/link";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
+import { Search } from "lucide-react";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
   const [isOpen, setIsOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -35,6 +37,10 @@ const Navbar = () => {
     "How to assemble your own PC?",
   ];
 
+  const handleShowSearch = () => {
+    setShowSearch(!showSearch);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
   };
@@ -45,12 +51,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="lg:h-[86px] md:h-[70px] h-[60px] min-w-full lg:pt-[10px] px-[5px] shadow-xl shadow-black/10 lg:bg-white bg-[#E7E7E7] sticky top-0 left-0 z-50">
+    <nav className="h-fit min-w-full lg:pt-[10px] px-[5px] shadow-xl shadow-black/10 lg:bg-white bg-[#E7E7E7]--- bg-white sticky top-0 left-0 z-50 py-2 md:py-0">
       <div className="h-full w-full flex justify-between items-center">
         <div className="flex ml-[4%] h-full">
           <a href={"/"}>
             <img
-              className="xl:w-[154px] md:w-[120px] w-[80px] xl:h-[74px] lg:h-[60px] md:h-[60px] h-[50px] lg:pb-[10px] lg:pt-0 pt-[12px]"
+              className="xl:w-[154px] md:w-[120px] w-[80px] xl:h-[74px] lg:h-[60px] md:h-[60px] h-[50px] lg:pb-[10px] lg:pt-0 pt-[12px]---"
               src={"./logo/md-logo.png"}
               alt="muscledenz"
             />
@@ -85,10 +91,16 @@ const Navbar = () => {
 
         {/* NavLinks For Mobile */}
         <div className="float-right h-full min-w-[20%] justify-evenly gap-4 items-center lg:hidden flex">
+          <span onClick={() => handleShowSearch()} className="">
+            {!showSearch ? <Search /> : <FaX />}
+          </span>
           <a href="/login" className="sm:text-[30px] text-[20px]">
             <FaUser />
           </a>
-          <button className="sm:text-[40px] text-[25px]" onClick={toggleFunction}>
+          <button
+            className="sm:text-[40px] text-[25px]"
+            onClick={toggleFunction}
+          >
             <RxHamburgerMenu />
           </button>
           <Drawer
@@ -100,6 +112,15 @@ const Navbar = () => {
           />
         </div>
       </div>
+      {showSearch && (
+        <div className="w-full px-2">
+          <PlaceholdersAndVanishInput
+            placeholders={placeholders}
+            onChange={handleChange}
+            onSubmit={onSubmit}
+          />
+        </div>
+      )}
     </nav>
   );
 };
