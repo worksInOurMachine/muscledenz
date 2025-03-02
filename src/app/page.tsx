@@ -1,7 +1,7 @@
 'use client'
 import { ImageLayoutGrid } from '@/components/ImageGridLayout/ImageGridLayout';
 import ImageSlider from '@/components/ImageSlider';
-import ProductCarousel from '@/components/Product/productsCarousel';
+import ProductListings from '@/components/Product';
 import BlurText from '@/components/ui/Heading';
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
 
 
       <div className=''>
-        <ProductCarousel />
+        <ProductListings title="Trending" collectionType={'trending'}/>
 
       </div>
 

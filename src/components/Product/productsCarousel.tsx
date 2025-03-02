@@ -8,6 +8,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import ProductCard from "./ProductCard"
 import Autoplay from "embla-carousel-autoplay"
 import { products } from "@/config/products.config"
+import { ProductResType } from "@/types/product"
 
 
 
@@ -92,7 +93,7 @@ import { products } from "@/config/products.config"
 //     }
 // ]
 
-export default function ProductCarousel() {
+export default function ProductCarousel({products}:{products:ProductResType[]}) {
     return (
         <div className="w-full max-w-6xl mx-auto px-4">
             <Carousel

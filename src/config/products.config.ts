@@ -15,7 +15,7 @@ export const products: ProductResType[] = [
     createdAt: "2025-02-23T10:00:00Z",
     updatedAt: "2025-02-23T10:00:00Z",
     thumbnail: "/images/almonds.jpg",
-    isVeg: true,
+    isVeg: false,
 
 
   },
@@ -87,6 +87,78 @@ export const products: ProductResType[] = [
     thumbnail: "/images/almonds.jpg",
     isVeg: false,
 
+
+  },
+  {
+    id: "6",
+    name: "Running Shoes",
+    description:
+      "Lightweight and comfortable running shoes for daily workouts.",
+    price: 2999,
+    discount: 20,
+    images: ["/images/shoes.jpg"],
+    stock: 30,
+    category: { id: "102", name: "Footwear", slug: "footwear" },
+    tags: ["sports", "running", "comfort"],
+    collectionType: "trending",
+    createdAt: "2025-02-20T12:00:00Z",
+    updatedAt: "2025-02-21T12:00:00Z",
+    thumbnail: "/images/almonds.jpg",
+    isVeg: true,
+
+  },
+  {
+    id: "7",
+    name: "Running Shoes",
+    description:
+      "Lightweight and comfortable running shoes for daily workouts.",
+    price: 2999,
+    discount: 20,
+    images: ["/images/shoes.jpg"],
+    stock: 30,
+    category: { id: "102", name: "Footwear", slug: "footwear" },
+    tags: ["sports", "running", "comfort"],
+    collectionType: "trending",
+    createdAt: "2025-02-20T12:00:00Z",
+    updatedAt: "2025-02-21T12:00:00Z",
+    thumbnail: "/images/almonds.jpg",
+    isVeg: true,
+
+  },
+  {
+    id: "8",
+    name: "Running Shoes",
+    description:
+      "Lightweight and comfortable running shoes for daily workouts.",
+    price: 2999,
+    discount: 20,
+    images: ["/images/shoes.jpg"],
+    stock: 30,
+    category: { id: "102", name: "Footwear", slug: "footwear" },
+    tags: ["sports", "running", "comfort"],
+    collectionType: "trending",
+    createdAt: "2025-02-20T12:00:00Z",
+    updatedAt: "2025-02-21T12:00:00Z",
+    thumbnail: "/images/almonds.jpg",
+    isVeg: true,
+
+  },
+  {
+    id: "9",
+    name: "Running Shoes",
+    description:
+      "Lightweight and comfortable running shoes for daily workouts.",
+    price: 2999,
+    discount: 20,
+    images: ["/images/shoes.jpg"],
+    stock: 30,
+    category: { id: "102", name: "Footwear", slug: "footwear" },
+    tags: ["sports", "running", "comfort"],
+    collectionType: "trending",
+    createdAt: "2025-02-20T12:00:00Z",
+    updatedAt: "2025-02-21T12:00:00Z",
+    thumbnail: "/images/almonds.jpg",
+    isVeg: true,
 
   },
 ];
