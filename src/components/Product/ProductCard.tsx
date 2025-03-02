@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
-import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
+import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
 
 export default function ProductCard({ product }: { product: any }) {
   return (
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: { product: any }) {
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="text-base sm:text-lg font-semibold">
-                ₹{calculateDiscountedPrice({price:product.price,discountPercentage:product.discount})}
+                <DiscountedPrice price={product.price} discountPercentage={product.discount} />
               </span>
               {/* <span className="text-xs sm:text-sm text-gray-500 line-through">
                 ₹{product.originalPrice}
