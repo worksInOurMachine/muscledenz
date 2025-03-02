@@ -6,7 +6,7 @@ import BlurText from '@/components/ui/Heading';
 
 export default function Home() {
   return (
-    <div className="min-w-full py-5 space-y-10 min-h-full p-2">
+    <div className="min-w-full py-5 space-y-5 min-h-full p-2">
       <ImageSlider />
 
       <div id="training-programs" className='w-full'>
@@ -22,7 +22,9 @@ export default function Home() {
 
 
       <div className=''>
-        <ProductListings title="Trending" collectionType={'trending'}/>
+        <ProductListings title="Trending Products" collectionType={'trending'}/>
+        <ProductListings title="Popular Products" collectionType={'popular'}/>
+        <ProductListings title="Just Launched" collectionType={'just-launched'}/>
 
       </div>
 
