@@ -7,65 +7,55 @@ import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
 
 export default function ProductCard({ product }: { product: any }) {
   return (
-    <Card className="relative border-0 shadow-md bg-slate-100 min-h-[370px] sm:min-h-[450px] md:min-h-[450px] flex flex-col p-4">
-      <div className="absolute top-1 left-1 z-10 text-white px-1 py-1 text-xs sm:text-sm font-medium">
-        <Badge className="bg-green-600 hover:bg-green-700 text-white" variant={"secondary"} children={product.discount + '% OFF'} />
-      </div>
+    <Card className="relative border-0 shadow-md bg-slate-100 flex flex-col p-4 min-h-[360px] sm:min-h-[420px] md:min-h-[450px] lg:min-h-[480px]">
+      {/* Discount Badge */}
+      {product.discount > 0 && (
+        <div className="absolute top-2 left-2 z-10">
+          <Badge className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm">
+            {product.discount}% OFF
+          </Badge>
+        </div>
+      )}
+
+      {/* Wishlist Button */}
       <button className="absolute top-2 right-2 z-10 p-1 hover:scale-110 transition-transform">
         <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
       </button>
-      <div className="relative w-full h-40 sm:h-44 md:h-48 flex justify-center items-center mb-6">
+
+      {/* Product Image */}
+      <div className="relative w-full flex justify-center items-center">
         <img
           src={product.image || "https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg"}
           alt={product.name}
-          className="object-contain"
+          className="object-contain w-[80%] h-[150px] sm:h-[180px] md:h-[200px] lg:h-[220px]"
         />
       </div>
-      {/* <div className="absolute top-4 left-4">
-        <div
-          className={`w-4 h-4 border-2 ${
-            product.isVeg ? "border-green-600" : "border-red-600"
-          } rounded-sm`}
-        >
-          <div
-            className={`w-2 h-2 m-0.5 rounded-sm ${
-              product.isVeg ? "bg-green-600" : "bg-red-600"
-            }`}
-          />
-        </div>
-      </div> */}
-      <div className="space-y-1 px-1 flex-grow flex flex-col justify-between">
-        <div className="space-y-2">
-          <h3 className="font-medium  text-gray-900  text-md sm:text-lg line-clamp-2">
+
+      {/* Product Details */}
+      <div className="flex flex-col flex-grow px-1 justify-between">
+        {/* Product Name & Description */}
+        <div className="mt-3 space-y-2">
+          <h3 className="font-semibold text-gray-900 text-sm sm:text-md md:text-lg line-clamp-2">
             {product.name}
           </h3>
-          <p className="text-xs sm:text-sm text-gray-500">
+          <p className="text-xs sm:text-sm text-gray-500 line-clamp-2">
             {product.description}
           </p>
         </div>
-        <div className="space-y-2 sm:space-y-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-base sm:text-lg font-semibold">
-                <DiscountedPrice price={product.price} discountPercentage={product.discount} />
-              </span>
-              {/* <span className="text-xs sm:text-sm text-gray-500 line-through">
-                ₹{product.originalPrice}
-              </span>
-              <span className="text-xs sm:text-sm text-green-600">
-                Save ₹{product.originalPrice - product.price}
-              </span> */}
-            </div>
-            {/* <div className="flex items-center gap-2 text-xs sm:text-sm">
-              <span>₹{product.premiumPrice}</span>
-              <span className="text-amber-500">with</span>
-              <span className="font-medium text-amber-500">Premium</span>
-            </div> */}
+
+        {/* Pricing & Discount */}
+        <div className="mt-3">
+          <div className="flex items-center gap-2">
+            <span className="text-base sm:text-lg font-semibold">
+              <DiscountedPrice price={product.price} discountPercentage={product.discount} />
+            </span>
           </div>
-          <Button className="w-full bg-red-600 hover:bg-red-500 text-white text-sm sm:text-base py-2">
-            ADD TO CART
-          </Button>
         </div>
+
+        {/* Add to Cart Button */}
+        <Button className="w-full bg-red-600 hover:bg-red-500 text-white text-sm sm:text-base py-2 mt-3">
+          ADD TO CART
+        </Button>
       </div>
     </Card>
   );
