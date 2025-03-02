@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 
 const ImageSlider = () => {
   return (
-    <div className="w-full h-[50vh] md:h-[400px] lg:h-[500px]">
+    <div className="w-full h-fit">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={10}
