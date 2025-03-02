@@ -15,6 +15,9 @@ export const products: ProductResType[] = [
     createdAt: "2025-02-23T10:00:00Z",
     updatedAt: "2025-02-23T10:00:00Z",
     thumbnail: "/images/almonds.jpg",
+    isVeg: true,
+
+
   },
   {
     id: "2",
@@ -31,6 +34,8 @@ export const products: ProductResType[] = [
     createdAt: "2025-02-20T12:00:00Z",
     updatedAt: "2025-02-21T12:00:00Z",
     thumbnail: "/images/almonds.jpg",
+    isVeg: true,
+
   },
   {
     id: "3",
@@ -46,6 +51,8 @@ export const products: ProductResType[] = [
     createdAt: "2025-02-18T14:00:00Z",
     updatedAt: "2025-02-19T14:00:00Z",
     thumbnail: "/images/almonds.jpg",
+    isVeg: true,
+
   },
   {
     id: "4",
@@ -61,6 +68,8 @@ export const products: ProductResType[] = [
     createdAt: "2025-02-22T08:00:00Z",
     updatedAt: "2025-02-22T08:00:00Z",
     thumbnail: "/images/almonds.jpg",
+    isVeg: false,
+
   },
   {
     id: "5",
@@ -76,5 +85,8 @@ export const products: ProductResType[] = [
     createdAt: "2025-02-23T09:30:00Z",
     updatedAt: "2025-02-23T09:30:00Z",
     thumbnail: "/images/almonds.jpg",
+    isVeg: false,
+
+
   },
 ];

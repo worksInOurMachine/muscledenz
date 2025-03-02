@@ -14,4 +14,5 @@ export interface ProductResType {
   collectionType: "popular" | "trending" | "fit-food" | "life-style" | "just-launched";
   createdAt: string;
   updatedAt: string;
+  isVeg: boolean;
 }

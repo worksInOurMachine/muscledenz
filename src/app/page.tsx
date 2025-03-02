@@ -21,8 +21,9 @@ export default function Home() {
       </div>
 
 
-      <div>
+      <div className=''>
         <ProductCarousel />
+
       </div>
 
 
