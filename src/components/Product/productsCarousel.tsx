@@ -113,7 +113,7 @@ export default function ProductCarousel({products}:{products:ProductResType[]}) 
             >
                 <CarouselContent>
                     {products.map((product) => (
-                        <CarouselItem key={product.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4">
+                        <CarouselItem key={product.id} className="basis-[85%] md:basis-1/3 lg:basis-1/4">
                             <ProductCard product={product} />
                         </CarouselItem>
                     ))}
