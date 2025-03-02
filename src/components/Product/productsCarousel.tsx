@@ -105,7 +105,7 @@ export default function ProductCarousel({products}:{products:ProductResType[]}) 
                 }}
                 plugins={[
                     Autoplay({
-                      delay: 2000,
+                      delay: 2000 + Math.random() * 2000,
                     }),
                   ]}
                
