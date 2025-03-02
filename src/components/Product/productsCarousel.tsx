@@ -1,13 +1,13 @@
 "use client"
 
-import Image from "next/image"
-import { Heart } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+// import Image from "next/image"
+// import { Heart } from "lucide-react"
+// import { Card } from "@/components/ui/card"
+// import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import ProductCard from "./ProductCard"
 import Autoplay from "embla-carousel-autoplay"
-import { products } from "@/config/products.config"
+// import { products } from "@/config/products.config"
 import { ProductResType } from "@/types/product"
 
 
