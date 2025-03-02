@@ -7,7 +7,7 @@ import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
 
 export default function ProductCard({ product }: { product: any }) {
   return (
-    <Card className="relative border-0 shadow-md bg-slate-100 h-[370px] sm:h-[450px] md:h-[450px] flex flex-col p-4">
+    <Card className="relative border-0 shadow-md bg-slate-100 min-h-[370px] sm:min-h-[450px] md:min-h-[450px] flex flex-col p-4">
       <div className="absolute top-1 left-1 z-10 text-white px-1 py-1 text-xs sm:text-sm font-medium">
         <Badge className="bg-green-600 hover:bg-green-700 text-white" variant={"secondary"} children={product.discount + '% OFF'} />
       </div>
