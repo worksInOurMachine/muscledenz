@@ -1,26 +1,29 @@
 'use client'
+import ScrollRevealAnimation from '@/components/AnimatedComponent/ScrollRevealAnimation';
 import { ImageLayoutGrid } from '@/components/ImageGridLayout/ImageGridLayout';
 import ImageSlider from '@/components/ImageSlider';
 import ProductListings from '@/components/Product';
-import BlurText from '@/components/ui/Heading';
 import React from 'react';
 const SlidingText =React.lazy(() => import('@/components/AnimatedComponent/SlidingText'))
 
 
 export default function Home() {
   return (
-    <div className="min-w-full py-5 space-y-10 min-h-full p-2">
-      
+    <div className="min-w-full py-5 space-y-5 min-h-full p-1">
       <ImageSlider />
+      <div id="training-programs" className="w-full space-y-0">
 
-      <div id="training-programs" className="w-full">
-        <BlurText
-          text="Our Training Programs"
-          delay={50}
-          animateBy="words"
-          direction="bottom"
-          className="text-black align-center text-4xl opacity-80 justify-center w-full text-center font-display font-bold md:text-6xl"
-        />
+      <ScrollRevealAnimation
+          baseOpacity={0}
+          enableBlur={true}
+          baseRotation={8}
+          textClassName="text-4xl sm:text-5xl text-gray-700 font-bold text-center"
+            rotationEnd="bottom bottom"
+            wordAnimationEnd="bottom bottom"
+
+        >
+          Our Training Programs
+        </ScrollRevealAnimation>
         <ImageLayoutGrid />
       </div>
 
