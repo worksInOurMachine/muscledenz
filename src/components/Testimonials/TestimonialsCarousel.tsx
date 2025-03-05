@@ -1,5 +1,5 @@
 import React from "react"
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import TestimonialCard from "./TestimonialsCard"
 import { testimonials } from "@/config/testimonials.config"
@@ -15,7 +15,7 @@ function TestimonialsCarousel() {
         }}
         plugins={[
           Autoplay({
-            delay: 2500, // Smooth autoplay timing
+            delay: 2000, // Smooth autoplay timing
           }),
         ]}
         className="w-full mx-auto"
@@ -29,7 +29,10 @@ function TestimonialsCarousel() {
               <TestimonialCard {...testimonial} />
             </CarouselItem>
           ))}
+
         </CarouselContent>
+         {/* <CarouselPrevious />
+                <CarouselNext /> */}
       </Carousel>
     </div>
   )

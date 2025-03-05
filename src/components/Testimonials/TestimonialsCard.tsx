@@ -3,53 +3,48 @@ import { CheckCircle2 } from "lucide-react"
 import { TestimonialType } from "@/types/testimonials"
 
 export default function TestimonialCard({
-  name = "Gautam Hasija",
-  title = "Fitness Influencer",
-  avatarUrl = "/placeholder.svg?height=120&width=120",
+  name,
+  title,
+  avatarUrl,
   isVerified = true,
   rating = 5,
-  testimonial = "I've tried a lot of online supplement stores, but Nutrabay.com stands out for their exceptional customer service and high-quality products. I appreciate that I can trust the authenticity of the products I receive and that the shipping is lightning-fast.",
+  testimonial,
 }: TestimonialType) {
   return (
-    <div className="bg-gray-50 p-6 rounded-lg w-[300px]">
-      <div className="flex items-center gap-4 mb-4">
-        <div className="relative">
-          <div className="h-16 w-16 rounded-full overflow-hidden border-4 border-purple-100">
-            <img
-              src={avatarUrl || "/placeholder.svg"}
-              alt={`${name}'s profile picture`}
-              width={120}
-              height={120}
-              className="object-cover w-full h-full"
-            />
-          </div>
+    <div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto transition-transform transform hover:scale-[1.02]">
+      {/* User Info */}
+      <div className="flex items-center gap-4">
+        {/* Avatar */}
+        <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-red-500">
+          <img
+            src={avatarUrl || "/placeholder.svg"}
+            alt={`${name}'s profile picture`}
+            width={64}
+            height={64}
+            className="object-cover"
+          />
           {isVerified && (
-            <div className="absolute -bottom-1 -right-1 bg-purple-200 rounded-full p-0.5">
-              <div className="bg-white rounded-full p-0.5">
-                <div className="bg-purple-200 rounded-full">
-                  <div className="h-5 w-5 flex items-center justify-center">
-                    <div className="h-4 w-4 rounded-full bg-white flex items-center justify-center">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-green-600" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-[2px]">
+              <CheckCircle2 className="h-5 w-5 text-green-600" />
             </div>
           )}
         </div>
+
+        {/* Name & Title */}
         <div>
-          <h3 className="font-bold text-xl">{name}</h3>
-          <p className="text-gray-700">{title}</p>
+          <h3 className="font-semibold text-lg sm:text-xl text-gray-900">{name}</h3>
+          <p className="text-gray-600 text-sm sm:text-base">{title}</p>
           {isVerified && (
-            <div className="flex items-center gap-1 text-sm text-green-600 mt-1">
-              <CheckCircle2 className="h-3.5 w-3.5" />
-              <span>Verified customer</span>
+            <div className="flex items-center gap-1 text-xs sm:text-sm text-green-600 mt-1">
+              <CheckCircle2 className="h-4 w-4" />
+              <span>Verified Customer</span>
             </div>
           )}
         </div>
       </div>
 
-      <div className="flex mb-3">
+      {/* Rating Stars */}
+      <div className="flex mt-3">
         {Array.from({ length: 5 }).map((_, i) => (
           <svg
             key={i}
@@ -62,8 +57,10 @@ export default function TestimonialCard({
         ))}
       </div>
 
-      <blockquote className="text-gray-800">"{testimonial}"</blockquote>
+      {/* Testimonial */}
+      <blockquote className="mt-3 text-gray-800 italic text-sm sm:text-base leading-relaxed">
+        "{testimonial}"
+      </blockquote>
     </div>
   )
 }
-

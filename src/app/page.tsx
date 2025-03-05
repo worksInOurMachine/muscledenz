@@ -38,7 +38,7 @@ export default function Home() {
           baseOpacity={0}
           enableBlur={true}
           baseRotation={8}
-          textClassName="text-3xl sm:text-5xl lg:text-6xl text-gray-700 font-bold text-center"
+          textClassName="text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-bold text-center"
             rotationEnd="bottom bottom"
             wordAnimationEnd="bottom bottom"
 
