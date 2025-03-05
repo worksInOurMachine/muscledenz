@@ -30,15 +30,15 @@ export const testimonials: TestimonialType[] = [
       title: "Certified Nutritionist",
       avatarUrl: "https://randomuser.me/api/portraits/women/50.jpg",
       isVerified: true,
-      rating: 5,
+      rating: 4,
       testimonial: "I recommend Muscledenz to my clients for clean, effective supplements that support their fitness goals."
     },
     {
       name: "Vikram Singh",
       title: "Gym Owner",
       avatarUrl: "https://randomuser.me/api/portraits/men/45.jpg",
-      isVerified: true,
-      rating: 5,
+      isVerified: false,
+      rating: 4,
       testimonial: "My gym members love Muscledenz products! They provide real results and keep customers satisfied."
     }
   ]

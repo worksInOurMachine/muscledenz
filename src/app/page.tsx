@@ -10,7 +10,7 @@ const SlidingText =React.lazy(() => import('@/components/AnimatedComponent/Slidi
 
 export default function Home() {
   return (
-    <div className="min-w-full py-5 space-y-10 min-h-full p-1">
+    <div className="min-w-full py-5 space-y-5 min-h-full p-1">
       <ImageSlider />
       <div id="training-programs" className="w-full space-y-0">
 
@@ -33,7 +33,8 @@ export default function Home() {
         <ProductListings title="Popular Products" collectionType="popular" />
         <ProductListings title="Just Launched" collectionType="just-launched" />
       </div>
-      <div id="testimonials" className='space-y-10'>
+      <br />
+      <div id="testimonials" className='py-2 sm:py-5 md:py-10 md:space-y-10 sm:p bg-slate-100 '>
       <ScrollRevealAnimation
           baseOpacity={0}
           enableBlur={true}

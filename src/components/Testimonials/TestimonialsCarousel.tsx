@@ -24,7 +24,7 @@ function TestimonialsCarousel() {
           {testimonials.map((testimonial, index) => (
             <CarouselItem
               key={index}
-              className="basis-[100%] sm:basis-[60%] md:basis-[50%] lg:basis-[33.33%] xl:basis-[25%] flex justify-center"
+              className="basis-[100%] sm:basis-[50%] md:basis-[50%] lg:basis-[33.33%] xl:basis-[25%] flex justify-center"
             >
               <TestimonialCard {...testimonial} />
             </CarouselItem>

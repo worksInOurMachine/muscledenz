@@ -11,7 +11,7 @@ export default function TestimonialCard({
   testimonial,
 }: TestimonialType) {
   return (
-    <div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto transition-transform transform hover:scale-[1.02]">
+    <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto transition-transform transform hover:scale-[1.02]">
       {/* User Info */}
       <div className="flex items-center gap-4">
         {/* Avatar */}
