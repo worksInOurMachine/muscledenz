@@ -1,37 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏋️ Muscle Denz - The Gym Site 💪
 
-## Getting Started
+Welcome to **Gains Hub**, where we lift weights and lift spirits! If you're here for code, cool. If you're here for fitness, even cooler. If you're here by accident... well, stick around—maybe you'll get inspired to do a push-up. 🤷‍♂️
 
-First, run the development server:
+## 🤔 What is this?
+This is a **gym website**. You know, for those people who wake up and choose violence against their own laziness. It’s where **calories come to die** and **muscles are forged** like Excalibur. ⚔️
 
+## 🚀 Features (Because Even Your Biceps Need Them)
+✅ **Workout Schedules** - Plan your suffering ahead of time!  
+✅ **Trainer Profiles** - Meet the people who enjoy watching you struggle.  
+✅ **Membership Plans** - Because gains aren’t free, bro.  
+✅ **Live Workout Tracker** - Log your reps or pretend you did them.  
+✅ **Healthy Recipes** - Just kidding, it’s mostly chicken and broccoli.  
+
+## 🏆 Why Use This?
+- You love fitness 🏃  
+- You love code 👨‍💻  
+- You love staring at a gym website instead of actually working out 🤡  
+
+## 🛠️ How to Set Up (a.k.a. No Excuses)
 ```bash
+cd gym-site
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details. jhdlgiysh
-
