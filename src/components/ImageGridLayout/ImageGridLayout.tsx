@@ -3,7 +3,7 @@ import { LayoutGrid } from "../ui/layout-grid";
 
 export function ImageLayoutGrid() {
   return (
-    <div className="h-screen py-5 w-full">
+    <div className="h-screen md:py-5 w-full">
       <LayoutGrid cards={cards} />
     </div>
   );
