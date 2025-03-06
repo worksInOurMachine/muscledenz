@@ -8,9 +8,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "www.avvatarindia.com",
-        protocol: "https",
-        pathname: "**",
+        protocol: 'https',
+        hostname: '**', // Allows all external image sources
       },
     ],
   },
