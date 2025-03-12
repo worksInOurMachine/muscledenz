@@ -8,7 +8,7 @@ export function ProductSorter() {
 
     return (
         <div className="flex items-center">
-            <span className="text-sm mr-2 text-muted-foreground">Sort by:</span>
+            <span className="text-sm mr-2 text-muted-foreground">Category:</span>
             <Select value={sortOption} onValueChange={setSortOption}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Sort by" />
