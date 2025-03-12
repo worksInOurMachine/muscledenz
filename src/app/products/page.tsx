@@ -9,14 +9,25 @@ import { useEffect, useState } from "react";
 export default function ProductListingPage() {
     const searchParams = useSearchParams();
     const category = searchParams.get("category")
+    const query = searchParams.get("query")
     const [fProducts, setFProducts] = useState(products)
+
     useEffect(() => {
-        if (!category || category === "all") {
-            return setFProducts(products)
+        let filtered = products;
+
+        if (category && category !== "all") {
+            filtered = filtered.filter((p) => p.category.slug === category);
         }
-        const fp = products.filter((p) => p.category.slug === category)
-        setFProducts(fp)
-    }, [category])
+
+        if (query) {
+            filtered = filtered.filter((p) =>
+                p.name.toLowerCase().includes(query.toLowerCase()) ||
+                p.description.toLowerCase().includes(query.toLowerCase())
+            );
+        }
+
+        setFProducts(filtered);
+    }, [category, query]);
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="md:text-4xl sm:text-2xl text-xl font-bold mb-8 tracking-tight capitalize">{category ? categories.find((ct) => ct.slug === category)?.name : "Featured Products"}</h1>

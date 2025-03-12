@@ -286,7 +286,7 @@ export const products: ProductResType[] = [
     discount: 15,
     images: ["/images/smartwatch.jpg"],
     stock: 20,
-    category: { id: "103", name: "Electronics", slug: "ayurveda" },
+    category: { id: "103", name: "Electronics", slug: "ayurveda " },
     tags: ["wearable", "tech", "fitness"],
     collectionType: "just-launched",
     createdAt: "2025-02-18T14:00:00Z",

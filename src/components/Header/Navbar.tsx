@@ -9,11 +9,15 @@ import { FaUser, FaX } from "react-icons/fa6";
 import Link from "next/link";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
 import { Search } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
   const [isOpen, setIsOpen] = useState(false);
+  const searchParams = useSearchParams();
   const [showSearch, setShowSearch] = useState(false);
+  const [query, setQuery] = useState(searchParams.get("query") || "")
+  const router = useRouter()
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -23,7 +27,7 @@ const Navbar = () => {
 
   const toggleFunction = () => {
     setIsOpen((prev) => !prev);
-  };
+  };  
 
   const updateActiveLinks = (href: string) => {
     setActiveLink(href);
@@ -42,12 +46,13 @@ const Navbar = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    setQuery(e.target.value)
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
+    console.log("njnjrnfnr..................")
+    router.push(`/products?query=${query}`)
   };
 
   return (
