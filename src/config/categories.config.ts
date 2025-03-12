@@ -4,8 +4,8 @@ import { CategoryResType } from "@/types/category";
 export const categories: CategoryResType[] = [
   {
     id: "1",
-    name: "Categories",
-    slug: "all-categories",
+    name: "All",
+    slug: "all",
     image: "/images/categories-icon.png",
     description: "Explore all product categories",
   },

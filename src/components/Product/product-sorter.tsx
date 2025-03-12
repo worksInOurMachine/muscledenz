@@ -2,23 +2,25 @@
 
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-
+import { useQueryState } from 'nuqs'
+import { categories } from "@/config/categories.config"
 export function ProductSorter() {
-    const [sortOption, setSortOption] = useState("featured")
+    const [sortOption, setSortOption] = useQueryState('category')
 
     return (
         <div className="flex items-center">
             <span className="text-sm mr-2 text-muted-foreground">Category:</span>
-            <Select value={sortOption} onValueChange={setSortOption}>
+            <Select value={sortOption || ""} onValueChange={setSortOption}>
                 <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Sort by" />
+                    <SelectValue placeholder="category" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="featured">Featured</SelectItem>
-                    <SelectItem value="price-low">Price: Low to High</SelectItem>
-                    <SelectItem value="price-high">Price: High to Low</SelectItem>
-                    <SelectItem value="newest">Newest Arrivals</SelectItem>
-                    <SelectItem value="rating">Highest Rated</SelectItem>
+                    {
+                        categories.map((ct,i) => {
+                            return <SelectItem key={i} value={`${ct.slug}`}>{ct.name}</SelectItem>
+                        })
+                    }
+
                 </SelectContent>
             </Select>
         </div>
