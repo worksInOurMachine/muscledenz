@@ -39,7 +39,7 @@ export default function ProductListingPage() {
 
                 <div className="flex-1 sm:px-14 px-8">
                     <div className="flex justify-between items-center mb-6">
-                        <p className="text-muted-foreground">Showing {fProducts.length} products</p>
+                        <p className="text-muted-foreground sm:flex hidden">Showing {fProducts.length} products</p>
                         <ProductSorter />
                     </div>
 

@@ -52,7 +52,8 @@ const Navbar = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("njnjrnfnr..................")
-    router.push(`/products?query=${query}`)
+    //router.push(`/products?query=${query}`)
+    window.location.href = `/products?query=${query}`;
   };
 
   return (
