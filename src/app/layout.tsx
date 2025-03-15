@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 function SearchBarFallback() {
-  return <>Loading...</>
+  return <div className="flex justify-center items-center w-full h-[90vh]">Loading...</div>
 }
 
 export default function RootLayout({
