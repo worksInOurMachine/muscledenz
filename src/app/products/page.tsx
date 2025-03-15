@@ -4,7 +4,7 @@ import { ProductSorter } from "@/components/Product/product-sorter"
 import { categories } from "@/config/categories.config";
 import { products } from "@/config/products.config"
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export default function ProductListingPage() {
     const searchParams = useSearchParams();
@@ -49,4 +49,3 @@ export default function ProductListingPage() {
         </div>
     )
 }
-
