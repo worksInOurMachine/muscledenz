@@ -2,9 +2,6 @@
 
 Welcome to **Gains Hub**, where we lift weights and lift spirits! If you're here for code, cool. If you're here for fitness, even cooler. If you're here by accident... well, stick around—maybe you'll get inspired to do a push-up. 🤷‍♂️
 
-## 🤔 What is this?
-This is a **gym website**. You know, for those people who wake up and choose violence against their own laziness. It’s where **calories come to die** and **muscles are forged** like Excalibur. ⚔️
-
 ## 🚀 Features (Because Even Your Biceps Need Them)
 ✅ **Workout Schedules** - Plan your suffering ahead of time!  
 ✅ **Trainer Profiles** - Meet the people who enjoy watching you struggle.  

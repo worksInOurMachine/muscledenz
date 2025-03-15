@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
+import Link from "next/link";
 
 export default function ProductCard({ product }: { product: any }) {
 
@@ -47,6 +48,8 @@ export default function ProductCard({ product }: { product: any }) {
       {/* Product Details */}
       <div className="flex flex-col flex-grow px-1 justify-between">
         {/* Product Name & Description */}
+
+        <Link href={`/products/${product.id}`}>
         <div className="mt-3 space-y-2">
           <h3 className="font-semibold text-gray-900 text-sm sm:text-md md:text-lg line-clamp-2">
             {product.name}
@@ -55,6 +58,7 @@ export default function ProductCard({ product }: { product: any }) {
             {product.description}
           </p>
         </div>
+        </Link>
 
         {/* Pricing & Discount */}
         <div className="mt-3">
