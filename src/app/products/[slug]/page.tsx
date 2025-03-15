@@ -1,24 +1,18 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Minus, Plus, Share2, ShoppingCart, Star } from "lucide-react";
+import { use, useEffect, useState } from "react";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { products } from "@/config/products.config";
-import { ProductResType } from "@/types/product";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
+import { ProductResType } from "@/types/product";
 
 export default function ProductDetail({
   params,

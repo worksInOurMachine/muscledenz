@@ -1,10 +1,10 @@
 "use client"
-import ProductGrid from "@/components/Product/product-grid"
-import { ProductSorter } from "@/components/Product/product-sorter"
+import ProductGrid from "@/components/Product/product-grid";
+import { ProductSorter } from "@/components/Product/product-sorter";
 import { categories } from "@/config/categories.config";
-import { products } from "@/config/products.config"
+import { products } from "@/config/products.config";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProductListingPage() {
     const searchParams = useSearchParams();
