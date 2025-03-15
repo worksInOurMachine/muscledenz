@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
 import Link from "next/link";
+import { ProductResType } from "@/types/product";
 
-export default function ProductCard({ product }: { product: any }) {
+export default function ProductCard({ product }: { product: ProductResType }) {
 
   const openWhatsAppChat = () => {
-    const imageUrl = product.image || "https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg";
+    const imageUrl ="https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg";
     const message = `Hello, I'm interested in purchasing:\n\n*${product.name}*\n\nPrice: ${product.discount > 0
       ? `₹${(product.price * (1 - product.discount / 100)).toFixed(2)} (${product.discount}% OFF)`
       : `₹${product.price}`}\n\nDescription: ${product.description}\n\nProduct Image: ${imageUrl}\n\nPlease provide more information about this product.`;
@@ -39,7 +40,7 @@ export default function ProductCard({ product }: { product: any }) {
       {/* Product Image */}
       <div className="relative w-full flex justify-center items-center">
         <img
-          src={product.image || "https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg"}
+          src={product.thumbnail || "https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg"}
           alt={product.name}
           className="object-contain w-[80%] h-[150px] sm:h-[180px] md:h-[200px] lg:h-[220px]"
         />
