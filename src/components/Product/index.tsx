@@ -32,7 +32,7 @@ function Index({
           {title}
         </ScrollRevealAnimation>
       {/* </h1> */}
-      <div className="max-w-7xl mx-auto px-2--- sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2--- sm:px-4 lg:px-8">
         <ProductCarousel products={filteredProducts} />
       </div>
     </div>
