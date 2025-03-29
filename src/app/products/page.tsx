@@ -1,6 +1,7 @@
 "use client";
 import ProductGrid from "@/components/Product/product-grid";
 import { ProductSorter } from "@/components/Product/product-sorter";
+import ProductNotFound from "@/components/ProductNotFound";
 import { categories } from "@/config/categories.config";
 import { products } from "@/config/products.config";
 import { useSearchParams } from "next/navigation";
@@ -29,6 +30,9 @@ export default function ProductListingPage() {
 
     setFProducts(filtered);
   }, [category, query]);
+  if (!fProducts.length) {
+    return <ProductNotFound />;
+  }
   return (
     <div className="container-- mx-auto px-4 py-8">
       <h1 className="md:text-4xl sm:text-2xl text-xl font-bold mb-8 tracking-tight capitalize">

@@ -1,9 +1,9 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Search } from "lucide-react"
+import Link from "next/link";
+import Image from "next/image";
+import { Search } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function ProductNotFound() {
   return (
@@ -19,10 +19,12 @@ export default function ProductNotFound() {
         </div>
 
         <div className="space-y-4 max-w-2xl">
-          <h1 className="text-3xl font-bold tracking-tight">Product Not Found</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Product Not Found
+          </h1>
           <p className="text-muted-foreground text-lg">
-            We couldn't find the nutrition product you were looking for. It may have been discontinued or moved to a
-            different category.
+            We couldn't find the nutrition product you were looking for. It may
+            have been discontinued or moved to a different category.
           </p>
         </div>
 
@@ -33,8 +35,12 @@ export default function ProductNotFound() {
             Search
           </Button>
         </div> */}
-
-        <div className="w-full max-w-4xl pt-8">
+        <div className="pt-4 md:pt-8">
+          <Button asChild variant="outline" size="lg">
+            <Link href="/">Return to Homepage</Link>
+          </Button>
+        </div>
+        <div className="w-full max-w-4xl pt-4 md:pt-8">
           <h2 className="text-xl font-semibold mb-6">Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
             <CategoryCard
@@ -62,7 +68,7 @@ export default function ProductNotFound() {
 
         <div className="w-full max-w-4xl pt-8">
           <h2 className="text-xl font-semibold mb-6">You Might Also Like</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 transition-all">
             <ProductCard
               title="Organic Multivitamin"
               price="$29.99"
@@ -97,35 +103,69 @@ export default function ProductNotFound() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function CategoryCard({ title, image, href }: { title: string; image: string; href: string }) {
+function CategoryCard({
+  title,
+  image,
+  href,
+}: {
+  title: string;
+  image: string;
+  href: string;
+}) {
   return (
-    <Link href={href} className="group border border-gray-200 rounded-lg overflow-hidden transition-all hover:shadow-md">
-      <div className="bg-card rounded-lg p-4 flex flex-col items-center text-center transition-colors hover:bg-accent">
+    <Link
+      href={href}
+      className="group  rounded-lg overflow-hidden  hover:shadow-md"
+    >
+      <div className="bg-card rounded-lg p-4 flex flex-col items-center text-center transition-colors hover:bg-accent--">
         <div className="relative w-24 h-24 mb-3">
-          <Image src={image || "/placeholder.svg"} alt={title} fill className="object-contain" />
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={title}
+            fill
+            className="object-contain"
+          />
         </div>
-        <span className="text-sm font-medium group-hover:text-accent-foreground">{title}</span>
+        <span className="text-sm font-medium group-hover:text-accent-foreground">
+          {title}
+        </span>
       </div>
     </Link>
-  )
+  );
 }
 
-function ProductCard({ title, price, image, href }: { title: string; price: string; image: string; href: string }) {
+function ProductCard({
+  title,
+  price,
+  image,
+  href,
+}: {
+  title: string;
+  price: string;
+  image: string;
+  href: string;
+}) {
   return (
     <Link href={href} className="group">
-      <div className="rounded-lg overflow-hidden transition-all hover:shadow-md">
+      <div className="rounded-lg overflow-hidden transition-all hover:shadow-md ">
         <div className="relative aspect-square bg-accent/10">
-          <Image src={image || "/placeholder.svg"} alt={title} fill className="object-contain p-4" />
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={title}
+            fill
+            className="object-contain p-4"
+          />
         </div>
         <div className="p-3">
-          <h3 className="font-medium text-sm group-hover:text-primary truncate">{title}</h3>
+          <h3 className="font-medium text-sm group-hover:text-primary truncate">
+            {title}
+          </h3>
           <p className="text-sm text-muted-foreground">{price}</p>
         </div>
       </div>
     </Link>
-  )
+  );
 }
-
