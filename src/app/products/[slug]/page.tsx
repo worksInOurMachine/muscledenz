@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { products } from "@/config/products.config";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
 import { ProductResType } from "@/types/product";
+import ProductNotFound from "@/components/ProductNotFound";
 
 export default function ProductDetail({
   params,
@@ -21,6 +22,8 @@ export default function ProductDetail({
 }) {
   const resolvedParams = use(params);
   const [product, setProduct] = useState<ProductResType | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [images, setImages] = useState<string[] | []>([]);
@@ -58,12 +61,39 @@ export default function ProductDetail({
     if (resolvedParams && resolvedParams.slug) {
       const product =
         products.find((product) => product.id === resolvedParams.slug) || null;
+      if (!product) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
       setProduct(product);
       //append product images here
       setImages(defaultArr);
     }
   }, [resolvedParams]);
+  
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
+        <h1 className="text-3xl font-bold">Loading...</h1>
+      </div>
+    );
+  }
 
+  if(notFound) {
+    return (
+      <ProductNotFound />
+    )
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
+        <h1 className="text-3xl font-bold">Product Not Found</h1>
+        <p className="mt-2 text-muted-foreground">
+          The product you are looking for does not exist.
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl  ">
       {/* {
