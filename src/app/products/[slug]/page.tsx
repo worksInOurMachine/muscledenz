@@ -71,7 +71,7 @@ export default function ProductDetail({
           JSON.stringify(product)
         )
       } */}
-      <div className="mb-6">
+      <div className="mb-6 ">
         <nav className="flex text-sm">
           <Link href="/" className="text-muted-foreground hover:text-red-600">
             Home
@@ -88,16 +88,16 @@ export default function ProductDetail({
         </nav>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5 max-w-6xl mx-auto ">
         {/* Product Images */}
-        <div className="space-y-4 md:col-span-1">
+        <div className="space-y-4 md:col-span-2">
           <div className="overflow-hidden h-[300px] sm:h-[500px] rounded-lg border bg-background">
             <Image
               src={images[selectedImage] || "/placeholder.svg"}
               alt="Premium Whey Protein"
               width={400}
               height={400}
-              className="h-full w-full object-fill object-center"
+              className="h-full w-full object-contain object-center"
             />
           </div>
           <div className="flex space-x-2">
@@ -122,7 +122,7 @@ export default function ProductDetail({
         </div>
 
         {/* Product Info */}
-        <div className="space-y-6 md:col-span-1">
+        <div className="space-y-6 md:col-span-3">
           <div>
             <Badge className="mb-2 bg-red-600 text-white">Best Seller</Badge>
             <h1 className="text-3xl font-bold">{product?.name}</h1>
