@@ -42,7 +42,7 @@ export default function ProductNotFound() {
         </div>
         <div className="w-full max-w-4xl pt-4 md:pt-8">
           <h2 className="text-xl font-semibold mb-6">Popular Categories</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <CategoryCard
               title="Vitamins & Supplements"
               image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQGiuUKXduenmbsuKuMUhlmKwAmzCRHDsM_A&s"
@@ -118,7 +118,7 @@ function CategoryCard({
   return (
     <Link
       href={href}
-      className="group  rounded-lg overflow-hidden  hover:shadow-md"
+      className="group  rounded-lg overflow-hidden  hover:shadow-md border border-gray-100"
     >
       <div className="bg-card rounded-lg p-4 flex flex-col items-center text-center transition-colors hover:bg-accent--">
         <div className="relative w-24 h-24 mb-3">
@@ -150,7 +150,7 @@ function ProductCard({
 }) {
   return (
     <Link href={href} className="group">
-      <div className="rounded-lg overflow-hidden transition-all hover:shadow-md ">
+      <div className="rounded-lg overflow-hidden transition-all hover:shadow-md border border-gray-100">
         <div className="relative aspect-square bg-accent/10">
           <Image
             src={image || "/placeholder.svg"}
