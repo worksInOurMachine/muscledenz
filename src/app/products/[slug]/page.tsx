@@ -65,7 +65,7 @@ export default function ProductDetail({
   }, [resolvedParams]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 max-w-6xl  ">
       {/* {
         product && (
           JSON.stringify(product)
@@ -88,7 +88,7 @@ export default function ProductDetail({
         </nav>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5 max-w-6xl mx-auto ">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5 ">
         {/* Product Images */}
         <div className="space-y-4 md:col-span-2">
           <div className="overflow-hidden h-[300px] sm:h-[500px] rounded-lg border bg-background">
