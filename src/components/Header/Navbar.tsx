@@ -10,6 +10,7 @@ import Link from "next/link";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
@@ -60,10 +61,12 @@ const Navbar = () => {
       <div className="h-full w-full flex justify-between items-center">
         <div className="flex ml-[4%] h-full">
           <a href={"/"}>
-            <img
-              className="xl:w-[154px] md:w-[120px] w-[80px] xl:h-[74px] lg:h-[60px] md:h-[60px] h-[50px] lg:pb-[10px] lg:pt-0 pt-[12px]---"
-              src={"./logo/md-logo1.jpg"}
+            <Image
+              src={"/logo/md-logo1.jpg"}
               alt="muscledenz"
+              height={50}
+              width={100}
+              className="xl:w-[154px] md:w-[120px] w-[80px] xl:h-[74px] lg:h-[60px] md:h-[60px] h-[50px] lg:pb-[10px] lg:pt-0 pt-[12px]---"
             />
           </a>
         </div>

@@ -21,21 +21,28 @@ const ImageSlider = () => {
       >
         <SwiperSlide>
           <img 
-            src="https://www.avvatarindia.com/images/banners/5669346991736154896.jpg" 
+            src="imageslider/slide1.png" 
             alt="Slide 1" 
             className="w-full h-full object-fill rounded-lg"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img 
-            src="https://www.avvatarindia.com/images/banners/5669346991736154896.jpg" 
+            src="imageslider/slide2.png" 
             alt="Slide 2" 
             className="w-full h-full object-fill rounded-lg"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img 
-            src="https://www.avvatarindia.com/images/banners/5669346991736154896.jpg" 
+            src="imageslider/slide3.png" 
+            alt="Slide 3" 
+            className="w-full h-full object-fill rounded-lg"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img 
+            src="imageslider/slide4.png" 
             alt="Slide 3" 
             className="w-full h-full object-fill rounded-lg"
           />

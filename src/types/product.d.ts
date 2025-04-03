@@ -7,7 +7,7 @@ export interface ProductResType {
   price: number;
   discount: number;
   images: string[];
-  thumbnail: string;
+  thumbnail: string|null;
   stock: number;
   category: CategoryResType;
   tags: string[];
