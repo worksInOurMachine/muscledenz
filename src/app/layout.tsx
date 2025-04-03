@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Suspense } from 'react'
+import Script from "next/script";
 import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Script */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-91M59524XN" />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-91M59524XN');
+          `}
+        </Script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
