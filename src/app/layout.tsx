@@ -63,14 +63,17 @@ export const metadata: Metadata = {
   themeColor: "#008ED6",
   other: {
     keywords:
-      "nutrition, meal plans, fitness, healthy recipes, lean muscle, Muscle Denz",
+      "nutrition, meal plans, fitness, healthy recipes, lean muscle, Muscle Denz, muscle denz",
   },
 };
 
 function SearchBarFallback() {
   return (
     <div className="flex justify-center items-center w-full h-[90vh]">
-      Loading...
+      <div className="flex flex-col items-center space-y-2">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <p className="text-sm text-gray-600">Loading search bar...</p>
+      </div>
     </div>
   );
 }
