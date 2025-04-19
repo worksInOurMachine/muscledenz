@@ -102,9 +102,9 @@ const Navbar = () => {
           <span onClick={() => handleShowSearch()} className="">
             {!showSearch ? <Search /> : <FaX />}
           </span>
-          <a href="/login" className="sm:text-[30px] text-[20px]">
+          {/* <a href="/login" className="sm:text-[30px] text-[20px]">
             <FaUser />
-          </a>
+          </a> */}
           <button
             className="sm:text-[40px] text-[25px]"
             onClick={toggleFunction}
