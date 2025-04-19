@@ -2,8 +2,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Header/Navbar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { Suspense } from 'react'
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
 const geistSans = Geist({
@@ -18,15 +18,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Muscle Denz",
-  description: "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
+  description:
+    "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
   icons: {
     icon: "/logo/md-logo.png",
     shortcut: "/logo/md-logo.png",
     apple: "/logo/md-logo.png",
   },
+  alternates: {
+    canonical: "https://muscledenz.com",
+  },
   openGraph: {
     title: "Muscle Denz",
-    description: "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
+    description:
+      "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
     url: "https://muscle-denz.vercel.app/",
     siteName: "Muscle Denz",
     images: [
@@ -40,7 +45,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Muscle Denz",
-    description: "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
+    description:
+      "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
     images: "/logo/md-logo.png",
   },
   viewport: {
@@ -54,11 +60,19 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  
+  themeColor: "#008ED6",
+  other: {
+    keywords:
+      "nutrition, meal plans, fitness, healthy recipes, lean muscle, Muscle Denz",
+  },
 };
 
 function SearchBarFallback() {
-  return <div className="flex justify-center items-center w-full h-[90vh]">Loading...</div>
+  return (
+    <div className="flex justify-center items-center w-full h-[90vh]">
+      Loading...
+    </div>
+  );
 }
 
 export default function RootLayout({
@@ -70,7 +84,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Google Analytics Script */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-91M59524XN" />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-91M59524XN"
+        />
         <Script id="google-analytics">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -89,7 +106,6 @@ export default function RootLayout({
         <NuqsAdapter>{children}</NuqsAdapter>
         <Footer />
       </body>
-
     </html>
   );
 }
