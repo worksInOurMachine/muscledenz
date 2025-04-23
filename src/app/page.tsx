@@ -23,7 +23,7 @@ export default function Home() {
             wordAnimationEnd="bottom bottom"
 
         >
-          Our Training Programs
+         About Our Products
         </ScrollRevealAnimation>
         <ImageLayoutGrid />
       </div>
