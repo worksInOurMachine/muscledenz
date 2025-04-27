@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   themeColor: "#008ED6",
   other: {
     keywords:
-      "nutrition, meal plans, fitness, healthy recipes, lean muscle, Muscle Denz, muscle denz",
+      "nutrition, meal plans, fitness, healthy recipes, lean muscle, Muscle Denz, muscle denz nutrition, muscle denz protein , high-protein recipes, clean eating, energy-boosting meals, fat-burning recipes, meal prep, fitness nutrition, healthy eating, muscle building, protein-rich meals, workout nutrition, healthy lifestyle",
   },
 };
 
