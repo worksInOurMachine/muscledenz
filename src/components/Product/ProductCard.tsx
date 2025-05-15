@@ -65,10 +65,10 @@ export default function ProductCard({ product }: { product: ProductType }) {
         <Link href={`/products/${product.documentId}`}>
           <div className="mt-3 space-y-2">
             <h3 className="font-semibold text-gray-900 text-lg  md:text-lg line-clamp-2">
-              {product.name}
+              {product?.name}
             </h3>
             <p className="text-sm text-gray-500 line-clamp-2">
-              {product.description}
+              {product?.description}
             </p>
           </div>
         </Link>
@@ -78,8 +78,8 @@ export default function ProductCard({ product }: { product: ProductType }) {
           <div className="flex items-center gap-2">
             <span className="text-base sm:text-lg font-semibold">
               <DiscountedPrice
-                price={product.price}
-                discountPercentage={product.discount}
+                price={product?.price||0}
+                discountPercentage={product?.discount||0}
               />
             </span>
           </div>

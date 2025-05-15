@@ -3,7 +3,7 @@
 import { ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { use, useEffect, useState } from "react";
+import {  useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import { strapi } from "@/lib/strapi";
 import useSWR from "swr";
 import { useParams } from "next/navigation";
 
-const fetchProducts = async (id: string): Promise<{ data: ProductType }> => {
+const fetchProducts = async (id: string) => {
   const res = await strapi.findOne("products", id, {
     populate: "*",
   });
@@ -148,7 +148,7 @@ export default function ProductDetail() {
           </Link>
           <span className="mx-2 text-muted-foreground">/</span>
           {/* <span className="text-foreground">{resolvedParams?.slug}</span> */}
-          <span className="text-foreground">{product.name}</span>
+          <span className="text-foreground">{product?.name}</span>
         </nav>
       </div>
 
@@ -159,7 +159,7 @@ export default function ProductDetail() {
             <Image
               src={
                 !selectedImage
-                  ? product.thumbnail.url
+                  ? product?.thumbnail?.url
                   : selectedImage || "/placeholder.svg"
               }
               alt={product?.name || "Product Image"}
@@ -169,14 +169,14 @@ export default function ProductDetail() {
             />
           </div>
           <div className="flex space-x-2">
-            {product?.images.length > 0 &&
-              product?.images.map((img, index) => (
+            {product?.images?.length > 0 &&
+              product?.images?.map((img, index) => (
                 <button
                   key={index}
                   className={`relative h-20 w-20 overflow-hidden rounded-md border ${
                     selectedImage === img?.url ? "ring-2 ring-red-600" : ""
                   }`}
-                  onClick={() => setSelectedImage(img.url)}
+                  onClick={() => setSelectedImage(img?.url)}
                 >
                   <Image
                     src={img?.url || "/placeholder.svg"}
@@ -217,7 +217,7 @@ export default function ProductDetail() {
           <div>
             <div className="flex items-baseline">
               <span className="text-2xl md:text-3xl font-bold">
-                $
+              ₹
                 {product &&
                   calculateDiscountedPrice({
                     price: product?.price,
@@ -225,7 +225,7 @@ export default function ProductDetail() {
                   })}
               </span>
               <span className="ml-2 text-sm text-muted-foreground line-through">
-                ${product?.price}
+              ₹{product?.price}
               </span>
               {product && Number(product.discount) > 0 && (
                 <Badge
