@@ -14,12 +14,12 @@ import {
 import ProductCard from "./ProductCard";
 import Autoplay from "embla-carousel-autoplay";
 // import { products } from "@/config/products.config"
-import { ProductResType } from "@/types/product";
+import {  ProductType } from "@/types/product";
 
 export default function ProductCarousel({
   products,
 }: {
-  products: ProductResType[];
+  products: ProductType[];
 }) {
   return (
     <div className="w-full max-w-6xl mx-auto px-4">

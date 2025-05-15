@@ -1,9 +1,9 @@
 "use client"
-import { ProductResType } from "@/types/product"
+import { ProductType } from "@/types/product"
 import { motion } from "framer-motion"
 import ProductCard from "./ProductCard"
 
-export default function ProductGrid({ products }: { products: ProductResType[] }) {
+export default function ProductGrid({ products }: { products: ProductType[] }) {
    
 
     return (

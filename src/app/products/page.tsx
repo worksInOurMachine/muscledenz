@@ -3,33 +3,54 @@ import ProductGrid from "@/components/Product/product-grid";
 import { ProductSorter } from "@/components/Product/product-sorter";
 import ProductNotFound from "@/components/ProductNotFound";
 import { categories } from "@/config/categories.config";
-import { products } from "@/config/products.config";
+import { strapi } from "@/lib/strapi";
+import { ProductType } from "@/types/product";
+// import { products } from "@/config/products.config";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+
+const fetchProducts = async () => {
+  const res = await strapi.find("products", {
+    populate: "*",
+  });
+  if (!res) {
+    throw new Error("Failed to fetch data");
+  }
+  return res;
+};
 
 export default function ProductListingPage() {
+  const { data, error } = useSWR(
+    "http://localhost:1337/api/products",
+    fetchProducts
+  );
+  const products = data?.data || [];
+  console.log(products);
+  // console.log(data);
+  if (error) return <div>Failed to load</div>;
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   const query = searchParams.get("query");
-  const [fProducts, setFProducts] = useState(products);
+  const [fProducts, setFProducts] = useState(products as ProductType[]);
 
   useEffect(() => {
-    let filtered = products;
-
+    let filtered = products as ProductType[];
+    if (products.length === 0) return;
     if (category && category !== "all") {
-      filtered = filtered.filter((p) => p.category.slug === category);
+      filtered = filtered.filter((p) => p.category?.slug === category);
     }
 
     if (query) {
+      console.log(query);
       filtered = filtered.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query.toLowerCase()) ||
-          p.description.toLowerCase().includes(query.toLowerCase())
+        (p: any) =>
+          p.name?.toLowerCase().includes(query.toLowerCase()) ||
+          p.description?.toLowerCase().includes(query.toLowerCase())
       );
     }
-
     setFProducts(filtered);
-  }, [category, query]);
+  }, [category, query, products]);
   if (!fProducts.length) {
     return <ProductNotFound />;
   }

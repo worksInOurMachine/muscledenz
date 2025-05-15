@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
 import Link from "next/link";
-import { ProductResType } from "@/types/product";
+import {  ProductType } from "@/types/product";
 
-export default function ProductCard({ product }: { product: ProductResType }) {
+export default function ProductCard({ product }: { product: ProductType }) {
   const openWhatsAppChat = () => {
     const imageUrl = "https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg";
     const message = `Hello, I'm interested in purchasing:\n\n*${
@@ -48,10 +48,10 @@ export default function ProductCard({ product }: { product: ProductResType }) {
       <div className="relative w-full flex justify-center items-center  rounded-lg overflow-hidden  bg-white p-2">
         <Image
           src={
-            product.thumbnail ||
+            product?.thumbnail?.url ||
             "/images/dummy.jpg"
           }
-          alt={product.name}
+          alt={product?.name||"Product Image"}
           width={400}
           height={400}
           className="object-contain w-[80%] h-[150px] sm:h-[180px] md:h-[200px] lg:h-[220px]"
@@ -62,7 +62,7 @@ export default function ProductCard({ product }: { product: ProductResType }) {
       <div className="flex flex-col flex-grow px-1 justify-between">
         {/* Product Name & Description */}
 
-        <Link href={`/products/${product.id}`}>
+        <Link href={`/products/${product.documentId}`}>
           <div className="mt-3 space-y-2">
             <h3 className="font-semibold text-gray-900 text-lg  md:text-lg line-clamp-2">
               {product.name}

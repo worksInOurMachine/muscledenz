@@ -12,20 +12,35 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { products } from "@/config/products.config";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
-import { ProductResType } from "@/types/product";
+import { ProductType } from "@/types/product";
 import ProductNotFound from "@/components/ProductNotFound";
+import { strapi } from "@/lib/strapi";
+import useSWR from "swr";
+import { useParams } from "next/navigation";
 
-export default function ProductDetail({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const resolvedParams = use(params);
-  const [product, setProduct] = useState<ProductResType | null>(null);
+const fetchProducts = async (id: string): Promise<{ data: ProductType }> => {
+  const res = await strapi.findOne("products", id, {
+    populate: "*",
+  });
+  console.log(res);
+  if (!res) {
+    throw new Error("Failed to fetch data");
+  }
+  return res ;
+};
+
+export default function ProductDetail() {
+  const params = useParams<{ slug: string }>();
+  const resolvedParams = params;
+  const slug = resolvedParams.slug;
+
+  // const slug = params.slug
+  console.log("slug", slug);
+  // const resolvedParams = use(params);
+  // const [product, setProduct] = useState<ProductType | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(0);
   const [images, setImages] = useState<string[] | []>([]);
   const defaultArr = [
     "https://img.etimg.com/photo/msid-77716162,imgsize-112043/1200x800px_02(2).jpg",
@@ -33,10 +48,30 @@ export default function ProductDetail({
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCe4Q9d4iCfYMPqya9tQ-rHivBoSR84FeQ1A&s",
   ];
 
+  const { data, error, isLoading } = useSWR(
+    slug ? [`product-${slug}`, slug] : null,
+    () => fetchProducts(slug),
+    {
+      onSuccess: (data:any) => {
+        setLoading(false);
+        if (!data) {
+          setNotFound(true);
+          return;
+        }
+        setSelectedImage(data.data?.thumbnail?.url || null);
+        // setImages(data?.images || defaultArr);
+        setLoading(false);
+      },
+    }
+  );
+
+  console.log(data);
+  const product = data?.data as ProductType;
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   //whatsapp chat
 
   const openWhatsAppChat = () => {
-    const imageUrl = "https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg";
+    const imageUrl = product?.thumbnail?.url || "/placeholder.svg";
     const message =
       product &&
       `Hello, I'm interested in purchasing:\n\n*${product.name}*\n\nPrice: ${
@@ -65,23 +100,23 @@ export default function ProductDetail({
     }
   };
 
-  useEffect(() => {
-    if (resolvedParams && resolvedParams.slug) {
-      const product =
-        products.find((product) => product.id === resolvedParams.slug) || null;
-      if (!product) {
-        setNotFound(true);
-        setLoading(false);
-        return;
-      }
-      setLoading(false);
-      setProduct(product);
-      //append product images here
-      setImages(defaultArr);
-    }
-  }, [resolvedParams]);
+  // useEffect(() => {
+  //   if (resolvedParams && resolvedParams.slug) {
+  //     const fetchedProduct =
+  //       products.find((item: any) => item.id === resolvedParams.slug) || null;
+  //     if (!fetchedProduct) {
+  //       setNotFound(true);
+  //       setLoading(false);
+  //       return;
+  //     }
+  //     setLoading(false);
+  //     setProduct(fetchedProduct);
+  //     //append product images here
+  //     setImages(defaultArr);
+  //   }
+  // }, [resolvedParams]);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center w-full h-[90vh]">
         Loading...
@@ -112,7 +147,8 @@ export default function ProductDetail({
             products
           </Link>
           <span className="mx-2 text-muted-foreground">/</span>
-          <span className="text-foreground">{resolvedParams?.slug}</span>
+          {/* <span className="text-foreground">{resolvedParams?.slug}</span> */}
+          <span className="text-foreground">{product.name}</span>
         </nav>
       </div>
 
@@ -121,31 +157,36 @@ export default function ProductDetail({
         <div className="space-y-4 md:col-span-2">
           <div className="overflow-hidden h-[300px] sm:h-[500px] rounded-lg border bg-background">
             <Image
-              src={images[selectedImage] || "/placeholder.svg"}
-              alt="Premium Whey Protein"
+              src={
+                !selectedImage
+                  ? product.thumbnail.url
+                  : selectedImage || "/placeholder.svg"
+              }
+              alt={product?.name || "Product Image"}
               width={400}
               height={400}
               className="h-full w-full object-contain object-center"
             />
           </div>
           <div className="flex space-x-2">
-            {images.map((image, index) => (
-              <button
-                key={index}
-                className={`relative h-20 w-20 overflow-hidden rounded-md border ${
-                  selectedImage === index ? "ring-2 ring-red-600" : ""
-                }`}
-                onClick={() => setSelectedImage(index)}
-              >
-                <Image
-                  src={image || "/placeholder.svg"}
-                  alt={`Product thumbnail ${index + 1}`}
-                  width={80}
-                  height={80}
-                  className="h-full w-full object-cover"
-                />
-              </button>
-            ))}
+            {product?.images.length > 0 &&
+              product?.images.map((img, index) => (
+                <button
+                  key={index}
+                  className={`relative h-20 w-20 overflow-hidden rounded-md border ${
+                    selectedImage === img?.url ? "ring-2 ring-red-600" : ""
+                  }`}
+                  onClick={() => setSelectedImage(img.url)}
+                >
+                  <Image
+                    src={img?.url || "/placeholder.svg"}
+                    alt={img?.name|| "Product Image"}
+                    width={80}
+                    height={80}
+                    className="h-full w-full object-cover"
+                  />
+                </button>
+              ))}
           </div>
         </div>
 

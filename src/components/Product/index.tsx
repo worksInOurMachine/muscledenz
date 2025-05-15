@@ -1,7 +1,7 @@
 import React from "react";
 import ProductCarousel from "./productsCarousel";
 import { products } from "@/config/products.config";
-import { ProductResType } from "@/types/product";
+import {  ProductType } from "@/types/product";
 import ScrollRevealAnimation from "../AnimatedComponent/ScrollRevealAnimation";
 
 function Index({
@@ -11,7 +11,7 @@ function Index({
   title: string;
   collectionType: string;
 }) {
-  const filteredProducts: ProductResType[] = React.useMemo(
+  const filteredProducts: ProductType[] = React.useMemo(
     () =>
       products.filter((product) => product.collectionType === collectionType),
     [collectionType]
