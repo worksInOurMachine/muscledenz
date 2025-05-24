@@ -21,7 +21,7 @@ const fetchProducts = async ({
         },
       },
     });
-    console.log("res ", collectionType, res?.data);
+    // console.log("res ", collectionType, res?.data);
  
     return res;
   } catch (error) {
@@ -37,7 +37,7 @@ function Index({
   title: string;
   collectionType: string;
 }) {
-  console.log("collectionType", collectionType);
+  // console.log("collectionType", collectionType);
   const { data, error } = useSWR(
     ["products", collectionType],
     () => fetchProducts({ collectionType }),
@@ -47,8 +47,8 @@ function Index({
     }
   );
   const filteredProducts: ProductType[] = data?.data || [];
-  console.log("data", data);
-  console.log("filteredProducts", filteredProducts);
+  // console.log("data", data);
+  // console.log("filteredProducts", filteredProducts);
 
   // const filteredProducts: ProductType[] = React.useMemo(
   //   () =>
