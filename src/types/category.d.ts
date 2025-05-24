@@ -4,4 +4,7 @@ export interface CategoryResType {
   slug: string;
   description?: string;
   image?:string
+  products?: {
+    data: ProductType[];
+  };
 }

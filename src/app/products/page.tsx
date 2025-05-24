@@ -11,20 +11,20 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 const fetchProducts = async () => {
-  const res = await strapi.find("products", {
-    populate: "*",
-  });
-  if (!res) {
-    throw new Error("Failed to fetch data");
+  try {
+    const res = await strapi.find("products", {
+      populate: "*",
+    });
+
+    return res;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw new Error("Failed to fetch products");
   }
-  return res;
 };
 
 export default function ProductListingPage() {
-  const { data, error } = useSWR(
-    "http://localhost:1337/api/products",
-    fetchProducts
-  );
+  const { data, error } = useSWR("products", fetchProducts);
   const products = data?.data || [];
   console.log(products);
   // console.log(data);
