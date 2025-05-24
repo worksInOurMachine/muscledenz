@@ -11,8 +11,8 @@ export const categories: CategoryResType[] = [
   },
   {
     id: "2",
-    name: "Proteins",
-    slug: "proteins",
+    name: "Protein",
+    slug: "protein",
     image: "/images/proteins.png",
     description: "High-quality protein supplements",
   },

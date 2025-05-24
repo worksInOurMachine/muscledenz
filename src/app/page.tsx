@@ -50,7 +50,7 @@ export default function Home() {
 
 
       </div>
-      <SlidingText velocity={100}  className='text-black/60' texts={Array(1).fill([<h1 key={1} className='w-full'> MUSCLE<span className='text-red-600'>DENZ</span>&nbsp;|&nbsp;  </h1>])} />
+      {/* <SlidingText velocity={100}  className='text-black/60' texts={Array(1).fill([<h1 key={1} className='w-full'> MUSCLE<span className='text-red-600'>DENZ</span>&nbsp;|&nbsp;  </h1>])} /> */}
      
     </div>
   );

@@ -51,9 +51,7 @@ export default function ProductListingPage() {
     }
     setFProducts(filtered);
   }, [category, query, products]);
-  if (!fProducts.length) {
-    return <ProductNotFound />;
-  }
+
   return (
     <div className="container-- mx-auto px-4 py-8">
       <h1 className="md:text-4xl sm:text-2xl text-xl font-bold mb-8 tracking-tight capitalize">
@@ -74,8 +72,11 @@ export default function ProductListingPage() {
             </p>
             <ProductSorter />
           </div>
-
-          <ProductGrid products={fProducts} />
+          {!fProducts.length ? (
+            <ProductNotFound />
+          ) : (
+            <ProductGrid products={fProducts} />
+          )}
         </div>
       </div>
     </div>
