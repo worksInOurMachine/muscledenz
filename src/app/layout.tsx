@@ -6,6 +6,8 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
+import { getSession } from "next-auth/react";
+import AuthProvider from "@/components/Provider/provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -65,7 +67,7 @@ export const metadata: Metadata = {
     keywords:
       "Muscle Denz, Muscle Denz nutrition, Muscle Denz protein, fitness nutrition, high-protein recipes, clean eating, lean muscle, meal plans, healthy recipes, muscle building, fat-burning meals, energy-boosting meals, protein-rich meals, healthy lifestyle, meal prep, workout nutrition, fitness, nutrition, healthy eating",
   },
-  
+
 };
 
 function SearchBarFallback() {
@@ -79,11 +81,12 @@ function SearchBarFallback() {
   );
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession();
   return (
     <html lang="en">
       <head>
@@ -104,11 +107,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense fallback={<SearchBarFallback />}>
-          <Navbar />
-        </Suspense>
-        <NuqsAdapter>{children}</NuqsAdapter>
-        <Footer />
+        <AuthProvider session={session}>
+          <Suspense fallback={<SearchBarFallback />}>
+            <Navbar />
+          </Suspense>
+          <NuqsAdapter>{children}</NuqsAdapter>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
