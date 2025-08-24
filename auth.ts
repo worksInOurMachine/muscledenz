@@ -1,6 +1,6 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import api from "@/lib/axios";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axios from "axios";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -14,8 +14,8 @@ export const authOptions: NextAuthOptions = {
         try {
           if (!credentials?.phone || !credentials?.otp) return null;
 
-          const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/otp/verify`,
+          const res = await api.post(
+            `/otp/verify`,
             {
               phone: credentials.phone,
               otp: credentials.otp,
