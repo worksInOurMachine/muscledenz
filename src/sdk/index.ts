@@ -1,6 +1,6 @@
 import Strapi from "strapi-sdk-js";
 const strapi = new Strapi({
-  url: "http://localhost:1337",
+  url: `${process.env.NEXT_PUBLIC_STRAPI_URL}` || "http://localhost:1337",
   prefix: "/api",
   store: {
     key: "strapi_jwt",

@@ -8,6 +8,7 @@ import Script from "next/script";
 import "./globals.css";
 import { getSession } from "next-auth/react";
 import AuthProvider from "@/components/Provider/provider";
+import  { Toaster } from 'react-hot-toast';
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -113,6 +114,7 @@ export default async function RootLayout({
           </Suspense>
           <NuqsAdapter>{children}</NuqsAdapter>
           <Footer />
+          <Toaster />
         </AuthProvider>
       </body>
     </html>
