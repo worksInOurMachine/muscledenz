@@ -1,16 +1,18 @@
 "use client";
 
-import { NavLinks } from "../../utils/navbarUtils";
-import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { RxHamburgerMenu } from "react-icons/rx";
-import Drawer from "./Drawer";
-import { FaUser, FaX } from "react-icons/fa6";
-import Link from "next/link";
-import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
 import { Search } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaX } from "react-icons/fa6";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { NavLinks } from "../../utils/navbarUtils";
+import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
+import Drawer from "./Drawer";
+
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
@@ -18,7 +20,7 @@ const Navbar = () => {
   const searchParams = useSearchParams();
   const [showSearch, setShowSearch] = useState(false);
   const [query, setQuery] = useState(searchParams.get("query") || "")
-  const router = useRouter()
+  const { data: session, status } = useSession() as any;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -28,7 +30,7 @@ const Navbar = () => {
 
   const toggleFunction = () => {
     setIsOpen((prev) => !prev);
-  };  
+  };
 
   const updateActiveLinks = (href: string) => {
     setActiveLink(href);
@@ -95,6 +97,19 @@ const Navbar = () => {
                 {link.text}
               </Link>
             ))}
+          {
+            status != "loading" ? <>
+              {
+
+                session?.user.id ? <Link href="/profile" className="bg-[#FD0808] text-center w-[150px] font-bold text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
+                  Profile
+                </Link> : <Link href="/login" className="bg-[#FD0808] w-[150px] text-center text-white font-bold py-[12px] px-[17px] rounded-[8px] text-[16px]">
+                  Login | Sign UP
+                </Link>
+              }
+            </> : ""
+          }
+
         </div>
 
         {/* NavLinks For Mobile */}

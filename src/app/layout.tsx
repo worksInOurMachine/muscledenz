@@ -1,14 +1,15 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Header/Navbar";
+import AuthProvider from "@/components/Provider/provider";
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
-import Script from "next/script";
+import { Toaster } from 'react-hot-toast';
+import { authOptions } from "../../auth";
 import "./globals.css";
-import { getSession } from "next-auth/react";
-import AuthProvider from "@/components/Provider/provider";
-import  { Toaster } from 'react-hot-toast';
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -87,7 +88,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSession();
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <head>

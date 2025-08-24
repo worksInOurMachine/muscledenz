@@ -9,7 +9,7 @@ const AuthProvider = ({
   children: any;
   session?: any;
 }) => {
-  return <SessionProvider>{children}</SessionProvider>;
+  return <SessionProvider refetchOnWindowFocus={false} session={session}>{children}</SessionProvider>;
 };
 
 export default AuthProvider;

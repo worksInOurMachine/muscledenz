@@ -4,14 +4,11 @@ import { ImageLayoutGrid } from '@/components/ImageGridLayout/ImageGridLayout';
 import ImageSlider from '@/components/ImageSlider';
 import ProductListings from '@/components/Product';
 import TestimonialsCarousel from '@/components/Testimonials/TestimonialsCarousel';
-import { useSession } from 'next-auth/react';
 import React from 'react';
 const SlidingText = React.lazy(() => import('@/components/AnimatedComponent/SlidingText'))
 
 
 export default function Home() {
-  const { data: session } = useSession();
-  console.log(session)
   return (
     <div className="min-w-full py-5 space-y-5 min-h-full p-1">
       <ImageSlider />
