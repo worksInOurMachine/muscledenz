@@ -10,10 +10,12 @@ interface DrawerPropsTypes {
     toggleFunction: () => void,
     updateActiveLinks: (href: string) => void,
     activeLink: string,
-    dashboardLink: string
+    dashboardLink: string,
+    session: any,
+    status: string
 }
 
-const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActiveLinks, activeLink, dashboardLink }) => {
+const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActiveLinks, activeLink, dashboardLink,session,status }) => {
 
     const closeDrawerAndUpdateLinks = (href: string) => {
         updateActiveLinks(href)
@@ -42,12 +44,17 @@ const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActi
                 </div>
                 <div>
                     {
-                        dashboardLink.length > 0 ? <Link href="/login" className="bg-[#FD0808] w-[150px] text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
-                            Dashboard
-                        </Link> : <Link href="/login" className="bg-[#FD0808] w-[150px] text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
-                            Login | Sign UP
-                        </Link>
+                        status != "loading" ?<>
+                        {
+                                session?.user.id ? <Link onClick={() => closeDrawerAndUpdateLinks("/profile")} href="/profile" className="bg-[#FD0808] w-[150px] text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
+                                Profile
+                            </Link> : <Link onClick={() => closeDrawerAndUpdateLinks("/login")} href="/login" className="bg-[#FD0808] w-[150px] text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
+                                Login | Sign UP
+                            </Link>
+                        }
+                        </>:""
                     }
+                  
 
                 </div>
             </div>

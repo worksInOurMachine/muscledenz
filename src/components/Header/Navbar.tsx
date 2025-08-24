@@ -132,6 +132,8 @@ const Navbar = () => {
             toggleFunction={toggleFunction}
             updateActiveLinks={updateActiveLinks}
             activeLink={activeLink}
+            session={session}
+            status={status}
           />
         </div>
       </div>
