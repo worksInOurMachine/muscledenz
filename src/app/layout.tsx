@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import { Toaster } from 'react-hot-toast';
 import { authOptions } from "../../auth";
 import "./globals.css";
+import { QueryProviders } from "@/components/Provider/query-provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -110,12 +111,14 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider session={session}>
-          <Suspense fallback={<SearchBarFallback />}>
-            <Navbar />
-          </Suspense>
-          <NuqsAdapter>{children}</NuqsAdapter>
-          <Footer />
-          <Toaster />
+          <QueryProviders>
+            <Suspense fallback={<SearchBarFallback />}>
+              <Navbar />
+            </Suspense>
+            <NuqsAdapter>{children}</NuqsAdapter>
+            <Footer />
+            <Toaster />
+          </QueryProviders>
         </AuthProvider>
       </body>
     </html>
