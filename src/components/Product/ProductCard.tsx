@@ -9,7 +9,7 @@ import { ProductResType } from "@/types/product";
 
 export default function ProductCard({ product }: { product: ProductResType }) {
   const openWhatsAppChat = () => {
-    const imageUrl = "https://img8.hkrtcdn.com/35862/pck_3586117_c_m.jpg";
+    const imageUrl = product.thumbnail?.url;
     const message = `Hello, I'm interested in purchasing:\n\n*${
       product.name
     }*\n\nPrice: ${
@@ -48,7 +48,7 @@ export default function ProductCard({ product }: { product: ProductResType }) {
       <div className="relative w-full flex justify-center items-center  rounded-lg overflow-hidden  bg-white p-2">
         <Image
           src={
-            product.thumbnail ||
+            product.thumbnail?.url ||
             "/images/dummy.jpg"
           }
           alt={product.name}

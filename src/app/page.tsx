@@ -4,11 +4,15 @@ import { ImageLayoutGrid } from '@/components/ImageGridLayout/ImageGridLayout';
 import ImageSlider from '@/components/ImageSlider';
 import ProductListings from '@/components/Product';
 import TestimonialsCarousel from '@/components/Testimonials/TestimonialsCarousel';
+import { useStrapi } from '@/hooks/useStrapi';
 import React from 'react';
-const SlidingText = React.lazy(() => import('@/components/AnimatedComponent/SlidingText'))
+import Loading from './loading';
+const SlidingText = React.lazy(() => import('@/components/AnimatedComponent/SlidingText'));
 
 
 export default function Home() {
+  const { data, isLoading, isError } = useStrapi("products/collections");
+  if (isLoading) return <Loading />
   return (
     <div className="min-w-full py-5 space-y-5 min-h-full p-1">
       <ImageSlider />
@@ -29,9 +33,15 @@ export default function Home() {
       </div>
 
       <div className='space-y-10'>
-        <ProductListings title="Trending Products" collectionType="trending" />
-        <ProductListings title="Popular Products" collectionType="popular" />
-        <ProductListings title="Just Launched" collectionType="just-launched" />
+        {
+          data?.data.trending.length > 0 ? <ProductListings title="Trending Products" products={data?.data.trending} /> : ""
+        }
+        {
+          data?.data.popular.length > 0 ? <ProductListings title="Popular Products" products={data?.data.popular} /> : ""
+        }
+        {
+          data?.data.justLaunched.length > 0 ? <ProductListings title="Just Launched" products={data?.data.justLaunched} /> : ""
+        }
       </div>
       <br />
       <div id="testimonials" className='py-2 sm:py-5 md:py-10 md:space-y-10 sm:p bg-slate-100 '>
