@@ -6,71 +6,60 @@ import { categories } from "@/config/categories.config";
 import strapi from "@/sdk";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../loading";
 
+const fetchProducts = async ({ pageParam = 1, query, category }: { pageParam?: number, query: string, category: string }) => {
+  const filters: any = {};
+  if (query) {
+    filters.$or = [
+      { name: { $containsi: query } },
+      { description: { $containsi: query } },
+    ];
+  };
+  if (category && category !== "all"){
+  filters.category = {
+    name: category === "all" ? "" : category
+  }
+}
+
+  const res = await strapi.find("products", {
+    pagination: {
+      page: pageParam,
+      pageSize: 5,
+    },
+    populate: ["thumbnail", "category"],
+    filters,
+  }) as any
+
+  return {
+    data: res.data,
+    nextPage:
+      pageParam < res.meta.pagination.pageCount ? pageParam + 1 : undefined,
+  };
+}
+
+
 export default function ProductListingPage() {
   const searchParams = useSearchParams();
-  const category = searchParams.get("category");
-  const query = searchParams.get("query");
-  //const [fProducts, setFProducts] = useState(products);
-  const router = useRouter()
-  const q = searchParams.get("q") || ""
-
-  const fetchProducts = async ({ pageParam = 1 }: { pageParam?: number }) => {
-    const res = await strapi.find("products", {
-      pagination: {
-        page: pageParam,
-        pageSize: 5,
-      },
-      populate: ["thumbnail"]
-    }) as any
- 
-    return {
-      data: res.data,
-      nextPage:
-        pageParam < res.meta.pagination.pageCount ? pageParam + 1 : undefined,
-    };
-  }
+  const category = searchParams.get("category") || "";
+  const q = searchParams.get("query") || "";
 
   const {
     data,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
-    status,
     isLoading,
   } = useInfiniteQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
+    queryKey: ["products", { q, category }],
+    queryFn: ({ pageParam }) => fetchProducts({ pageParam, query: q, category }),
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
   });
 
- 
-
   const products = data?.pages.flatMap((page) => page.data) ?? [];
-
-
-  useEffect(() => {
-    let filtered = products;
-    if (category && category !== "all") {
-      filtered = filtered.filter((p) => p.category.slug === category);
-    }
-
-    if (query) {
-      filtered = filtered.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query.toLowerCase()) ||
-          p.description.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-
- 
-  }, [category, query]);
-  if (!products.length && !isLoading)  {
+  if (!products.length && !isLoading) {
     return <ProductNotFound />;
   }
   return (
@@ -93,13 +82,11 @@ export default function ProductListingPage() {
             </p>
             <ProductSorter />
           </div>
-          {/* 
-          <ProductGrid products={fProducts} /> */}
-
+      
           <div className="flex-1">
             <div className="flex-1">
               {
-                isLoading ? <div className=" flex justify-center items-center"><Loading  /></div> : <>
+                isLoading ? <div className=" flex justify-center items-center"><Loading /></div> : <>
                   <InfiniteScroll
                     dataLength={products.length}
                     next={fetchNextPage}

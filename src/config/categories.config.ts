@@ -3,23 +3,16 @@ import { CategoryResType } from "@/types/category";
 
 export const categories: CategoryResType[] = [
   {
-    id: "1",
-    name: "All",
-    slug: "all",
-    image: "/images/categories-icon.png",
-    description: "Explore all product categories",
-  },
-  {
     id: "2",
-    name: "Proteins",
-    slug: "proteins",
+    name: "Weight gainer",
+    slug: "weight-gainer",
     image: "/images/proteins.png",
     description: "High-quality protein supplements",
   },
   {
     id: "3",
     name: "Gainers",
-    slug: "gainers",
+    slug: "mass-gainer",
     image: "/images/gainers.png",
     description: "Mass gainers for muscle growth",
   },
