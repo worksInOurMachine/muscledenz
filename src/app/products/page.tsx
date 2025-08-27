@@ -29,7 +29,7 @@ const fetchProducts = async ({ pageParam = 1, query, category }: { pageParam?: n
       page: pageParam,
       pageSize: 5,
     },
-    populate: ["thumbnail", "category"],
+    populate: ["thumbnail"],
     filters,
   }) as any
 
