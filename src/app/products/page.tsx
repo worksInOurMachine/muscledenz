@@ -2,7 +2,6 @@
 import { ProductSorter } from "@/components/Product/product-sorter";
 import ProductCard from "@/components/Product/ProductCard";
 import ProductNotFound from "@/components/ProductNotFound";
-import { categories } from "@/config/categories.config";
 import strapi from "@/sdk";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
@@ -18,11 +17,11 @@ const fetchProducts = async ({ pageParam = 1, query, category }: { pageParam?: n
       { description: { $containsi: query } },
     ];
   };
-  if (category && category !== "all"){
-  filters.category = {
-    name: category === "all" ? "" : category
+  if (category && category !== "all") {
+    filters.category = {
+      slug: category === "all" ? "" : category
+    }
   }
-}
 
   const res = await strapi.find("products", {
     pagination: {
@@ -66,7 +65,7 @@ export default function ProductListingPage() {
     <div className="container-- mx-auto px-4 py-8">
       <h1 className="md:text-4xl sm:text-2xl text-xl font-bold mb-8 tracking-tight capitalize">
         {category
-          ? categories.find((ct) => ct.slug === category)?.name
+          ? category.split("-").join(" ").toUpperCase()
           : "Featured Products"}
       </h1>
 
@@ -82,7 +81,7 @@ export default function ProductListingPage() {
             </p>
             <ProductSorter />
           </div>
-      
+
           <div className="flex-1">
             <div className="flex-1">
               {
