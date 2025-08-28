@@ -11,6 +11,7 @@ import { Toaster } from 'react-hot-toast';
 import { authOptions } from "../../auth";
 import "./globals.css";
 import { QueryProviders } from "@/components/Provider/query-provider";
+import { ReduxProviders } from "@/redux/provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -110,16 +111,18 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider session={session}>
-          <QueryProviders>
-            <Suspense fallback={<SearchBarFallback />}>
-              <Navbar />
-            </Suspense>
-            <NuqsAdapter>{children}</NuqsAdapter>
-            <Footer />
-            <Toaster />
-          </QueryProviders>
-        </AuthProvider>
+        <ReduxProviders>
+          <AuthProvider session={session}>
+            <QueryProviders>
+              <Suspense fallback={<SearchBarFallback />}>
+                <Navbar />
+              </Suspense>
+              <NuqsAdapter>{children}</NuqsAdapter>
+              <Footer />
+              <Toaster />
+            </QueryProviders>
+          </AuthProvider>
+        </ReduxProviders>
       </body>
     </html>
   );

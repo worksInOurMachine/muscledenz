@@ -8,7 +8,10 @@ import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../loading";
+import { useAppDispatch } from "@/redux/hook";
+import { addItemsToCart } from "@/redux/actions/cart-actions";
 
+ 
 const fetchProducts = async ({ pageParam = 1, query, category }: { pageParam?: number, query: string, category: string }) => {
   const filters: any = {};
   if (query) {
@@ -17,9 +20,9 @@ const fetchProducts = async ({ pageParam = 1, query, category }: { pageParam?: n
       { description: { $containsi: query } },
     ];
   };
-  if (category && category !== "all") {
+  if (category) {
     filters.category = {
-      slug: category === "all" ? "" : category
+      slug:  category,
     }
   }
 
@@ -30,7 +33,7 @@ const fetchProducts = async ({ pageParam = 1, query, category }: { pageParam?: n
     },
     populate: ["thumbnail"],
     filters,
-  }) as any
+  }) as any;
 
   return {
     data: res.data,
@@ -44,7 +47,7 @@ export default function ProductListingPage() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") || "";
   const q = searchParams.get("query") || "";
-
+  const dispatch = useAppDispatch()
   const {
     data,
     fetchNextPage,
@@ -56,6 +59,9 @@ export default function ProductListingPage() {
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 1,
   });
+  const addToCart = (product: string) => {
+    dispatch(addItemsToCart(product, 1))
+  }
 
   const products = data?.pages.flatMap((page) => page.data) ?? [];
   if (!products.length && !isLoading) {
@@ -103,7 +109,7 @@ export default function ProductListingPage() {
                             whileHover={{ y: -5 }}
                             className="h-full"
                           >
-                            <ProductCard product={product} />
+                            <ProductCard product={product} addToCart={addToCart} />
                           </motion.div>
                         ))}
                       </div>

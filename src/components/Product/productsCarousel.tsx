@@ -1,19 +1,15 @@
 "use client";
 
-// import Image from "next/image"
-// import { Heart } from "lucide-react"
-// import { Card } from "@/components/ui/card"
-// import { Button } from "@/components/ui/button"
+ 
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  CarouselItem
 } from "@/components/ui/carousel";
-import ProductCard from "./ProductCard";
 import Autoplay from "embla-carousel-autoplay";
-// import { products } from "@/config/products.config"
+import ProductCard from "./ProductCard";
+import { addItemsToCart } from "@/redux/actions/cart-actions";
+import { useAppDispatch } from "@/redux/hook";
 import { ProductResType } from "@/types/product";
 
 export default function ProductCarousel({
@@ -21,6 +17,10 @@ export default function ProductCarousel({
 }: {
   products: ProductResType[];
 }) {
+  const dispatch = useAppDispatch()
+  const addToCart = (product: string) => {
+    dispatch(addItemsToCart(product, 1))
+  }
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
       <Carousel
@@ -42,7 +42,7 @@ export default function ProductCarousel({
               key={product.id}
               className="basis-[85%] md:basis-1/3 lg:basis-1/4"
             >
-              <ProductCard product={product} />
+              <ProductCard product={product} addToCart={addToCart} />
             </CarouselItem>
           ))}
         </CarouselContent>
