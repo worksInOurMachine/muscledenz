@@ -4,18 +4,19 @@ import { IoCloseSharp } from "react-icons/io5";
 import { NavLinks } from '../../utils/navbarUtils';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { LogInIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
 
 interface DrawerPropsTypes {
     isOpen: boolean,
     toggleFunction: () => void,
     updateActiveLinks: (href: string) => void,
     activeLink: string,
-    dashboardLink: string,
+ 
     session: any,
     status: string
 }
 
-const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActiveLinks, activeLink, dashboardLink,session,status }) => {
+const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActiveLinks, activeLink,  session, status }) => {
 
     const closeDrawerAndUpdateLinks = (href: string) => {
         updateActiveLinks(href)
@@ -42,20 +43,22 @@ const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActi
                     }
 
                 </div>
-                <div>
+                <div className='flex gap-2 justify-between'>
                     {
-                        status != "loading" ?<>
-                        {
-                                session?.user.id ? <Link onClick={() => closeDrawerAndUpdateLinks("/profile")} href="/profile" className="bg-[#FD0808] w-[150px] text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
-                                Profile
-                            </Link> : <Link onClick={() => closeDrawerAndUpdateLinks("/login")} href="/login" className="bg-[#FD0808] w-[150px] text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
-                                Login | Sign UP
-                            </Link>
-                        }
-                        </>:""
+                        status != "loading" ? <>
+                            {
+                                session?.user.id ? <Link onClick={() => closeDrawerAndUpdateLinks("/profile")} href="/profile" className="font-bold text-[16px]">
+                                    <UserIcon />
+                                </Link> : <Link onClick={() => closeDrawerAndUpdateLinks("/login")} href="/login" className="font-bold text-[16px]">
+                                    <LogInIcon />
+                                </Link>
+                            }
+                        </> : ""
                     }
-                  
 
+                    <Link onClick={() => closeDrawerAndUpdateLinks("/cart")} href="/cart" className="font-bold text-[16px]">
+                        <ShoppingCartIcon />
+                    </Link>
                 </div>
             </div>
         </div>

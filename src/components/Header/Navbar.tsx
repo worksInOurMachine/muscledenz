@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { Search } from "lucide-react";
+import { LogInIcon, Search, ShoppingCartIcon, UserIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -101,14 +101,17 @@ const Navbar = () => {
             status != "loading" ? <>
               {
 
-                session?.user.id ? <Link href="/profile" className="bg-[#FD0808] text-center w-[150px] font-bold text-white py-[12px] px-[17px] rounded-[8px] text-[16px]">
-                  Profile
-                </Link> : <Link href="/login" className="bg-[#FD0808] w-[150px] text-center text-white font-bold py-[12px] px-[17px] rounded-[8px] text-[16px]">
-                  Login | Sign UP
+                session?.user.id ? <Link onClick={() => updateActiveLinks("/profile")} href="/profile" className="text-center font-bold text-[16px]">
+                  <UserIcon />
+                </Link> : <Link onClick={() => updateActiveLinks("/login")} href="/login" className="text-center font-bold text-[16px]">
+                  <LogInIcon />
                 </Link>
               }
             </> : ""
           }
+          <Link onClick={() => updateActiveLinks("/cart")} href="/cart" className="text-center font-bold text-[16px]">
+            <ShoppingCartIcon />
+          </Link>
 
         </div>
 
@@ -127,7 +130,6 @@ const Navbar = () => {
             <RxHamburgerMenu />
           </button>
           <Drawer
-            dashboardLink={""}
             isOpen={isOpen}
             toggleFunction={toggleFunction}
             updateActiveLinks={updateActiveLinks}
