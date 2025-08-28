@@ -15,4 +15,5 @@ export interface ProductResType {
   createdAt: string;
   updatedAt: string;
   isVeg: boolean;
+  documentId:string
 }

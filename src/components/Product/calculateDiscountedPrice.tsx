@@ -20,8 +20,8 @@ const DiscountedPrice = ({
     <p className="text-lg space-x-2 font-semibold">
       <span className=" font-bold">₹{discountedPrice.toFixed(2)}</span>
       {discountPercentage !== 0 && 
-      <> <span className="line-through text-gray-600 mr-2">₹{price}</span>
-    <span className="text-sm text-green-600">{discountPercentage}% Off</span> </>}
+      <> <span className="line-through text-sm text-gray-600 mr-2">₹{price}</span>
+    <span className="text-xs text-green-600">{discountPercentage}% Off</span> </>}
       {/* <span className="text-green-600">Save ₹{(price - discountedPrice).toFixed(0)}</span> */}
     </p>
   );

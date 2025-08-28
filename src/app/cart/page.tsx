@@ -1,0 +1,223 @@
+"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { Minus, Plus, Trash2, ShoppingBag, Tag } from "lucide-react"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import { addItemsToCart, removeItemsToCart } from "@/redux/actions/cart-actions"
+import { CartType } from "@/types/cart"
+import DiscountedPrice from "@/components/Product/calculateDiscountedPrice"
+import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice"
+ 
+export function ShoppingCart() {
+    const [promoCode, setPromoCode] = useState("")
+    const [promoApplied, setPromoApplied] = useState(false)
+    const dispatch = useAppDispatch()
+    const { cart } = useAppSelector((state) => state.cart) || []
+    const products = cart.cartItems as CartType[];
+
+    const applyPromoCode = () => {
+        if (promoCode.toLowerCase() === "save10") {
+            setPromoApplied(true)
+        }
+    }
+    const PlusTocart = (prevQuntity: number, product: any, stock: number) => {
+        const newQuantity = prevQuntity < stock ? prevQuntity + 1 : prevQuntity
+        prevQuntity < stock && dispatch(addItemsToCart(product, newQuantity))
+    }
+
+    const MinusTocart = (prevQuntity: number, product: any) => {
+        const newQuantity = prevQuntity > 1 ? prevQuntity - 1 : 1
+        prevQuntity > 1 && dispatch(addItemsToCart(product, newQuantity))
+    }
+    const RemoveHandler = (documentId: string) => {
+        dispatch(removeItemsToCart(documentId))
+    }
+
+
+    const subtotal = products.reduce((sum, item) => sum + calculateDiscountedPrice({ price: item.product.price, discountPercentage: item.product.discount }) * Number(item.quantity), 0)
+    const discount = promoApplied ? subtotal * 0.1: 0
+    const shipping = subtotal > 50 ? 0 : 9.99
+    const tax = (subtotal - discount) * 0
+    const total = subtotal - discount + shipping + tax
+
+    return (
+        <div className="min-h-screen bg-background">
+            {/* Header */}
+            <header className="border-b border-border bg-card">
+                <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                            <h1 className="text-xl sm:text-2xl font-bold text-foreground">Your Cart</h1>
+                        </div>
+                        <Badge variant="secondary" className="text-xs sm:text-sm">
+                            {products.length} {products.length === 1 ? "item" : "items"}
+                        </Badge>
+                    </div>
+                </div>
+            </header>
+
+            <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+                <div className="grid gap-6 sm:gap-8 lg:grid-cols-3">
+                    {/* Cart Items */}
+                    <div className="lg:col-span-2">
+                        <div className="space-y-3 sm:space-y-4">
+                            {products.length > 0 ? products.map((item) => (
+                                <Card key={item.product.documentId} className="overflow-hidden">
+                                    <CardContent className="p-4 sm:p-6">
+                                        <div className="flex gap-3 sm:gap-4">
+                                            <img
+                                                src={item.product.thumbnail?.url || "/placeholder.svg"}
+                                                alt={item.product.name}
+                                                className="h-16 w-16 sm:h-20 sm:w-20 rounded-lg object-cover flex-shrink-0"
+                                            />
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <div className="flex-1 min-w-0">
+                                                        <h3 className="font-semibold text-foreground text-balance text-sm sm:text-base">
+                                                            {item.product.name}
+                                                        </h3>
+                                                        <div className="mt-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="text-base sm:text-lg font-semibold">
+                                                                    <DiscountedPrice
+                                                                        price={item.product.price}
+                                                                        discountPercentage={item.product.discount}
+                                                                    />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => RemoveHandler(item.product.documentId)}
+                                                        className="text-destructive hover:text-destructive hover:bg-destructive/10 flex-shrink-0"
+                                                    >
+                                                        <Trash2 className="h-4 w-4" />
+                                                        <span className="sr-only">Remove item</span>
+                                                    </Button>
+                                                </div>
+                                                <div className="flex items-center justify-between sm:justify-start sm:gap-3 mt-3 sm:mt-4">
+                                                    <div className="flex items-center border border-border rounded-lg">
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            onClick={() => MinusTocart(Number(item.quantity), item.product)}
+                                                            className="h-8 w-8 p-0"
+                                                        >
+                                                            <Minus className="h-3 w-3" />
+                                                        </Button>
+                                                        <span className="w-10 sm:w-12 text-center text-sm font-medium">{item.quantity}</span>
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            onClick={() => PlusTocart(Number(item.quantity), item.product, item.product.stock)}
+                                                            className="h-8 w-8 p-0"
+                                                        >
+                                                            <Plus className="h-3 w-3" />
+                                                        </Button>
+                                                    </div>
+                                                    <span className="text-xs sm:text-sm text-muted-foreground font-medium">
+                                                        ₹{(calculateDiscountedPrice({ price: item.product.price, discountPercentage: item.product.discount }) * Number(item.quantity)).toFixed(2)}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )) : ""}
+                        </div>
+                    </div>
+
+                    {/* Order Summary */}
+                    <div className="lg:col-span-1">
+                        <Card className="lg:sticky lg:top-4">
+                            <CardHeader className="pb-4">
+                                <CardTitle className="flex items-center gap-2 text-lg">
+                                    <Tag className="h-5 w-5" />
+                                    Order Summary
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                {/* Promo Code */}
+                                <div className="space-y-2">
+                                    <label htmlFor="promo" className="text-sm font-medium">
+                                        Promo Code
+                                    </label>
+                                    <div className="flex flex-col xs:flex-row gap-2">
+                                        <Input
+                                            id="promo"
+                                            placeholder="Enter code"
+                                            value={promoCode}
+                                            onChange={(e) => setPromoCode(e.target.value)}
+                                            className="flex-1"
+                                        />
+                                        <Button
+                                            variant="outline"
+                                            onClick={applyPromoCode}
+                                            disabled={promoApplied}
+                                            className="xs:w-auto bg-transparent"
+                                        >
+                                            Apply
+                                        </Button>
+                                    </div>
+                                    {promoApplied && <p className="text-sm text-accent">✓ Promo code applied!</p>}
+                                </div>
+
+                                <Separator />
+
+                                {/* Price Breakdown */}
+                                <div className="space-y-2">
+                                    <div className="flex justify-between text-sm">
+                                        <span>Subtotal</span>
+                                        <span>₹{subtotal.toFixed(2)}</span>
+                                    </div>
+                                    {promoApplied && (
+                                        <div className="flex justify-between text-sm text-accent">
+                                            <span>Discount (10%)</span>
+                                            <span>-₹{discount.toFixed(2)}</span>
+                                        </div>
+                                    )}
+                                    <div className="flex justify-between text-sm">
+                                        <span>Shipping</span>
+                                        <span>{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>
+                                    </div>
+                                    <div className="flex justify-between text-sm">
+                                        <span>Tax</span>
+                                        <span>₹{tax.toFixed(2)}</span>
+                                    </div>
+                                    <Separator />
+                                    <div className="flex justify-between text-base sm:text-lg font-bold">
+                                        <span>Total</span>
+                                        <span className="text-primary">₹{total.toFixed(2)}</span>
+                                    </div>
+                                </div>
+
+                                {subtotal < 50 && (
+                                    <div className="text-sm text-muted-foreground bg-muted p-3 rounded-lg">
+                                        Add ₹{(50 - subtotal).toFixed(2)} more for free shipping!
+                                    </div>
+                                )}
+                            </CardContent>
+                            <CardFooter className="pt-4">
+                                <Button className="w-full" size="lg">
+                                    Proceed to Checkout
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default function CartPage() {
+    return <ShoppingCart />
+}

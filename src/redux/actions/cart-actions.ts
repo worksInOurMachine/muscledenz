@@ -21,9 +21,9 @@ export const addItemsToCart =
 
 // remove from cart
 export const removeItemsToCart =
-  (id: string) => async (dispatch: AppDispatch, getState: any) => {
+  (documentId: string) => async (dispatch: AppDispatch, getState: any) => {
     try {
-      dispatch(revmoveToCart({ id }));
+      dispatch(revmoveToCart({ documentId }));
       localStorage.setItem(
         "cartItems",
         JSON.stringify(getState().cart.cart.cartItems)
