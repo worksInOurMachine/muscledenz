@@ -15,12 +15,12 @@ export default function ProductCard({ product, addToCart }: { product: ProductRe
     if (!data?.user.id) {
       localStorage.setItem(
         "redirectRoute",
-        JSON.stringify(`/checkout/${product.id}`)
+        JSON.stringify(`/checkout/${product.documentId}`)
       );
       window.location.href = "/login";
       return
     }
-    window.location.href = `/checkout/${product.id}`;
+    window.location.href = `/checkout/${product.documentId}`;
     /*     const imageUrl = product.thumbnail?.url;
         const message = `Hello, I'm interested in purchasing:\n\n*${product.name
           }*\n\nPrice: ${product.discount > 0
