@@ -15,7 +15,7 @@ import { Minus, Plus, ShoppingBag, ShoppingCartIcon, Tag, Trash2 } from "lucide-
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 
-export function ShoppingCart() {
+export default function ShoppingCart() {
     const dispatch = useAppDispatch()
     const { cart } = useAppSelector((state) => state.cart) || []
     const products = cart.cartItems as CartType[];
@@ -206,6 +206,4 @@ export function ShoppingCart() {
     )
 }
 
-export default function CartPage() {
-    return <ShoppingCart />
-}
+ 

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { products } from "@/config/products.config";
+ 
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
 import { ProductResType } from "@/types/product";
 import ProductNotFound from "@/components/ProductNotFound";
@@ -65,10 +65,10 @@ export default function ProductDetail({
     }
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (resolvedParams && resolvedParams.slug) {
       const product =
-        products.find((product) => product.id === resolvedParams.slug) || null;
+        [].find((product) => product.id === resolvedParams.slug) || null;
       if (!product) {
         setNotFound(true);
         setLoading(false);
@@ -79,7 +79,7 @@ export default function ProductDetail({
       //append product images here
       setImages(defaultArr);
     }
-  }, [resolvedParams]);
+  }, [resolvedParams]); */
 
   if (loading) {
     return (
