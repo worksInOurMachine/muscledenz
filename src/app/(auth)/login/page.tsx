@@ -72,7 +72,9 @@ export default function LoginPage() {
             });
             if (res?.ok) {
                 toast("Login successful ✅");
-                window.location.href = "/";
+                const redirectRoute = JSON.parse(localStorage.getItem("redirectRoute")!)! || "/";
+                localStorage.removeItem("redirectRoute");
+                window.location.href = redirectRoute;
             } else {
                 toast("Invalid OTP");
             }

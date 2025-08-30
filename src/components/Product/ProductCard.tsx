@@ -6,22 +6,34 @@ import { Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
+import { useSession } from "next-auth/react";
 
 export default function ProductCard({ product, addToCart }: { product: ProductResType, addToCart: any }) {
-  const openWhatsAppChat = () => {
-    const imageUrl = product.thumbnail?.url;
-    const message = `Hello, I'm interested in purchasing:\n\n*${product.name
-      }*\n\nPrice: ${product.discount > 0
-        ? `₹${(product.price * (1 - product.discount / 100)).toFixed(2)} (${product.discount
-        }% OFF)`
-        : `₹${product.price}`
-      }\n\nDescription: ${product.description
-      }\n\nProduct Image: ${imageUrl}\n\nPlease provide more information about this product.`;
+  const { data } = useSession();
 
-    const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "917617290091";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    window.open(whatsappUrl, "_blank");
+  const  handleBuyNow = () => {
+    if (!data?.user.id) {
+      localStorage.setItem(
+        "redirectRoute",
+        JSON.stringify(`/checkout/${product.id}`)
+      );
+      window.location.href = "/login";
+      return
+    }
+    window.location.href = `/checkout/${product.id}`;
+    /*     const imageUrl = product.thumbnail?.url;
+        const message = `Hello, I'm interested in purchasing:\n\n*${product.name
+          }*\n\nPrice: ${product.discount > 0
+            ? `₹${(product.price * (1 - product.discount / 100)).toFixed(2)} (${product.discount
+            }% OFF)`
+            : `₹${product.price}`
+          }\n\nDescription: ${product.description
+          }\n\nProduct Image: ${imageUrl}\n\nPlease provide more information about this product.`;
+    
+        const encodedMessage = encodeURIComponent(message);
+        const phoneNumber = "917617290091";
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        window.open(whatsappUrl, "_blank"); */
   };
 
   return (
@@ -85,7 +97,7 @@ export default function ProductCard({ product, addToCart }: { product: ProductRe
         <div className=" w-full flex justify-between gap-2">
           <Button
             className=" w-full bg-red-600 hover:bg-red-500 text-white text-sm sm:text-base py-2 mt-3 flex items-center justify-center gap-2"
-            onClick={openWhatsAppChat}
+            onClick={handleBuyNow}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
