@@ -4,30 +4,24 @@ import DiscountedPrice from "@/components/Product/calculateDiscountedPrice"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+
 import { Separator } from "@/components/ui/separator"
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice"
+import { cartCalculation } from "@/lib/cartCalculation"
 import { addItemsToCart, removeItemsToCart } from "@/redux/actions/cart-actions"
 import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { CartType } from "@/types/cart"
 import { Minus, Plus, ShoppingBag, ShoppingCartIcon, Tag, Trash2 } from "lucide-react"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
-import { useState } from "react"
 
 export function ShoppingCart() {
-    const [promoCode, setPromoCode] = useState("")
-    const [promoApplied, setPromoApplied] = useState(false)
     const dispatch = useAppDispatch()
     const { cart } = useAppSelector((state) => state.cart) || []
     const products = cart.cartItems as CartType[];
     const { data } = useSession();
 
-    const applyPromoCode = () => {
-        if (promoCode.toLowerCase() === "save10") {
-            setPromoApplied(true)
-        }
-    }
+ 
     const PlusTocart = (prevQuntity: number, product: any, stock: number) => {
         const newQuantity = prevQuntity < stock ? prevQuntity + 1 : prevQuntity
         prevQuntity < stock && dispatch(addItemsToCart(product, newQuantity))
@@ -51,23 +45,18 @@ export function ShoppingCart() {
             window.location.href = "/login";
             return
         }
+        window.location.href = "/checkout";
     }
 
-    const subtotal = products.reduce((sum, item) => sum + calculateDiscountedPrice({ price: item.product.price, discountPercentage: item.product.discount }) * Number(item.quantity), 0)
-    const discount = promoApplied ? subtotal * 0.1 : 0
-    const shipping = subtotal > 50 ? 0 : 9.99
-    const tax = (subtotal - discount) * 0
-    const total = subtotal - discount + shipping + tax;
-
-
+    const { discount, shipping, subtotal, tax, total } = cartCalculation({ products, promoApplied:false })
 
     return (
         <>
             {
                 products.length === 0 ? <div className=" flex flex-col gap-2 justify-center items-center h-[80vh]">
-                     <ShoppingCartIcon size={100} /> 
+                    <ShoppingCartIcon size={100} />
                     <h4 className=" py-6 font-bold text-[25px] text-center ">
-                       Cart is empty <br/> Add your first product
+                        Cart is empty <br /> Add your first product
                     </h4>
                     <Link className=" bg-black text-white px-6 py-2 rounded-[10px] text-[20px]" href={"/products"}>Products </Link>
                 </div> : <div className="min-h-screen bg-background">
@@ -169,30 +158,7 @@ export function ShoppingCart() {
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
-                                        {/* Promo Code */}
-                                        <div className="space-y-2">
-                                            <label htmlFor="promo" className="text-sm font-medium">
-                                                Promo Code
-                                            </label>
-                                            <div className="flex flex-col xs:flex-row gap-2">
-                                                <Input
-                                                    id="promo"
-                                                    placeholder="Enter code"
-                                                    value={promoCode}
-                                                    onChange={(e) => setPromoCode(e.target.value)}
-                                                    className="flex-1"
-                                                />
-                                                <Button
-                                                    variant="outline"
-                                                    onClick={applyPromoCode}
-                                                    disabled={promoApplied}
-                                                    className="xs:w-auto bg-transparent"
-                                                >
-                                                    Apply
-                                                </Button>
-                                            </div>
-                                            {promoApplied && <p className="text-sm text-accent">✓ Promo code applied!</p>}
-                                        </div>
+                                    
 
                                         <Separator />
 
@@ -202,12 +168,7 @@ export function ShoppingCart() {
                                                 <span>Subtotal</span>
                                                 <span>₹{subtotal.toFixed(2)}</span>
                                             </div>
-                                            {promoApplied && (
-                                                <div className="flex justify-between text-sm text-accent">
-                                                    <span>Discount (10%)</span>
-                                                    <span>-₹{discount.toFixed(2)}</span>
-                                                </div>
-                                            )}
+                                       
                                             <div className="flex justify-between text-sm">
                                                 <span>Shipping</span>
                                                 <span>{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>
