@@ -10,6 +10,7 @@ import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice"
 import { cartCalculation } from "@/lib/cartCalculation"
 import { addItemsToCart, removeItemsToCart } from "@/redux/actions/cart-actions"
 import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import { setActiveLink } from "@/redux/slices/active-link-slice"
 import { CartType } from "@/types/cart"
 import { Minus, Plus, ShoppingBag, ShoppingCartIcon, Tag, Trash2 } from "lucide-react"
 import { useSession } from "next-auth/react"
@@ -21,7 +22,7 @@ export default function ShoppingCart() {
     const products = cart.cartItems as CartType[];
     const { data } = useSession();
 
- 
+
     const PlusTocart = (prevQuntity: number, product: any, stock: number) => {
         const newQuantity = prevQuntity < stock ? prevQuntity + 1 : prevQuntity
         prevQuntity < stock && dispatch(addItemsToCart(product, newQuantity))
@@ -48,8 +49,11 @@ export default function ShoppingCart() {
         window.location.href = "/checkout";
     }
 
-    const { discount, shipping, subtotal, tax, total } = cartCalculation({ products, promoApplied:false })
+    const { discount, shipping, subtotal, tax, total } = cartCalculation({ products, promoApplied: false })
 
+    const updateActiveLinks = () => {
+        dispatch(setActiveLink("/products"))
+    }
     return (
         <>
             {
@@ -58,7 +62,7 @@ export default function ShoppingCart() {
                     <h4 className=" py-6 font-bold text-[25px] text-center ">
                         Cart is empty <br /> Add your first product
                     </h4>
-                    <Link className=" bg-black text-white px-6 py-2 rounded-[10px] text-[20px]" href={"/products"}>Products </Link>
+                    <Link onClick={updateActiveLinks} className=" bg-black text-white px-6 py-2 rounded-[10px] text-[20px]" href={"/products"}>Products </Link>
                 </div> : <div className="min-h-screen bg-background">
                     {/* Header */}
                     <header className="border-b border-border bg-card">
@@ -158,7 +162,7 @@ export default function ShoppingCart() {
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
-                                    
+
 
                                         <Separator />
 
@@ -168,7 +172,7 @@ export default function ShoppingCart() {
                                                 <span>Subtotal</span>
                                                 <span>₹{subtotal.toFixed(2)}</span>
                                             </div>
-                                       
+
                                             <div className="flex justify-between text-sm">
                                                 <span>Shipping</span>
                                                 <span>{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>
@@ -206,4 +210,3 @@ export default function ShoppingCart() {
     )
 }
 
- 

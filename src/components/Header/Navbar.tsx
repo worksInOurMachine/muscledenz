@@ -1,5 +1,7 @@
 "use client";
 
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { setActiveLink } from "@/redux/slices/active-link-slice";
 import clsx from "clsx";
 import { LogInIcon, Search, ShoppingCartIcon, UserIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -7,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaJediOrder, FaX } from "react-icons/fa6";
+import { FaX } from "react-icons/fa6";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLinks } from "../../utils/navbarUtils";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
@@ -15,7 +17,10 @@ import Drawer from "./Drawer";
 
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState("/");
+
+  const { activeLink } = useAppSelector((a) => a.activeLink);
+  const dispatch = useAppDispatch()
+
   const [isOpen, setIsOpen] = useState(false);
   const searchParams = useSearchParams();
   const [showSearch, setShowSearch] = useState(false);
@@ -24,7 +29,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setActiveLink(window.location.pathname || "/");
+      dispatch(setActiveLink(window.location.pathname || "/"));
     }
   }, []);
 
@@ -33,7 +38,8 @@ const Navbar = () => {
   };
 
   const updateActiveLinks = (href: string) => {
-    setActiveLink(href);
+    dispatch(setActiveLink(href))
+      ;
   };
 
   const placeholders = [

@@ -11,12 +11,12 @@ interface DrawerPropsTypes {
     toggleFunction: () => void,
     updateActiveLinks: (href: string) => void,
     activeLink: string,
- 
+
     session: any,
     status: string
 }
 
-const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActiveLinks, activeLink,  session, status }) => {
+const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActiveLinks, activeLink, session, status }) => {
 
     const closeDrawerAndUpdateLinks = (href: string) => {
         updateActiveLinks(href)
@@ -40,6 +40,12 @@ const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActi
                                 {link.text}
                             </Link>
                         ))
+                    }
+
+                    {
+                        session?.user?.id ? <Link onClick={() => updateActiveLinks("/orders")} href="/orders" className={clsx(" font-bold text-[16px]", activeLink === "/orders" && "text-[#FD0808]")}>
+                            Order
+                        </Link> : ""
                     }
 
                 </div>
