@@ -4,14 +4,15 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { OrderDetails } from "@/components/orders/order-details"
 import { fetchOrderByParam } from "@/lib/orders"
- 
 
-export default async function OrderDetailsPage({ params }: { params: { id: string } }) {
+
+export default async function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params
     let order = null
     let errorMsg: string | null = null
 
     try {
-        order = await fetchOrderByParam(params.id)
+        order = await fetchOrderByParam(id)
     } catch (e: any) {
         errorMsg = e?.message || "Unable to load order."
     }
@@ -27,7 +28,7 @@ export default async function OrderDetailsPage({ params }: { params: { id: strin
                     </Link>
                 </Button>
                 <Separator orientation="vertical" className="h-4" />
-                <span>Order #{order?.documentId || order?.id || params.id}</span>
+                <span>Order #{order?.documentId || order?.id || id}</span>
             </nav>
 
             {errorMsg ? (
