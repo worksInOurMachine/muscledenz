@@ -84,7 +84,7 @@ export function OrderSummary({ items, currencyCode = "INR" }: { items: CartType[
                     )}
                 </div>
                 {/* Promo Code */}
-                <div className="space-y-2">
+             {/*    <div className="space-y-2">
                     <label htmlFor="promo" className="text-sm font-medium">
                         Promo Code
                     </label>
@@ -106,7 +106,7 @@ export function OrderSummary({ items, currencyCode = "INR" }: { items: CartType[
                         </Button>
                     </div>
                     {promoApplied && <p className="text-sm text-accent">✓ Promo code applied!</p>}
-                </div>
+                </div> */}
             </CardContent>
         </Card>
     )

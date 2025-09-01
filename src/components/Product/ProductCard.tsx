@@ -21,19 +21,6 @@ export default function ProductCard({ product, addToCart }: { product: ProductRe
       return
     }
     window.location.href = `/checkout/${product.documentId}`;
-    /*     const imageUrl = product.thumbnail?.url;
-        const message = `Hello, I'm interested in purchasing:\n\n*${product.name
-          }*\n\nPrice: ${product.discount > 0
-            ? `₹${(product.price * (1 - product.discount / 100)).toFixed(2)} (${product.discount
-            }% OFF)`
-            : `₹${product.price}`
-          }\n\nDescription: ${product.description
-          }\n\nProduct Image: ${imageUrl}\n\nPlease provide more information about this product.`;
-    
-        const encodedMessage = encodeURIComponent(message);
-        const phoneNumber = "917617290091";
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-        window.open(whatsappUrl, "_blank"); */
   };
 
   return (

@@ -1,86 +1,76 @@
 "use client"
 
- 
+
 import { AddressSelector } from "@/components/checkout/address-selector"
-import { type LineItem, OrderSummary } from "@/components/checkout/order-summary"
+import { OrderSummary } from "@/components/checkout/order-summary"
 import { type Payment, PaymentForm } from "@/components/checkout/payment-form"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useAppSelector } from "@/redux/hook"
+import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice"
+import { removeItemsToCart } from "@/redux/actions/cart-actions"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import strapi from "@/sdk"
 import { CartType } from "@/types/cart"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-
+import toast from "react-hot-toast"
 type Step = "address" | "payment" | "success"
 
- 
-
-// For demo: if no cart exists, seed a pretend cart
-function seedDemoCartIfEmpty() {
-    const existing = window.localStorage.getItem("cart")
-    if (!existing) {
-        const demo: LineItem[] = [
-            { id: "sku-101", name: "T-Shirt", price: 19.99, quantity: 2 },
-            { id: "sku-205", name: "Cap", price: 12.5, quantity: 1 },
-        ]
-        window.localStorage.setItem("cart", JSON.stringify(demo))
-    }
-}
 
 export default function CartCheckoutPage() {
     const { cart } = useAppSelector((state) => state.cart) || []
     const items = cart.cartItems as CartType[];
+    const dispatch = useAppDispatch()
     const router = useRouter()
     const [step, setStep] = useState<Step>("address")
     const [placing, setPlacing] = useState(false)
- 
-    const [address, setAddress] = useState<any>({
-        fullName: "",
-        email: "",
-        phone: "",
-        line1: "",
-        line2: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        country: "",
-    })
-    const [payment, setPayment] = useState<Payment>({ method: "card" });
+    const [addressId, setAddressId] = useState(null)
+    const [payment, setPayment] = useState<Payment>({ method: "cod" });
+    const { data: session } = useSession()
+    const userDocumentId = session?.user.id;
 
- 
     const placeOrder = async () => {
         if (!items.length) {
-            alert("Your cart is empty.")
-            return
+            toast.error("Your cart is empty.")
+            return;
+        }
+        if (!addressId) {
+            toast.error("Please select address");
+            return;
         }
         setPlacing(true)
         try {
-            const res = await fetch("/api/checkout/cart", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    address,
-                    payment,
-                    items,
-                }),
-            })
-            if (!res.ok) throw new Error("Failed to place order")
-            const data = await res.json()
+            const res = await Promise.all(items.map(async (item) => {
+                const res = await strapi.create("orders", {
+                    orderStatus: "pending",
+                    user: userDocumentId,
+                    product: item.product.documentId,
+                    quantity: Number(item.quantity),
+                    paymentStatus: payment.method === "cod" ? "pending" : "paid",
+                    address: addressId,
+                    amount: calculateDiscountedPrice({
+                        price: Number(item.product.price),
+                        discountPercentage: Number(item.product.discount),
+                    }) * Number(item.quantity),
+                    paymentMethod: payment.method === "cod" ? "COD" : "UPI",
+                })
+                await dispatch(removeItemsToCart(item.product.documentId))
+                return res
+            }))
             setStep("success")
-            console.log("[v0] Cart order placed:", data)
-            // Optionally clear cart
-            // localStorage.removeItem("cart")
+            console.log("[v0] Cart order placed:", res);
+            toast.success("Order placed successfully");
+
         } catch (err) {
-            console.log("[v0] Error placing cart order:", (err as Error).message)
-            alert("Something went wrong placing your order.")
+            console.log("[v0] Error placing cart order:", (err as Error).message);
+            toast.error("Something went wrong placing your order.")
         } finally {
             setPlacing(false)
         }
     }
 
-    const handleAddressSelect = (selectedAddress: any) => {
-        setAddress(selectedAddress)
-    }
+
 
     return (
         <main className="max-w-5xl mx-auto p-4 md:p-8">
@@ -99,7 +89,7 @@ export default function CartCheckoutPage() {
                             <CardContent>
                                 {step === "address" ? (
                                     <>
-                                        <AddressSelector  />
+                                        <AddressSelector setStep={setStep} setAddressId={setAddressId} selectedId={addressId} />
                                     </>
                                 ) : (
                                     <PaymentForm
@@ -116,7 +106,6 @@ export default function CartCheckoutPage() {
 
                     <aside className="lg:col-span-1 space-y-4">
                         <OrderSummary items={items} />
-                        
                     </aside>
                 </div>
             ) : (
@@ -124,13 +113,13 @@ export default function CartCheckoutPage() {
                     <CardContent className="p-6">
                         <h2 className="text-xl font-semibold mb-2 text-pretty">Order placed!</h2>
                         <p className="text-sm text-muted-foreground mb-4">
-                            Thank you for your purchase. A confirmation email will be sent shortly.
+                            Thank you for your purchase. A confirmation message will be sent shortly.
                         </p>
                         <div className="flex gap-2">
-                            <Button onClick={() => router.push("/")}>Continue shopping</Button> 
+                            <Button onClick={() => router.push("/orders")}>Your Orders</Button>
                         </div>
                     </CardContent>
-                     
+
                 </Card>
             )}
         </main>

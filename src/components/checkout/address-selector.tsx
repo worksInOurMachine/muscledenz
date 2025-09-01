@@ -12,13 +12,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 type AddressSelectorProps = {
-    selectedId?: string | null
-    allowSearch?: boolean
+  setStep:any,
+  setAddressId:any,
+  selectedId:string | null
 }
 
-export function AddressSelector({ allowSearch = true }: AddressSelectorProps) {
+export function AddressSelector({ setStep, setAddressId, selectedId }: AddressSelectorProps) {
     const { addressesQuery } = useAddresses();
-    const [selectedId, setSelectedId] = useState<string | null>(null);
+ 
     const [open, setOpen] = useState(false);
     const [editing, setEditing] = useState<AddressType | null>(null);
     const [isLoading, setIsLoading] = useState(false)
@@ -33,7 +34,7 @@ export function AddressSelector({ allowSearch = true }: AddressSelectorProps) {
             await strapi.delete("addresses", id)
             queryClient.invalidateQueries({ queryKey: ["addresses"] });
             if (selectedId === id) {
-                setSelectedId(null)
+                setAddressId(null)
             }
             toast.success("Address deleted")
         } catch (error) {
@@ -52,7 +53,7 @@ export function AddressSelector({ allowSearch = true }: AddressSelectorProps) {
                 </div>
             </div>
             <div className="p-6 max-w-3xl mx-auto">
-                <h1 className="text-2xl font-bold mb-4">Checkout</h1>
+              
 
                 {/* Address List */}
                 <div className="space-y-3">
@@ -61,14 +62,14 @@ export function AddressSelector({ allowSearch = true }: AddressSelectorProps) {
                             key={addr.id}
                             className={`flex justify-between items-center border rounded-lg p-4 cursor-pointer ${selectedId === addr.documentId ? "border-blue-600 bg-blue-50" : "border-gray-300"
                                 }`}
-                            onClick={() => setSelectedId(addr.documentId)}
+                            onClick={() => setAddressId(addr.documentId)}
                         >
                             <div className="flex items-start gap-3">
                                 <input
                                     type="radio"
                                     name="address"
                                     checked={selectedId === addr.documentId}
-                                    onChange={() => setSelectedId(addr.documentId)}
+                                    onChange={() => {setAddressId(addr.documentId)}}
                                     className="mt-1"
                                 />
                                 <div>
@@ -124,6 +125,7 @@ export function AddressSelector({ allowSearch = true }: AddressSelectorProps) {
                     <button
                         disabled={!selectedId}
                         className="w-full bg-blue-600 text-white py-3 rounded-lg disabled:bg-gray-400"
+                        onClick={()=>setStep("payment")}
                     >
                         Continue to Payment
                     </button>
