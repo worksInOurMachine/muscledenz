@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaX } from "react-icons/fa6";
+import { FaJediOrder, FaX } from "react-icons/fa6";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLinks } from "../../utils/navbarUtils";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
@@ -101,15 +101,20 @@ const Navbar = () => {
             status != "loading" ? <>
               {
 
-                session?.user.id ? <Link onClick={() => updateActiveLinks("/profile")} href="/profile" className="text-center font-bold text-[16px]">
-                  <UserIcon />
-                </Link> : <Link onClick={() => updateActiveLinks("/login")} href="/login" className="text-center font-bold text-[16px]">
+                session?.user.id ? <>
+                  <Link onClick={() => updateActiveLinks("/orders")} href="/orders" className={clsx("text-center font-bold text-[16px]", activeLink === "/orders" && "text-[#FD0808]")}>
+                    Order
+                  </Link>
+                  <Link onClick={() => updateActiveLinks("/profile")} href="/profile" className={clsx("text-center font-bold text-[16px]", activeLink === "/profile" && "text-[#FD0808]")}>
+                    <UserIcon />
+                  </Link>
+                </> : <Link onClick={() => updateActiveLinks("/login")} href="/login" className={clsx("text-center font-bold text-[16px]", activeLink === "/login" && "text-[#FD0808]")}>
                   <LogInIcon />
                 </Link>
               }
             </> : ""
           }
-          <Link onClick={() => updateActiveLinks("/cart")} href="/cart" className="text-center font-bold text-[16px]">
+          <Link onClick={() => updateActiveLinks("/cart")} href="/cart" className={clsx("text-center font-bold text-[16px]", activeLink === "/cart" && "text-[#FD0808]")}>
             <ShoppingCartIcon />
           </Link>
 
