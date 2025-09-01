@@ -1,21 +1,12 @@
 import { OrdersList } from "@/components/orders/orders-list"
-import { OrdersFilter } from "@/components/orders/orders-filter"
 import { fetchOrders } from "@/lib/orders"
 
 
-export default async function OrdersPage({
-    searchParams,
-}: {
-    searchParams?: { [key: string]: string | string[] | undefined }
-}) {
-    const status = (searchParams?.status as string) || "all"
-    const payment = (searchParams?.payment as string) || "all"
-
+export default async function OrdersPage() {
     let orders = [] as any
     let errorMsg: string | null = null
-
     try {
-        orders = await fetchOrders({ status, payment })
+        orders = await fetchOrders({  })
     } catch (e: any) {
         errorMsg = e?.message || "Unable to load orders."
     }
