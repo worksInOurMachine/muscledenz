@@ -65,8 +65,6 @@ export function OrderDetails({ order }: { order: OrderResType }) {
                         <div className="text-right">₹{product?.price}</div>
                         <div>Discount</div>
                         <div className="text-right">{product?.discount}%</div>
-                        <div>Stock</div>
-                        <div className="text-right">{product?.stock}</div>
                         <div>Category</div>
                         <div className="text-right">{product?.category?.name}</div>
                         <div>Collection</div>
