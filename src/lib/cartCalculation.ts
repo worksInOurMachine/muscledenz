@@ -18,7 +18,7 @@ export const cartCalculation = ({
     0
   );
   const discount = promoApplied ? subtotal * 0.1 : 0;
-  const shipping = subtotal > 50 ? 0 : 9.99;
+  const shipping = subtotal > 50 ? 0 : 0;
   const tax = (subtotal - discount) * 0;
   const total = subtotal - discount + shipping + tax;
 
