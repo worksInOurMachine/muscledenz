@@ -1,5 +1,4 @@
 'use client'
-import ScrollRevealAnimation from '@/components/AnimatedComponent/ScrollRevealAnimation';
 import { ImageLayoutGrid } from '@/components/ImageGridLayout/ImageGridLayout';
 import ImageSlider from '@/components/ImageSlider';
 import ProductListings from '@/components/Product';
@@ -18,17 +17,11 @@ export default function Home() {
       <ImageSlider />
       <div id="training-programs" className="w-full space-y-0">
 
-        <ScrollRevealAnimation
-          baseOpacity={0}
-          enableBlur={true}
-          baseRotation={8}
-          textClassName="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-700 font-bold text-center"
-          rotationEnd="bottom bottom"
-          wordAnimationEnd="bottom bottom"
-
+        <div
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-700 font-bold text-center"
         >
           About Our Products
-        </ScrollRevealAnimation>
+        </div>
         <ImageLayoutGrid />
       </div>
 
@@ -45,17 +38,11 @@ export default function Home() {
       </div>
       <br />
       <div id="testimonials" className='py-2 sm:py-5 md:py-10 md:space-y-10 sm:p bg-slate-100 '>
-        <ScrollRevealAnimation
-          baseOpacity={0}
-          enableBlur={true}
-          baseRotation={8}
-          textClassName="text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-bold text-center"
-          rotationEnd="bottom bottom"
-          wordAnimationEnd="bottom bottom"
-
+        <div
+          className="text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-bold text-center"
         >
           What Our Customer's Say
-        </ScrollRevealAnimation>
+        </div>
         <TestimonialsCarousel />
 
 
