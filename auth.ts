@@ -9,18 +9,19 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         phone: { label: "Phone", type: "text" },
         otp: { label: "OTP", type: "text" },
+        firstname: { label: "First Name", type: "text" },
+        lastname: { label: "Last Name", type: "text" },
       },
       async authorize(credentials) {
         try {
           if (!credentials?.phone || !credentials?.otp) return null;
 
-          const res = await api.post(
-            `/otp/verify`,
-            {
-              phone: credentials.phone,
-              otp: credentials.otp,
-            }
-          );
+          const res = await api.post(`/otp/verify`, {
+            phone: credentials.phone,
+            otp: credentials.otp,
+            firstname: credentials?.firstname ? credentials.firstname : "",
+            lastname: credentials?.lastname ? credentials.lastname : "",
+          });
 
           const data = res.data;
 

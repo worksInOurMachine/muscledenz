@@ -13,12 +13,15 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import toast from "react-hot-toast"
 import { sendOtp } from "@/lib/otp"
+import { Input } from "@/components/ui/input"
 
 type LoginStep = "phone" | "otp"
 
 export default function LoginPage() {
     const [step, setStep] = useState<LoginStep>("phone")
-    const [phone, setPhone] = useState("")
+    const [phone, setPhone] = useState("");
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [otp, setOtp] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [phoneError, setPhoneError] = useState("")
@@ -38,6 +41,7 @@ export default function LoginPage() {
     }
 
     const handleSendOtp = async () => {
+        if(!firstName || !lastName) return toast.error("Enter first and last name")
         if (!validatePhone(phone)) return
         setIsLoading(true)
         try {
@@ -68,7 +72,9 @@ export default function LoginPage() {
             const res = await signIn("credentials", {
                 redirect: false,
                 phone,
-                otp
+                otp,
+                firstname: firstName,
+                lastname: lastName
             });
             if (res?.ok) {
                 toast("Login successful ✅");
@@ -104,7 +110,7 @@ export default function LoginPage() {
             title={step === "phone" ? "Welcome" : "Verify Your Phone"}
             description={
                 step === "phone"
-                    ? "Enter your phone number to login to your account"
+                    ? "Enter your phone number and name to sign up"
                     : `We've sent a verification code to ${phone}`
             }
         >
@@ -114,15 +120,29 @@ export default function LoginPage() {
                         <Smartphone className="w-8 h-8 text-primary" />
                     </div>
 
+                    <Input
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="Enter Your First Name"
+                        required
+                    />
+                    <Input
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Enter Your Last Name"
+                        required
+                    />
+
                     <PhoneInput
                         value={phone}
                         onChange={setPhone}
                         error={phoneError}
                         disabled={isLoading}
                         placeholder="Enter your phone number"
-                        className="mb-4"
                     />
-                    <Link href={"/signup"} className=" underline p-4 text-end w-full text-blue-500">Create new account</Link>
+
+                    <Link href={"/login"} className=" underline text-blue-500">Already have an account</Link>
+
                     <AuthButton
                         onClick={handleSendOtp}
                         loading={isLoading}

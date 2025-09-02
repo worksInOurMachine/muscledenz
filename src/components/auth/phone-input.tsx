@@ -63,9 +63,9 @@ export function PhoneInput({
     }
 
     return (
-        <div className={cn("space-y-2", className)}>
-            <Label htmlFor="phone-input">Phone Number</Label>
-            <div className="flex gap-2">
+        <div className={cn("space-y-2 mb-4", className)}>
+           {/*  <Label htmlFor="phone-input">Phone Number</Label> */}
+            <div className="flex gap-2 mb-4">
                 <Select value={countryCode} onValueChange={setCountryCode} disabled={disabled}>
                     <SelectTrigger className="w-24 shrink-0">
                         <SelectValue />
