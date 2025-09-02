@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import toast from "react-hot-toast"
 import { sendOtp } from "@/lib/otp"
+import strapi from "@/sdk"
 
 type LoginStep = "phone" | "otp"
 
@@ -39,10 +40,19 @@ export default function LoginPage() {
 
     const handleSendOtp = async () => {
         if (!validatePhone(phone)) return
-        setIsLoading(true)
+        setIsLoading(true);
         try {
+            const users = await strapi.find('users', {
+                filters: { phone: { $eq: phone } },
+                fields: ["id"]
+            }) as any;
+            if (!users || !users?.length) {
+                toast.error("Phone not registered please create new account");
+                setIsLoading(false);
+                return;
+            }
             const res = await sendOtp(phone);
-            toast(res?.message)
+            toast.success(res?.message)
             setStep("otp")
         } catch (error: any) {
             const errorMessage = error?.message || "Failed to send OTP. Please try again."
@@ -71,7 +81,7 @@ export default function LoginPage() {
                 otp
             });
             if (res?.ok) {
-                toast("Login successful ✅");
+                toast.success("Login successful");
                 const redirectRoute = JSON.parse(localStorage.getItem("redirectRoute")!)! || "/";
                 localStorage.removeItem("redirectRoute");
                 window.location.href = redirectRoute;

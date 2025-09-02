@@ -46,12 +46,12 @@ export default function LoginPage() {
         setIsLoading(true)
         try {
             const res = await sendOtp(phone);
-            toast(res?.message)
+            toast.success(res?.message)
             setStep("otp")
         } catch (error: any) {
             const errorMessage = error?.message || "Failed to send OTP. Please try again."
             setPhoneError(errorMessage)
-            toast(errorMessage)
+            toast.error(errorMessage)
         } finally {
             setIsLoading(false)
         }
@@ -77,12 +77,12 @@ export default function LoginPage() {
                 lastname: lastName
             });
             if (res?.ok) {
-                toast("Login successful ✅");
+                toast.success("Welcome to muscledenz");
                 const redirectRoute = JSON.parse(localStorage.getItem("redirectRoute")!)! || "/";
                 localStorage.removeItem("redirectRoute");
                 window.location.href = redirectRoute;
             } else {
-                toast("Invalid OTP");
+                toast.error("Invalid OTP");
             }
         } catch (error: any) {
             const errorMessage = error?.message || "Failed to verify OTP. Please try again."
