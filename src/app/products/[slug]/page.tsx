@@ -260,7 +260,7 @@ export default function ProductDetailsPage() {
                   <Card>
                     <CardContent className="p-4 text-center">
                       <h4 className="font-semibold mb-1">Free Shipping</h4>
-                      <p className="text-sm text-muted-foreground">On orders over $50</p>
+                      <p className="text-sm text-muted-foreground">On orders over {currency(50)} </p>
                     </CardContent>
                   </Card>
                   <Card>
