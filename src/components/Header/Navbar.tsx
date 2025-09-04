@@ -111,9 +111,9 @@ const Navbar = () => {
                   <Link onClick={() => updateActiveLinks("/orders")} href="/orders" className={clsx("text-center font-bold text-[16px]", activeLink === "/orders" && "text-[#FD0808]")}>
                     Order
                   </Link>
-                  <Link onClick={() => updateActiveLinks("/profile")} href="/profile" className={clsx("text-center font-bold text-[16px]", activeLink === "/profile" && "text-[#FD0808]")}>
+              {/*     <Link onClick={() => updateActiveLinks("/profile")} href="/profile" className={clsx("text-center font-bold text-[16px]", activeLink === "/profile" && "text-[#FD0808]")}>
                     <UserIcon />
-                  </Link>
+                  </Link> */}
                 </> : <Link onClick={() => updateActiveLinks("/login")} href="/login" className={clsx("text-center font-bold text-[16px]", activeLink === "/login" && "text-[#FD0808]")}>
                   <LogInIcon />
                 </Link>
