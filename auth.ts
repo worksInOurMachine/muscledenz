@@ -7,17 +7,17 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "OTP Login",
       credentials: {
-        phone: { label: "Phone", type: "text" },
+        identifier: { label: "Identifier", type: "text" },
         otp: { label: "OTP", type: "text" },
         firstname: { label: "First Name", type: "text" },
         lastname: { label: "Last Name", type: "text" },
       },
       async authorize(credentials) {
         try {
-          if (!credentials?.phone || !credentials?.otp) return null;
+          if (!credentials?.identifier || !credentials?.otp) return null;
 
           const res = await api.post(`/otp/verify`, {
-            phone: credentials.phone,
+            identifier: credentials.identifier,
             otp: credentials.otp,
             firstname: credentials?.firstname ? credentials.firstname : "",
             lastname: credentials?.lastname ? credentials.lastname : "",
@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
           if (data?.jwt && data?.user) {
             return {
               id: String(data.user.id),
-              phone: data.user.phone,
+              identifier: data.user.identifier,
               jwt: data.jwt,
             };
           }
@@ -46,14 +46,14 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.jwt = (user as any).jwt;
-        token.phone = (user as any).phone;
+        token.identifier = (user as any).identifier;
       }
       return token;
     },
     async session({ session, token }) {
       session.user = {
         id: token.sub as string,
-        phone: token.phone as string,
+        identifier: token.identifier as string,
       };
       session.jwt = token.jwt as string;
       return session;

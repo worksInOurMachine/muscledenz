@@ -19,7 +19,7 @@ type LoginStep = "phone" | "otp"
 
 export default function LoginPage() {
     const [step, setStep] = useState<LoginStep>("phone")
-    const [phone, setPhone] = useState("");
+    const [identifier, setIdentifier] = useState("");
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [otp, setOtp] = useState("")
@@ -29,11 +29,11 @@ export default function LoginPage() {
 
     const validatePhone = (phoneNumber: string): boolean => {
         if (!phoneNumber) {
-            setPhoneError("Phone number is required")
+            setPhoneError("Email is required")
             return false
         }
         if (phoneNumber.length < 10) {
-            setPhoneError("Please enter a valid phone number")
+            setPhoneError("Please enter a valid email")
             return false
         }
         setPhoneError("")
@@ -41,11 +41,12 @@ export default function LoginPage() {
     }
 
     const handleSendOtp = async () => {
-        if(!firstName || !lastName) return toast.error("Enter first and last name")
-        if (!validatePhone(phone)) return
+        if (!firstName || !lastName) return toast.error("Enter first and last name")
+        if (!validatePhone(identifier)) return
         setIsLoading(true)
         try {
-            const res = await sendOtp(phone);
+            const res = await sendOtp(identifier);
+            console.log(res)
             toast.success(res?.message)
             setStep("otp")
         } catch (error: any) {
@@ -71,7 +72,7 @@ export default function LoginPage() {
         try {
             const res = await signIn("credentials", {
                 redirect: false,
-                phone,
+                identifier,
                 otp,
                 firstname: firstName,
                 lastname: lastName
@@ -107,11 +108,11 @@ export default function LoginPage() {
 
     return (
         <AuthCard
-            title={step === "phone" ? "Welcome" : "Verify Your Phone"}
+            title={step === "phone" ? "Welcome" : "Verify Your Email"}
             description={
                 step === "phone"
-                    ? "Enter your phone number and name to sign up"
-                    : `We've sent a verification code to ${phone}`
+                    ? "Enter your Email and name to sign up"
+                    : `We've sent a verification code to ${identifier}`
             }
         >
             {step === "phone" ? (
@@ -125,20 +126,31 @@ export default function LoginPage() {
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder="Enter Your First Name"
                         required
+                        disabled={isLoading}
                     />
                     <Input
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         placeholder="Enter Your Last Name"
                         required
+                        disabled={isLoading}
                     />
 
-                    <PhoneInput
-                        value={phone}
+                    {/*    <PhoneInput
+                        value={identifier}
                         onChange={setPhone}
                         error={phoneError}
                         disabled={isLoading}
                         placeholder="Enter your phone number"
+                    /> */}
+                    <Input
+                        value={identifier}
+                        onChange={(e) => setIdentifier(e.target.value)}
+                        placeholder="Enter Your Email"
+                        disabled={isLoading}
+                        className="mb-4"
+                        type="email"
+                        required
                     />
 
                     <Link href={"/login"} className=" underline text-blue-500">Already have an account</Link>
@@ -147,7 +159,7 @@ export default function LoginPage() {
                         onClick={handleSendOtp}
                         loading={isLoading}
                         loadingText="Sending OTP..."
-                        disabled={!phone}
+                        disabled={!identifier}
                         className="w-full"
                         size="lg"
                     >

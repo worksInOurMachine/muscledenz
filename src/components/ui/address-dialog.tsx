@@ -21,7 +21,7 @@ export function AddressDialog({ open, onOpenChange, initialData, queryClient }: 
     const isEditing = Boolean(initialData?.id);
     const { data } = useSession();
     const userDocumentId = data?.user.id;
-    const verifidPhone = data?.user.phone;
+    const verifidPhone = data?.user.identifier;
     const [form, setForm] = useState<Partial<AddressType>>({
         city: "",
         pincode: "",
@@ -69,7 +69,7 @@ export function AddressDialog({ open, onOpenChange, initialData, queryClient }: 
                     phone: Number(form.phone),
                     pincode: Number(form.pincode),
                     user: userDocumentId,
-                    verfiedPhone: verifidPhone
+                    verfiedIdentifier: verifidPhone
                 });
             }
             queryClient.invalidateQueries({ queryKey: ["addresses"] });
