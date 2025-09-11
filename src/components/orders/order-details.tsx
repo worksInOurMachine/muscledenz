@@ -7,7 +7,8 @@ import type { OrderResType } from "@/types/order"
 
 export function OrderDetails({ order }: { order: OrderResType }) {
     const product = order.product
-    const thumb = product?.thumbnail?.url || ""
+    const thumb = product?.thumbnail?.url || "";
+    const address = order.address
 
     return (
         <div className="space-y-4">
@@ -71,6 +72,54 @@ export function OrderDetails({ order }: { order: OrderResType }) {
                         <div className="text-right">{product?.collectionType}</div>
                         <div>Type</div>
                         <div className="text-right">{product?.isVeg ? "Veg" : "Non-Veg"}</div>
+                    </div>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Shipping Address</CardTitle>
+                </CardHeader>
+                <Separator />
+                <CardContent className="p-2 space-y-2 text-sm">
+                    <div className="mt-1 p-4">
+                        <div className="text-sm space-y-2">
+                            <p>
+                                <span className="font-medium">Name:</span> {address.firstname}{" "}
+                                {address.lastname}
+                            </p>
+                            <p>
+                                <span className="font-medium">Phone:</span> {address.phone}
+                            </p>
+                            <p>
+                                <span className="font-medium">Street:</span> {address.streetAddress}
+                            </p>
+                            <p>
+                                <span className="font-medium">Locality:</span> {address.locality}
+                            </p>
+                            {address.landmark && (
+                                <p>
+                                    <span className="font-medium">Landmark:</span> {address.landmark}
+                                </p>
+                            )}
+                            <p>
+                                <span className="font-medium">District:</span> {address.district}
+                            </p>
+                            <p>
+                                <span className="font-medium">City:</span> {address.city}
+                            </p>
+                            <p>
+                                <span className="font-medium">State:</span> {address.state}
+                            </p>
+                            <p>
+                                <span className="font-medium">Country:</span> {address.country}
+                            </p>
+                            <p>
+                                <span className="font-medium">Pincode:</span> {address.pincode}
+                            </p>
+                            <p>
+                                <span className="font-medium">Verified Phone or Email:</span> {address.verfiedIdentifier}
+                            </p>
+                        </div>
                     </div>
                 </CardContent>
             </Card>

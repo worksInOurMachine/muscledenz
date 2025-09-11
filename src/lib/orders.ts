@@ -88,6 +88,7 @@ function mapStrapiOrder(entity: any): OrderResType {
     amount: Number(a.amount ?? 0),
     paymentMethod: a.paymentMethod ?? "COD",
     documentId: a.documentId ?? entity.documentId ?? "",
+    address:a.address
   };
 }
 
@@ -96,7 +97,7 @@ function buildFilters({ status, payment, userId }: FiltersInput) {
   if (userId) {
     filters.user = {
       documentId: {
-        $eq: userId,  
+        $eq: userId,
       },
     };
   }
@@ -118,7 +119,7 @@ export async function fetchOrders(
 ): Promise<OrderResType[]> {
   const query: any = { populate, sort: ["createdAt:desc"] };
   const session = await getServerSession(authOptions);
-  const filters = buildFilters({ ...params, userId: session?.user.id  ||""});
+  const filters = buildFilters({ ...params, userId: session?.user.id || "" });
   if (Object.keys(filters).length) query.filters = filters;
 
   const res = await strapi.find("orders", query);
@@ -132,11 +133,13 @@ export async function fetchOrderByParam(
   let entity: any | null = null;
 
   if (isNumericId(idOrDocId)) {
-    const res = await strapi.findOne("orders", idOrDocId, { populate });
+    const res = await strapi.findOne("orders", idOrDocId, {
+      populate: ["address", "product.thumbnail", "product.category"],
+    });
     entity = res?.data ?? null;
   } else {
     const res = await strapi.find("orders", {
-      populate,
+      populate: ["address", "product.thumbnail", "product.category"],
       filters: { documentId: { $eq: idOrDocId } },
       pagination: { page: 1, pageSize: 1 },
     });
