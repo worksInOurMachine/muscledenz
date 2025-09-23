@@ -11,7 +11,7 @@ const strapi = new Strapi({
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
-      //   Authorization: `Bearer ${localStorage.getItem("strapi_jwt")}`, currently not working
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_AUTH_TOKEN}`,
     },
   },
 });
