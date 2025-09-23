@@ -62,10 +62,12 @@ export function OrderDetails({ order }: { order: OrderResType }) {
                 <Separator />
                 <CardContent className="p-4 space-y-2 text-sm">
                     <div className="grid grid-cols-2 gap-2">
-                        <div>Price</div>
+                        <div>Net Price</div>
                         <div className="text-right">₹{product?.price}</div>
                         <div>Discount</div>
                         <div className="text-right">{product?.discount}%</div>
+                        <div>Payable Amount</div>
+                        <div className="text-right">₹{order.amount}</div>
                         <div>Category</div>
                         <div className="text-right">{product?.category?.name}</div>
                         <div>Collection</div>
