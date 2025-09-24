@@ -7,9 +7,9 @@ export const cartCalculation = ({
   setAmount,
 }: {
   products: CartType[];
-  promoDiscount: number;
+  promoDiscount?: number;
   promoCodeApplied?: boolean;
-  setAmount: any;
+  setAmount?: any;
 }) => {
   const subtotal = products.reduce(
     (sum, item) =>
@@ -23,11 +23,14 @@ export const cartCalculation = ({
   );
 
   const shipping = subtotal > 50 ? 0 : 0;
+  const discount = promoDiscount;
   const tax = subtotal * 0;
   const total = promoCodeApplied
-    ? subtotal - (promoDiscount / 100) * subtotal + shipping + tax
+    ? subtotal - (discount / 100) * subtotal + shipping + tax
     : subtotal + shipping + tax;
-  setAmount(total);
+  if (setAmount) {
+    setAmount(total);
+  }
 
   return { subtotal, shipping, tax, total };
 };

@@ -29,7 +29,6 @@ export default function CartCheckoutPage() {
     const [payment, setPayment] = useState<Payment>({ method: "cod" });
     const { data: session } = useSession()
     const userDocumentId = session?.user.id;
-    const [amount, setAmount] = useState(0);
     const [promoDiscount, setPromoDiscount] = useState(0);
     const [coupon, setCoupon] = useState<{ documentId: string } | null>(null);
     const placeOrder = async () => {
@@ -44,12 +43,17 @@ export default function CartCheckoutPage() {
         setPlacing(true)
         try {
             if (coupon?.documentId) {
+                const docIDS = (coupon as any).usedBy?.map((u: any) => u?.documentId) || [];
                 await strapi.update("coupons", coupon.documentId, {
-                    usedBy: [...(coupon as any).usedBy?.documentId, userDocumentId],
+                    usedBy: [...docIDS, userDocumentId],
                     usageCount: (coupon as any).usageCount + 1
                 })
             }
             const res = await Promise.all(items.map(async (item) => {
+                const caclAmount = calculateDiscountedPrice({
+                    price: item.product.price,
+                    discountPercentage: item.product.discount,
+                }) * Number(item.quantity)
                 const res = await strapi.create("orders", {
                     orderStatus: "pending",
                     user: userDocumentId,
@@ -57,7 +61,7 @@ export default function CartCheckoutPage() {
                     quantity: Number(item.quantity),
                     paymentStatus: payment.method === "cod" ? "pending" : "paid",
                     address: addressId,
-                    amount,
+                    amount: caclAmount - (promoDiscount / 100) * caclAmount,
                     couponDiscount: Number(promoDiscount),
                     paymentMethod: payment.method === "cod" ? "COD" : "UPI",
                 })
@@ -112,7 +116,7 @@ export default function CartCheckoutPage() {
                     </div>
 
                     <aside className="lg:col-span-1 space-y-4">
-                        <OrderSummary userDocumentId={userDocumentId} setCoupon={setCoupon} setPromoDiscount={setPromoDiscount} promoDiscount={promoDiscount} items={items} setAmount={setAmount} />
+                        <OrderSummary userDocumentId={userDocumentId} setCoupon={setCoupon} setPromoDiscount={setPromoDiscount} promoDiscount={promoDiscount} items={items} />
                     </aside>
                 </div>
             ) : (

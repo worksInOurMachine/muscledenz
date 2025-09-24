@@ -64,6 +64,8 @@ export function OrderDetails({ order }: { order: OrderResType }) {
                     <div className="grid grid-cols-2 gap-2">
                         <div>Net Price</div>
                         <div className="text-right">₹{product?.price}</div>
+                        <div>Total Amount</div>
+                        <div className="text-right">₹{product?.price * order.quantity}</div>
                         <div>Discount</div>
                         <div className="text-right">{product?.discount}%</div>
                         {

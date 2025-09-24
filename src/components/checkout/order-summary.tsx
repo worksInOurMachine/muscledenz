@@ -11,6 +11,7 @@ import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice"
 import { currency } from "@/lib/currency"
 import toast from "react-hot-toast"
 import strapi from "@/sdk"
+import { it } from "node:test"
 export type LineItem = {
     id: string
     name: string
@@ -21,9 +22,9 @@ export type LineItem = {
 
 
 
-export function OrderSummary({ items, currencyCode = "INR", setAmount, promoDiscount, setPromoDiscount, setCoupon, userDocumentId }: {
+export function OrderSummary({ items, currencyCode = "INR", promoDiscount, setPromoDiscount, setCoupon, userDocumentId }: {
     items: CartType[]; currencyCode?: string,
-    setAmount: any, promoDiscount: number, setPromoDiscount: any,
+    setAmount?: any, promoDiscount: number, setPromoDiscount: any,
     setCoupon: any,
     userDocumentId?: string
 }) {
@@ -64,7 +65,7 @@ export function OrderSummary({ items, currencyCode = "INR", setAmount, promoDisc
         }
 
     }
-    const { shipping, subtotal, tax, total } = cartCalculation({ products: items, promoDiscount, promoCodeApplied: promoApplied, setAmount });
+    const { shipping, subtotal, tax, total } = cartCalculation({ products: items, promoDiscount, promoCodeApplied: promoApplied });
     return (
         <Card>
             <CardHeader>
