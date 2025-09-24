@@ -48,7 +48,6 @@ export default function CartCheckoutPage() {
     const [payment, setPayment] = useState<Payment>({ method: "cod" });
     const { data: session } = useSession();
     const userDocumentId = session?.user.id;
-    const [amount, setAmount] = useState(0);
     const [promoDiscount, setPromoDiscount] = useState(0);
     const [coupon, setCoupon] = useState<{ documentId: string } | null>(null);
     const placeOrder = async () => {
@@ -70,6 +69,10 @@ export default function CartCheckoutPage() {
                 })
             }
             const res = await Promise.all(items.map(async (item: CartType) => {
+                const caclAmount = calculateDiscountedPrice({
+                    price: item.product.price,
+                    discountPercentage: item.product.discount,
+                }) * Number(item.quantity)
                 const res = await strapi.create("orders", {
                     orderStatus: "pending",
                     user: userDocumentId,
@@ -77,7 +80,7 @@ export default function CartCheckoutPage() {
                     quantity: Number(item.quantity),
                     paymentStatus: payment.method === "cod" ? "pending" : "paid",
                     address: addressId,
-                    amount,
+                    amount: caclAmount - (promoDiscount / 100) * caclAmount,
                     couponDiscount: Number(promoDiscount),
                     paymentMethod: payment.method === "cod" ? "COD" : "UPI",
                 })
@@ -135,7 +138,7 @@ export default function CartCheckoutPage() {
                             </div>
 
                             <aside className="lg:col-span-1 space-y-4">
-                                <OrderSummary userDocumentId={userDocumentId} setCoupon={setCoupon} promoDiscount={promoDiscount} setPromoDiscount={setPromoDiscount} setAmount={setAmount} items={items} />
+                                <OrderSummary userDocumentId={userDocumentId} setCoupon={setCoupon} promoDiscount={promoDiscount} setPromoDiscount={setPromoDiscount} items={items} />
                             </aside>
                         </div>
                     ) : (

@@ -24,7 +24,7 @@ export type LineItem = {
 
 export function OrderSummary({ items, currencyCode = "INR", promoDiscount, setPromoDiscount, setCoupon, userDocumentId }: {
     items: CartType[]; currencyCode?: string,
-    setAmount?: any, promoDiscount: number, setPromoDiscount: any,
+    promoDiscount: number, setPromoDiscount: any,
     setCoupon: any,
     userDocumentId?: string
 }) {
