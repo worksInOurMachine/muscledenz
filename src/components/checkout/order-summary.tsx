@@ -9,6 +9,8 @@ import { CartType } from "@/types/cart"
 import { Separator } from "@radix-ui/react-select"
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice"
 import { currency } from "@/lib/currency"
+import toast from "react-hot-toast"
+import strapi from "@/sdk"
 export type LineItem = {
     id: string
     name: string
@@ -19,16 +21,50 @@ export type LineItem = {
 
 
 
-export function OrderSummary({ items, currencyCode = "INR" }: { items: CartType[]; currencyCode?: string }) {
+export function OrderSummary({ items, currencyCode = "INR", setAmount, promoDiscount, setPromoDiscount, setCoupon, userDocumentId }: {
+    items: CartType[]; currencyCode?: string,
+    setAmount: any, promoDiscount: number, setPromoDiscount: any,
+    setCoupon: any,
+    userDocumentId?: string
+}) {
 
     const [promoCode, setPromoCode] = useState("")
-    const [promoApplied, setPromoApplied] = useState(false)
-    const applyPromoCode = () => {
-        if (promoCode.toLowerCase() === "save10") {
-            setPromoApplied(true)
+    const [promoApplied, setPromoApplied] = useState(false);
+    const [promoIsLoading, setPromoIsLoading] = useState(false);
+    const applyPromoCode = async () => {
+        try {
+            setPromoIsLoading(true);
+            console.log(userDocumentId, "user doucument id")
+            const promo = await strapi.find("coupons", {
+                filters: {
+                    code: promoCode,
+                    isExpired: false,
+                },
+                populate: {
+                    usedBy: {
+                        fields: ["documentId"],
+                    },
+                }
+            }) as any;
+            const userExist = promo.data[0]?.usedBy?.some((user: any) => user.documentId === userDocumentId);
+            if (userExist) {
+                toast.error("You have already used this coupon")
+            } else if (promo.data.length > 0) {
+                setPromoApplied(true)
+                setPromoDiscount(promo.data[0].discount)
+                setCoupon(promo.data[0])
+            } else {
+                toast.error("Invalid or expired coupon code")
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Something went wrong")
+        } finally {
+            setPromoIsLoading(false);
         }
+
     }
-    const { discount, shipping, subtotal, tax, total } = cartCalculation({ products: items, promoApplied })
+    const { shipping, subtotal, tax, total } = cartCalculation({ products: items, promoDiscount, promoCodeApplied: promoApplied, setAmount });
     return (
         <Card>
             <CardHeader>
@@ -58,18 +94,18 @@ export function OrderSummary({ items, currencyCode = "INR" }: { items: CartType[
                         </div>
                         {promoApplied && (
                             <div className="flex justify-between ">
-                                <span>Discount (10%)</span>
-                                <span>-₹{discount.toFixed(2)}</span>
+                                <span>Discount ({promoDiscount}%)</span>
+                                <span>-₹{(promoDiscount / 100 * subtotal).toFixed(2)}</span>
                             </div>
                         )}
-                        <div className="flex justify-between text-sm">
+                        {/*   <div className="flex justify-between text-sm">
                             <span>Shipping</span>
                             <span>{shipping === 0 ? "Free" : currency(Number(shipping.toFixed(2)))}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
+                        </div> */}
+                        {/*    <div className="flex justify-between text-sm">
                             <span>Tax</span>
                             <span>₹{tax.toFixed(2)}</span>
-                        </div>
+                        </div> */}
                         <Separator />
                         <div className="flex justify-between text-base sm:text-lg font-bold">
                             <span>Total</span>
@@ -84,7 +120,7 @@ export function OrderSummary({ items, currencyCode = "INR" }: { items: CartType[
                     )}
                 </div>
                 {/* Promo Code */}
-             {/*    <div className="space-y-2">
+                <div className="space-y-2">
                     <label htmlFor="promo" className="text-sm font-medium">
                         Promo Code
                     </label>
@@ -95,18 +131,19 @@ export function OrderSummary({ items, currencyCode = "INR" }: { items: CartType[
                             value={promoCode}
                             onChange={(e) => setPromoCode(e.target.value)}
                             className="flex-1"
+                            disabled={promoApplied || promoIsLoading}
                         />
                         <Button
                             variant="outline"
                             onClick={applyPromoCode}
-                            disabled={promoApplied}
+                            disabled={promoApplied || promoIsLoading}
                             className="xs:w-auto bg-transparent"
                         >
-                            Apply
+                            {promoIsLoading ? "Applying..." : promoApplied ? "Applied" : "Apply"}
                         </Button>
                     </div>
                     {promoApplied && <p className="text-sm text-accent">✓ Promo code applied!</p>}
-                </div> */}
+                </div>
             </CardContent>
         </Card>
     )

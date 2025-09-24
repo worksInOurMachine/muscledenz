@@ -66,6 +66,14 @@ export function OrderDetails({ order }: { order: OrderResType }) {
                         <div className="text-right">₹{product?.price}</div>
                         <div>Discount</div>
                         <div className="text-right">{product?.discount}%</div>
+                        {
+                            order.couponDiscount > 0 && (
+                                <>
+                                    <div>Coupon Discount</div>
+                                    <div className="text-right">{order.couponDiscount}%</div>
+                                </>
+                            )
+                        }
                         <div>Payable Amount</div>
                         <div className="text-right">₹{order.amount}</div>
                         <div>Category</div>
