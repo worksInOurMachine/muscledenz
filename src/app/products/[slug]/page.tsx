@@ -166,13 +166,13 @@ export default function ProductDetailsPage() {
                 {/* Price */}
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl font-bold text-foreground">${discountedPrice}</span>
+                    <span className="text-3xl font-bold text-foreground">{currency(discountedPrice)}</span>
                     {product.discount > 0 && (
-                      <span className="text-xl text-muted-foreground line-through">${product.price}</span>
+                      <span className="text-xl text-muted-foreground line-through">{currency(product.price)}</span>
                     )}
                   </div>
                   {product.discount > 0 && (
-                    <p className="text-sm text-green-600">You save ${(product.price - discountedPrice)}</p>
+                    <p className="text-sm text-green-600">You save {currency(product.price - discountedPrice)}</p>
                   )}
                 </div>
 

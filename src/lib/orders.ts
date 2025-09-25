@@ -88,7 +88,8 @@ function mapStrapiOrder(entity: any): OrderResType {
     amount: Number(a.amount ?? 0),
     paymentMethod: a.paymentMethod ?? "COD",
     documentId: a.documentId ?? entity.documentId ?? "",
-    address:a.address
+    address:a.address,
+    couponDiscount:Number(a.couponDiscount) || 0,
   };
 }
 

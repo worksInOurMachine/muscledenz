@@ -9,6 +9,7 @@ export interface OrderResType {
   amount: number;
   paymentMethod: "COD" | "UPI";
   documentId: string;
+  couponDiscount:number;
   address: {
     city: string;
     state: string;
