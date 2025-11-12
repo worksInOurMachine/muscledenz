@@ -11,10 +11,14 @@ const SlidingText = React.lazy(() => import('@/components/AnimatedComponent/Slid
 
 export default function Home() {
   const { data, isLoading, isError } = useStrapi("products/collections");
-  if (isLoading) return <Loading />
+  const { data:homePageData, isLoading:homePageLoading, isError:homePageError } = useStrapi("home-page",{
+    populate:"*"
+  });
+ 
+  if (isLoading || homePageLoading) return <Loading />
   return (
     <div className="min-w-full py-5 space-y-5 min-h-full p-1">
-      <ImageSlider />
+      <ImageSlider top_banners={homePageData?.data.top_banners} />
       <div id="training-programs" className="w-full space-y-0">
 
         <div
