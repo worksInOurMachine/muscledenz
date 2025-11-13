@@ -13,7 +13,7 @@ export default async function OrdersPage() {
 
     return (
         <main className="container h-[100vh] mx-auto max-w-5xl  p-4 md:p-6">
-            <h1 className=" my-6 text-[26px] font-bold">You Orders</h1>
+            <h1 className=" my-6 text-[26px] font-bold">Your Orders</h1>
 
             {errorMsg ? (
                 <div className="mb-4">

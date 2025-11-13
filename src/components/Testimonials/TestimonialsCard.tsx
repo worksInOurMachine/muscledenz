@@ -4,37 +4,29 @@ import { TestimonialType } from "@/types/testimonials"
 
 export default function TestimonialCard({
   name,
-  title,
-  avatarUrl,
-  isVerified = true,
-  rating = 5,
-  testimonial,
+  stars = 5, 
+  description,
 }: TestimonialType) {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto transition-transform transform hover:scale-[1.02]">
       {/* User Info */}
       <div className="flex items-center gap-4">
         {/* Avatar */}
-        <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-red-500">
+        <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-red-300">
           <img
-            src={avatarUrl || "/placeholder.svg"}
+            src={"/profile.jpg"}
             alt={`${name}'s profile picture`}
             width={64}
             height={64}
             className="object-cover"
           />
-          {isVerified && (
-            <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-[2px]">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
-            </div>
-          )}
         </div>
 
         {/* Name & Title */}
         <div>
           <h3 className="font-semibold text-lg sm:text-xl text-gray-900">{name}</h3>
-          <p className="text-gray-600 text-sm sm:text-base">{title}</p>
-          {isVerified && (
+         {/*  <p className="text-gray-600 text-sm sm:text-base">{profession}</p> */}
+          {true && (
             <div className="flex items-center gap-1 text-xs sm:text-sm text-green-600 mt-1">
               <CheckCircle2 className="h-4 w-4" />
               <span>Verified Customer</span>
@@ -48,7 +40,7 @@ export default function TestimonialCard({
         {Array.from({ length: 5 }).map((_, i) => (
           <svg
             key={i}
-            className={`w-5 h-5 ${i < rating ? "text-yellow-400" : "text-gray-300"}`}
+            className={`w-5 h-5 ${i < stars ? "text-yellow-400" : "text-gray-300"}`}
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -59,7 +51,7 @@ export default function TestimonialCard({
 
       {/* Testimonial */}
       <blockquote className="mt-3 text-gray-800 italic text-sm sm:text-base leading-relaxed">
-        "{testimonial}"
+        "{description}"
       </blockquote>
     </div>
   )

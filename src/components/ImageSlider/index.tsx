@@ -5,8 +5,25 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+const default_banner = [{
+  id:1,
+  url:"imageslider/slide1.png"
+},{
+  id:2,
+  url:"imageslider/slide2.png"
+},{
+  id:3,
+  url:"imageslider/slide3.png"
+},{
+  id:4,
+  url:"imageslider/slide4.png"
+}]
 
-const ImageSlider = () => {
+const ImageSlider = ({
+  top_banners,
+}: {
+  top_banners: { url: string; id: number }[] | undefined | [];
+}) => {
   return (
     <div className="w-full h-fit">
       <Swiper
@@ -19,34 +36,25 @@ const ImageSlider = () => {
         loop
         className="rounded-lg shadow-lg h-full"
       >
-        <SwiperSlide>
-          <img 
-            src="imageslider/slide1.png" 
-            alt="Slide 1" 
-            className="w-full h-full object-fill rounded-lg"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img 
-            src="imageslider/slide2.png" 
-            alt="Slide 2" 
-            className="w-full h-full object-fill rounded-lg"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img 
-            src="imageslider/slide3.png" 
-            alt="Slide 3" 
-            className="w-full h-full object-fill rounded-lg"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img 
-            src="imageslider/slide4.png" 
-            alt="Slide 3" 
-            className="w-full h-full object-fill rounded-lg"
-          />
-        </SwiperSlide>
+        {
+    top_banners && top_banners?.length > 0 ? top_banners?.map((banner) => (
+            <SwiperSlide key={banner.id}>
+              <img
+                src={banner.url}
+                alt={`Slide ${banner.id}`}
+                className="w-full h-full object-fill rounded-lg"
+              />
+            </SwiperSlide>
+          )) : default_banner.map((banner) => (
+            <SwiperSlide key={banner.id}>
+              <img
+                src={banner.url}
+                alt={`Slide ${banner.id}`}
+                className="w-full h-full object-fill rounded-lg"
+              />
+            </SwiperSlide>
+          ))
+        }
       </Swiper>
     </div>
   );

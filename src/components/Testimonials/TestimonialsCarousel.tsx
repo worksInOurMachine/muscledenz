@@ -2,9 +2,10 @@ import React from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import TestimonialCard from "./TestimonialsCard"
-import { testimonials } from "@/config/testimonials.config"
+ 
 
-function TestimonialsCarousel() {
+function TestimonialsCarousel({testimonials}: {testimonials: { name: string; description: string; stars: number}[] | undefined | null|[]}) {
+  if (!testimonials) return null;
   return (
     <div className="w-full mx-auto px-4">
       <Carousel
