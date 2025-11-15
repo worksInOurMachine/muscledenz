@@ -8,6 +8,8 @@ import React from 'react';
 import Loading from './loading';
 const SlidingText = React.lazy(() => import('@/components/AnimatedComponent/SlidingText'));
 
+ 
+
 
 export default function Home() {
   const { data, isLoading, isError } = useStrapi("products/collections");
@@ -31,6 +33,7 @@ export default function Home() {
       </div>
 
       <div className='space-y-10'>
+        {/* trending, popular, justLaunched, ayurveda, cosmeticsAndSkincare, proteinSupplements, sportsWears */}
         {
           data?.data.trending.length > 0 ? <ProductListings title="Trending Products" products={data?.data.trending} /> : ""
         }
@@ -39,6 +42,18 @@ export default function Home() {
         }
         {
           data?.data.justLaunched.length > 0 ? <ProductListings title="Just Launched" products={data?.data.justLaunched} /> : ""
+        }
+        {
+          data?.data.ayurveda.length > 0 ? <ProductListings title="Ayurveda" products={data?.data.ayurveda} /> : ""
+        }
+        {
+          data?.data.cosmeticsAndSkincare.length > 0 ? <ProductListings title="Cosmetics And Skincare" products={data?.data.cosmeticsAndSkincare} /> : ""
+        }
+        {
+          data?.data.proteinSupplements.length > 0 ? <ProductListings title="Protein Supplements" products={data?.data.proteinSupplements} /> : ""
+        }
+        {
+          data?.data.sportsWears.length > 0 ? <ProductListings title="Sports Wears" products={data?.data.sportsWears} /> : ""
         }
       </div>
       <br />
