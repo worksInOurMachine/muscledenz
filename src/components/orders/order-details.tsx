@@ -82,8 +82,6 @@ export function OrderDetails({ order }: { order: OrderResType }) {
                         <div className="text-right">{product?.category?.name}</div>
                         <div>Collection</div>
                         <div className="text-right">{product?.collectionType}</div>
-                        <div>Type</div>
-                        <div className="text-right">{product?.isVeg ? "Veg" : "Non-Veg"}</div>
                     </div>
                 </CardContent>
             </Card>
