@@ -1,7 +1,9 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
+import { useStrapi } from "@/hooks/useStrapi";
 
 const footerLinks = [
   {
@@ -57,6 +59,9 @@ const footerLinks = [
 ];
 
 export default function Footer() {
+  const { data, isLoading, isError } = useStrapi("categories");
+  console.log("Footer categories data:", data);
+
   return (
     <footer className="relative bg-black  text-white pt-16 pb-6 overflow-hidden">
       <div className="container max-w-5xl mx-auto px-4 relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-600 pb-4 md:pb-10">
