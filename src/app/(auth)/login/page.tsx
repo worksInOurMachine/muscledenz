@@ -14,12 +14,13 @@ import Link from "next/link"
 import toast from "react-hot-toast"
 import { sendOtp } from "@/lib/otp"
 import strapi from "@/sdk"
+import { Input } from "@/components/ui/input"
 
 type LoginStep = "phone" | "otp"
 
 export default function LoginPage() {
     const [step, setStep] = useState<LoginStep>("phone")
-    const [phone, setPhone] = useState("")
+    const [identifier, setIdentifier] = useState("")
     const [otp, setOtp] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [phoneError, setPhoneError] = useState("")
@@ -27,11 +28,11 @@ export default function LoginPage() {
 
     const validatePhone = (phoneNumber: string): boolean => {
         if (!phoneNumber) {
-            setPhoneError("Phone number is required")
+            setPhoneError("Email is required")
             return false
         }
         if (phoneNumber.length < 10) {
-            setPhoneError("Please enter a valid phone number")
+            setPhoneError("Please enter a valid email")
             return false
         }
         setPhoneError("")
@@ -39,19 +40,19 @@ export default function LoginPage() {
     }
 
     const handleSendOtp = async () => {
-        if (!validatePhone(phone)) return
+        if (!validatePhone(identifier)) return
         setIsLoading(true);
         try {
             const users = await strapi.find('users', {
-                filters: { phone: { $eq: phone } },
+                filters: { identifier: { $eq: identifier } },
                 fields: ["id"]
             }) as any;
             if (!users || !users?.length) {
-                toast.error("Phone not registered please create new account");
+                toast.error("Email not registered please create new account");
                 setIsLoading(false);
                 return;
             }
-            const res = await sendOtp(phone);
+            const res = await sendOtp(identifier);
             toast.success(res?.message)
             setStep("otp")
         } catch (error: any) {
@@ -77,7 +78,7 @@ export default function LoginPage() {
         try {
             const res = await signIn("credentials", {
                 redirect: false,
-                phone,
+                identifier,
                 otp
             });
             if (res?.ok) {
@@ -111,11 +112,11 @@ export default function LoginPage() {
 
     return (
         <AuthCard
-            title={step === "phone" ? "Welcome" : "Verify Your Phone"}
+            title={step === "phone" ? "Welcome" : "Verify Your Email"}
             description={
                 step === "phone"
-                    ? "Enter your phone number to login to your account"
-                    : `We've sent a verification code to ${phone}`
+                    ? "Enter your email to login to your account"
+                    : `We've sent a verification code to ${identifier}`
             }
         >
             {step === "phone" ? (
@@ -124,20 +125,29 @@ export default function LoginPage() {
                         <Smartphone className="w-8 h-8 text-primary" />
                     </div>
 
-                    <PhoneInput
+                    {/*   <PhoneInput
                         value={phone}
                         onChange={setPhone}
                         error={phoneError}
                         disabled={isLoading}
                         placeholder="Enter your phone number"
                         className="mb-4"
+                    /> */}
+                    <Input
+                        value={identifier}
+                        onChange={(e) => setIdentifier(e.target.value)}
+                        placeholder="Enter Your Email"
+                        disabled={isLoading}
+                        className="mb-4"
+                        type="email"
+                        required
                     />
                     <Link href={"/signup"} className=" underline p-4 text-end w-full text-blue-500">Create new account</Link>
                     <AuthButton
                         onClick={handleSendOtp}
                         loading={isLoading}
                         loadingText="Sending OTP..."
-                        disabled={!phone}
+                        disabled={!identifier}
                         className="w-full"
                         size="lg"
                     >

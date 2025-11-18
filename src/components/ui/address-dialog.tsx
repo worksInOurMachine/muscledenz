@@ -15,28 +15,30 @@ interface AddressDialogProps {
     initialData?: AddressType | null;
     queryClient: any
 }
+const addressTemplate: Partial<AddressType> = {
+    city: "",
+    pincode: "",
+    country: "",
+    district: "",
+    state: "",
+    streetAddress: "",
+    locality: "",
+    landmark: "",
+    phone: "",
+    firstname: "",
+    lastname: "",
+}
 
 export function AddressDialog({ open, onOpenChange, initialData, queryClient }: AddressDialogProps) {
     const [loading, setIsLoading] = useState(false)
     const isEditing = Boolean(initialData?.id);
     const { data } = useSession();
     const userDocumentId = data?.user.id;
-    const [form, setForm] = useState<Partial<AddressType>>({
-        city: "",
-        pincode: "",
-        country: "",
-        district: "",
-        state: "",
-        streetAddress: "",
-        locality: "",
-        landmark: "",
-        phone: "",
-        firstname: "",
-        lastname: "",
-    });
+    const verifidPhone = data?.user.identifier;
+    const [form, setForm] = useState<Partial<AddressType>>(addressTemplate);
 
     useEffect(() => {
-        console.log(initialData)
+        setForm(addressTemplate);
         if (initialData) {
             setForm(initialData);
         }
@@ -68,6 +70,7 @@ export function AddressDialog({ open, onOpenChange, initialData, queryClient }: 
                     phone: Number(form.phone),
                     pincode: Number(form.pincode),
                     user: userDocumentId,
+                    verfiedIdentifier: verifidPhone
                 });
             }
             queryClient.invalidateQueries({ queryKey: ["addresses"] });

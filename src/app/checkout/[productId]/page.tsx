@@ -15,7 +15,7 @@ import { CartType } from "@/types/cart"
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
 import { useParams, useRouter } from "next/navigation"
-import { useState } from "react"
+import { use, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 type Step = "address" | "payment" | "success"
 
@@ -48,7 +48,8 @@ export default function CartCheckoutPage() {
     const [payment, setPayment] = useState<Payment>({ method: "cod" });
     const { data: session } = useSession();
     const userDocumentId = session?.user.id;
-
+    const [promoDiscount, setPromoDiscount] = useState(0);
+    const [coupon, setCoupon] = useState<{ documentId: string } | null>(null);
     const placeOrder = async () => {
         if (!items.length) {
             toast.error("Your cart is empty.")
@@ -60,7 +61,18 @@ export default function CartCheckoutPage() {
         }
         setPlacing(true)
         try {
-            const res = await Promise.all(items.map(async (item:CartType) => {
+            if (coupon?.documentId) {
+                const docIDS = (coupon as any).usedBy?.map((u: any) => u?.documentId) || [];
+                await strapi.update("coupons", coupon.documentId, {
+                    usedBy: [...docIDS, userDocumentId],
+                    usageCount: (coupon as any).usageCount + 1
+                })
+            }
+            const res = await Promise.all(items.map(async (item: CartType) => {
+                const caclAmount = calculateDiscountedPrice({
+                    price: item.product.price,
+                    discountPercentage: item.product.discount,
+                }) * Number(item.quantity)
                 const res = await strapi.create("orders", {
                     orderStatus: "pending",
                     user: userDocumentId,
@@ -68,12 +80,11 @@ export default function CartCheckoutPage() {
                     quantity: Number(item.quantity),
                     paymentStatus: payment.method === "cod" ? "pending" : "paid",
                     address: addressId,
-                    amount: calculateDiscountedPrice({
-                        price: Number(item.product.price),
-                        discountPercentage: Number(item.product.discount),
-                    }) * Number(item.quantity),
+                    amount: caclAmount - (promoDiscount / 100) * caclAmount,
+                    couponDiscount: Number(promoDiscount),
                     paymentMethod: payment.method === "cod" ? "COD" : "UPI",
                 })
+
                 await dispatch(removeItemsToCart(item.product.documentId))
                 return res
             }))
@@ -82,12 +93,13 @@ export default function CartCheckoutPage() {
             toast.success("Order placed successfully");
 
         } catch (err) {
-            console.log("[v0] Error placing cart order:", (err as Error).message);
+            console.log("[v0] Error placing cart order:", (err as Error));
             toast.error("Something went wrong placing your order.")
         } finally {
             setPlacing(false)
         }
     }
+
 
 
 
@@ -126,7 +138,7 @@ export default function CartCheckoutPage() {
                             </div>
 
                             <aside className="lg:col-span-1 space-y-4">
-                                <OrderSummary items={items} />
+                                <OrderSummary userDocumentId={userDocumentId} setCoupon={setCoupon} promoDiscount={promoDiscount} setPromoDiscount={setPromoDiscount} items={items} />
                             </aside>
                         </div>
                     ) : (

@@ -1,14 +1,6 @@
 "use client";
 import { LayoutGrid } from "../ui/layout-grid";
 
-export function ImageLayoutGrid() {
-  return (
-    <div className="h-screen md:py-5 w-full">
-      <LayoutGrid cards={cards} />
-    </div>
-  );
-}
-
 const SkeletonOne = () => {
   return (
     <div className="min-w-full">
@@ -68,28 +60,38 @@ const SkeletonFour = () => {
   );
 };
 
-const cards = [
+
+
+
+export function ImageLayoutGrid( {about_us}:{about_us:{url:string,id:number}[] | undefined | []}) {
+  const cards = [
   {
     id: 1,
     content: <SkeletonOne />,
     className: "md:col-span-2",
-    thumbnail:"/imageGrid/img2.png"
+    thumbnail:  about_us?.[0].url? about_us[0].url : "/imageGrid/img2.png"
   },
   {
     id: 2,
     content: <SkeletonTwo />,
     className: "col-span-1",
-    thumbnail:"/imageGrid/img1.png"
+    thumbnail:about_us?.[1].url? about_us[1].url : "/imageGrid/img1.png"
   },
   {
     id: 3,
     content: <SkeletonThree />,
     className: "col-span-1",
-    thumbnail:"https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGV4ZXJjaXNlfGVufDB8fDB8fHww"
+    thumbnail:about_us?.[2].url? about_us[2].url : "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGV4ZXJjaXNlfGVufDB8fDB8fHww"
   },
   {
     id: 4,
     content: <SkeletonFour />,
     className: "md:col-span-2",
-    thumbnail:"https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGV4ZXJjaXNlfGVufDB8fDB8fHww"
+    thumbnail:about_us?.[3].url? about_us[3].url : "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGV4ZXJjaXNlfGVufDB8fDB8fHww"
   },];
+  return (
+    <div className="h-screen md:py-5 w-full">
+      <LayoutGrid cards={cards} />
+    </div>
+  );
+}

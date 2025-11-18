@@ -2,10 +2,14 @@ import { CartType } from "@/types/cart";
 import { calculateDiscountedPrice } from "@/lib/calculateDiscountedPrice";
 export const cartCalculation = ({
   products,
-  promoApplied,
+  promoDiscount = 0,
+  promoCodeApplied,
+  setAmount,
 }: {
   products: CartType[];
-  promoApplied:boolean;
+  promoDiscount?: number;
+  promoCodeApplied?: boolean;
+  setAmount?: any;
 }) => {
   const subtotal = products.reduce(
     (sum, item) =>
@@ -17,10 +21,16 @@ export const cartCalculation = ({
         Number(item.quantity),
     0
   );
-  const discount = promoApplied ? subtotal * 0.1 : 0;
-  const shipping = subtotal > 50 ? 0 : 0;
-  const tax = (subtotal - discount) * 0;
-  const total = subtotal - discount + shipping + tax;
 
-  return {subtotal,discount,shipping,tax,total}
+  const shipping = subtotal > 50 ? 0 : 0;
+  const discount = promoDiscount;
+  const tax = subtotal * 0;
+  const total = promoCodeApplied
+    ? subtotal - (discount / 100) * subtotal + shipping + tax
+    : subtotal + shipping + tax;
+  if (setAmount) {
+    setAmount(total);
+  }
+
+  return { subtotal, shipping, tax, total };
 };

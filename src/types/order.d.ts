@@ -9,4 +9,19 @@ export interface OrderResType {
   amount: number;
   paymentMethod: "COD" | "UPI";
   documentId: string;
+  couponDiscount:number;
+  address: {
+    city: string;
+    state: string;
+    country: string;
+    district: string;
+    streetAddress: string;
+    locality: string;
+    landmark: string;
+    phone: string;
+    firstname: string;
+    lastname: string;
+    verfiedIdentifier: string;
+    pincode: number;
+  };
 }

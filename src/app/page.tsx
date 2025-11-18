@@ -8,13 +8,20 @@ import React from 'react';
 import Loading from './loading';
 const SlidingText = React.lazy(() => import('@/components/AnimatedComponent/SlidingText'));
 
+ 
+
 
 export default function Home() {
   const { data, isLoading, isError } = useStrapi("products/collections");
-  if (isLoading) return <Loading />
+  const { data:homePageData, isLoading:homePageLoading, isError:homePageError } = useStrapi("home-page",{
+    populate:"*"
+  });
+ console.log(homePageData)
+  if (isLoading || homePageLoading) return <Loading />
+
   return (
     <div className="min-w-full py-5 space-y-5 min-h-full p-1">
-      <ImageSlider />
+      <ImageSlider top_banners={homePageData?.data?.top_banners} />
       <div id="training-programs" className="w-full space-y-0">
 
         <div
@@ -22,10 +29,11 @@ export default function Home() {
         >
           About Our Products
         </div>
-        <ImageLayoutGrid />
+        <ImageLayoutGrid about_us={homePageData?.data?.about_images} />
       </div>
 
       <div className='space-y-10'>
+        {/* trending, popular, justLaunched, ayurveda, cosmeticsAndSkincare, proteinSupplements, sportsWears */}
         {
           data?.data.trending.length > 0 ? <ProductListings title="Trending Products" products={data?.data.trending} /> : ""
         }
@@ -35,6 +43,18 @@ export default function Home() {
         {
           data?.data.justLaunched.length > 0 ? <ProductListings title="Just Launched" products={data?.data.justLaunched} /> : ""
         }
+        {
+          data?.data.ayurveda.length > 0 ? <ProductListings title="Ayurveda" products={data?.data.ayurveda} /> : ""
+        }
+        {
+          data?.data.cosmeticsAndSkincare.length > 0 ? <ProductListings title="Cosmetics And Skincare" products={data?.data.cosmeticsAndSkincare} /> : ""
+        }
+        {
+          data?.data.proteinSupplements.length > 0 ? <ProductListings title="Protein Supplements" products={data?.data.proteinSupplements} /> : ""
+        }
+        {
+          data?.data.sportsWears.length > 0 ? <ProductListings title="Sports Wears" products={data?.data.sportsWears} /> : ""
+        }
       </div>
       <br />
       <div id="testimonials" className='py-2 sm:py-5 md:py-10 md:space-y-10 sm:p bg-slate-100 '>
@@ -43,7 +63,7 @@ export default function Home() {
         >
           What Our Customer's Say
         </div>
-        <TestimonialsCarousel />
+        <TestimonialsCarousel testimonials={homePageData?.data?.reviews} />
 
 
       </div>

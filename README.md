@@ -19,3 +19,6 @@ Welcome to **Gains Hub**, where we lift weights and lift spirits! If you're here
 cd gym-site
 npm install
 npm run dev
+
+
+

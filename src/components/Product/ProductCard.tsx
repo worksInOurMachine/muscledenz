@@ -57,7 +57,7 @@ export default function ProductCard({ product, addToCart }: { product: ProductRe
       <div className="flex flex-col flex-grow px-1 justify-between">
         {/* Product Name & Description */}
 
-        <Link href={`/products/${product.id}`}>
+        <Link href={`/products/${product.documentId}`}>
           <div className="mt-3 space-y-2">
             <h3 className="font-semibold text-gray-900 text-lg  md:text-lg line-clamp-2">
               {product.name}

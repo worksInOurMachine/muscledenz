@@ -7,13 +7,19 @@ export interface ProductResType {
   price: number;
   discount: number;
   images: string[];
-  thumbnail: {url:string} | null;
+  thumbnail: { url: string } | null;
   stock: number;
   category: CategoryResType;
   tags: string[];
-  collectionType: "popular" | "trending" | "fit-food" | "life-style" | "just-launched";
+  collectionType:
+    | "popular"
+    | "trending"
+    | "fit-food"
+    | "life-style"
+    | "just-launched";
   createdAt: string;
   updatedAt: string;
   isVeg: boolean;
-  documentId:string
+  documentId: string;
+  images: { url: string }[] | null;
 }

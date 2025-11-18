@@ -49,7 +49,7 @@ export default function ShoppingCart() {
         window.location.href = "/checkout";
     }
 
-    const { discount, shipping, subtotal, tax, total } = cartCalculation({ products, promoApplied: false })
+    const {  shipping, subtotal, tax, total } = cartCalculation({ products})
 
     const updateActiveLinks = () => {
         dispatch(setActiveLink("/products"))
