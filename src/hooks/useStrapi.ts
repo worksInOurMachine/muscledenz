@@ -8,6 +8,8 @@ type QueryOptions = {
   pagination?: { page: number; pageSize: number };
   filters?: Record<string, any>;
   sort?: string | string[];
+  field?: string[];
+  limit?: number;
 };
 
 const fetchStrapiData = async <T>(
