@@ -24,42 +24,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title:
-    "Muscle Denz | High-Protein Recipes, Muscle Building Meals & Fitness Nutrition",
+    "Muscledenz | High-Protein Recipes, Muscle Building Meals & Fitness Nutrition",
   description:
-    "Muscle Denz is your trusted hub for high-protein meals, clean diet tips, calorie-surplus bulking meals, fat-burning recipes, and science-based fitness nutrition for lean muscle. Discover healthy meal plans, gym diet guides, protein-rich Indian recipes, and evidence-backed nutrition for beginners and athletes.",
-  keywords: [
-    "Muscle Denz",
-    "Muscledenz",
-    "MuscleDenz",
-    "muscel denz",
-    "muscle denz",
-    "muscle dense",
-    "high protein recipes",
-    "high protien recipes",
-    "protien rich food",
-    "gym diet plan",
-    "muscle gain diet",
-    "lean muscle food",
-    "bulking diet",
-    "cutting diet",
-    "fat loss diet",
-    "indian high protein food",
-    "workout nutrition",
-    "meal prep ideas",
-    "healthy recipes",
-    "bodybuilding meals",
-    "protein diet plan",
-    "weight gain diet",
-    "calorie surplus meals",
-    "healthy lifestyle meals",
-    // Misspellings
-    "muscel denz",
-    "musle denz",
-    "protine foods",
-    "protien diets",
-    "gym protien meals",
-    "high protien food",
-  ],
+    "Muscledenz is your trusted hub for high-protein meals, clean diet tips, calorie-surplus bulking meals, fat-burning recipes, and science-based fitness nutrition for lean muscle. Discover healthy meal plans, gym diet guides, protein-rich Indian recipes, and evidence-backed nutrition for beginners and athletes.",
+  other: {
+    keywords:
+      "Muscle Denz, Muscle Denz nutrition, Muscle Denz protein, fitness nutrition, high-protein recipes, clean eating, lean muscle, meal plans, healthy recipes, muscle building, fat-burning meals, energy-boosting meals, protein-rich meals, healthy lifestyle, meal prep, workout nutrition, fitness, nutrition, healthy eating,Muscle Denz, muscledenz, Muscledenz, MuscleDenz, muscel denz,muscle denz,muscle dense,high protein recipes, high protien recipes,protien rich food,gym diet plan,muscle gain diet,lean muscle food,bulking diet,cutting diet,at loss diet,indian high protein food,workout nutrition,meal prep ideas,healthy recipes,bodybuilding meals,protein diet plan,weight gain diet,calorie surplus meals,healthy lifestyle meals,muscel denz,musle denz,protine foods,protien diets,gym protien meals,high protien food",
+  },
+
   icons: {
     icon: "/logo/md-logo.png",
     shortcut: "/logo/md-logo.png",
@@ -70,11 +42,11 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Muscle Denz | High-Protein Recipes, Muscle Building Meals & Fitness Nutrition",
+      "MuscleDenz | High-Protein Recipes, Muscle Building Meals & Fitness Nutrition",
     description:
       "Explore high-protein meals, fat-loss recipes, healthy meal plans, and science-backed fitness nutrition designed to help you build muscle, burn fat, and stay energized.",
     url: "https://www.muscledenz.com",
-    siteName: "Muscle Denz",
+    siteName: "Muscledenz",
     images: [
       {
         url: "/logo/md-logo.png",
@@ -126,7 +98,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script id="structured-data" type="application/ld+json">
+        {/*    <Script id="structured-data" type="application/ld+json">
           {`
   {
     "@context": "https://schema.org",
@@ -201,7 +173,7 @@ export default async function RootLayout({
     ]
   }
   `}
-        </Script>
+        </Script> */}
 
         {/* Google Analytics Script */}
         <Script
