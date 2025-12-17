@@ -118,7 +118,9 @@ export default function ProductDetailsPage() {
                     <Image
                       //@ts-ignore
                       src={
-                        images[selectedImageIndex]?.url ||
+                         //@ts-ignore
+
+                         images[selectedImageIndex]?.url ? images[selectedImageIndex]?.url :
                         "/placeholder.svg?height=600&width=600"
                       }
                       alt={product?.name}
