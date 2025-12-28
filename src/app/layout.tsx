@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Muscle Denz",
     description:
       "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
-    url: "https://muscle-denz.vercel.app/",
+    url: "https://muscledenz.com/",
     siteName: "Muscle Denz",
     images: [
       {
