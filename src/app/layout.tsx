@@ -80,7 +80,7 @@ export const metadata: Metadata = {
 
   other: {
     keywords:
-      "muscledenz, MuscleDenz,muscleDenz, fitness supplements, sports nutrition, whey protein, muscle building supplements",
+      "muscledenz, fitness supplements, sports nutrition, whey protein, muscle building supplements",
   },
 };
 
