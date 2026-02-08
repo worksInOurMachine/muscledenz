@@ -1,4 +1,3 @@
-"use client"
 import { ProductResType } from "@/types/product";
 import ProductCarousel from "./productsCarousel";
 

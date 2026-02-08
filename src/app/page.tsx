@@ -1,74 +1,186 @@
-'use client'
-import { ImageLayoutGrid } from '@/components/ImageGridLayout/ImageGridLayout';
 import ImageSlider from '@/components/ImageSlider';
+import { ImageLayoutGrid } from '@/components/ImageGridLayout/ImageGridLayout';
 import ProductListings from '@/components/Product';
 import TestimonialsCarousel from '@/components/Testimonials/TestimonialsCarousel';
-import { useStrapi } from '@/hooks/useStrapi';
-import React from 'react';
 import Loading from './loading';
-const SlidingText = React.lazy(() => import('@/components/AnimatedComponent/SlidingText'));
-
- 
+import dynamic from 'next/dynamic';
 
 
-export default function Home() {
-  const { data, isLoading, isError } = useStrapi("products/collections");
-  const { data:homePageData, isLoading:homePageLoading, isError:homePageError } = useStrapi("home-page",{
-    populate:"*"
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "MuscleDenz | Premium Fitness & Muscle Building Supplements",
+
+  description:
+    "MuscleDenz offers premium fitness supplements crafted for muscle growth, strength, endurance, and faster recovery. Clean ingredients. Real results.",
+
+  keywords: [
+    "MuscleDenz",
+    "muscledenz",
+    "Muscle denz",
+    "muscledenz.com",
+    "fitness supplements",
+    "muscle building supplements",
+    "whey protein India",
+    "gym supplements",
+    "sports nutrition brand",
+    'muscledenz gym',
+    'mucledenz nutrition mandsaur',
+    'best gym mandsaur',
+    'best suppliments in india',
+    'natural suppliment brand',
+    'muscledenz protein',
+    'muscledenz whey protein',
+    'muscledenz creatine',
+    'muscledenz mass gainer',
+    'muscledenz pre workout',
+    'muscledenz post workout',
+    'muscledenz fat burner',
+    'muscledenz bcaa',
+    'muscledenz glutamine',
+    'muscledenz multivitamin',
+    'muscledenz omega 3',
+    'muscledenz joint support',
+    'muscledenz testosterone booster',
+    'muscledenz protein powder',
+    'muscledenz protein bar',
+    'muscledenz protein shake',
+    'muscledenz protein water',
+    'muscledenz protein cookie',
+    'muscledenz protein cookie',
+  ],
+
+  metadataBase: new URL("https://muscledenz.com"),
+
+  openGraph: {
+    title: "MuscleDenz | Premium Fitness Supplements",
+    description:
+      "Fuel your workouts with high-quality supplements for muscle growth, strength, and recovery.",
+    url: "https://muscledenz.com",
+    siteName: "MuscleDenz",
+    images: [
+      {
+        url: "/logo/md-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "MuscleDenz Fitness Supplements",
+      },
+    ],
+    type: "website",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: "https://muscledenz.com",
+  },
+
+  category: "Health & Fitness",
+};
+
+
+const SlidingText = dynamic(
+  () => import('@/components/AnimatedComponent/SlidingText'),
+);
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL!;
+const STRAPI_TOKEN = process.env.NEXT_PUBLIC_STRAPI_AUTH_TOKEN!;
+
+async function fetchFromStrapi(endpoint: string, query = '') {
+  const res = await fetch(`${STRAPI_URL}/api/${endpoint}${query}`, {
+    headers: {
+      Authorization: `Bearer ${STRAPI_TOKEN}`,
+    },
+    next: { revalidate: 60 }, // ISR (important)
   });
- console.log(homePageData)
-  if (isLoading || homePageLoading) return <Loading />
+
+  if (!res.ok) throw new Error('Failed to fetch');
+
+  return res.json();
+}
+
+export default async function Home() {
+  const [collections, homePage] = await Promise.all([
+    fetchFromStrapi('products/collections'),
+    fetchFromStrapi('home-page', '?populate=*'),
+  ]);
+
+  const data = collections?.data;
+  const homePageData = homePage?.data;
+
+  if (!data || !homePageData) return <Loading />;
 
   return (
     <div className="min-w-full py-5 space-y-5 min-h-full p-1">
-      <ImageSlider top_banners={homePageData?.data?.top_banners} />
-      <div id="training-programs" className="w-full space-y-0">
+      <ImageSlider top_banners={homePageData.top_banners} />
 
-        <div
-          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-700 font-bold text-center"
-        >
+      <div id="training-programs" className="w-full space-y-0">
+        <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-700 font-bold text-center">
           About Our Products
         </div>
-        <ImageLayoutGrid about_us={homePageData?.data?.about_images} />
+        <ImageLayoutGrid about_us={homePageData.about_images} />
       </div>
 
-      <div className='space-y-10'>
-        {/* trending, popular, justLaunched, ayurveda, cosmeticsAndSkincare, proteinSupplements, sportsWears */}
-        {
-          data?.data.trending.length > 0 ? <ProductListings title="Trending Products" products={data?.data.trending} /> : ""
-        }
-        {
-          data?.data.popular.length > 0 ? <ProductListings title="Popular Products" products={data?.data.popular} /> : ""
-        }
-        {
-          data?.data.justLaunched.length > 0 ? <ProductListings title="Just Launched" products={data?.data.justLaunched} /> : ""
-        }
-        {
-          data?.data.ayurveda.length > 0 ? <ProductListings title="Ayurveda" products={data?.data.ayurveda} /> : ""
-        }
-        {
-          data?.data.cosmeticsAndSkincare.length > 0 ? <ProductListings title="Cosmetics And Skincare" products={data?.data.cosmeticsAndSkincare} /> : ""
-        }
-        {
-          data?.data.proteinSupplements.length > 0 ? <ProductListings title="Protein Supplements" products={data?.data.proteinSupplements} /> : ""
-        }
-        {
-          data?.data.sportsWears.length > 0 ? <ProductListings title="Sports Wears" products={data?.data.sportsWears} /> : ""
-        }
+      <div className="space-y-10">
+        {data.trending?.length > 0 && (
+          <ProductListings title="Trending Products" products={data.trending} />
+        )}
+
+        {data.popular?.length > 0 && (
+          <ProductListings title="Popular Products" products={data.popular} />
+        )}
+
+        {data.justLaunched?.length > 0 && (
+          <ProductListings title="Just Launched" products={data.justLaunched} />
+        )}
+
+        {data.ayurveda?.length > 0 && (
+          <ProductListings title="Ayurveda" products={data.ayurveda} />
+        )}
+
+        {data.cosmeticsAndSkincare?.length > 0 && (
+          <ProductListings
+            title="Cosmetics And Skincare"
+            products={data.cosmeticsAndSkincare}
+          />
+        )}
+
+        {data.proteinSupplements?.length > 0 && (
+          <ProductListings
+            title="Protein Supplements"
+            products={data.proteinSupplements}
+          />
+        )}
+
+        {data.sportsWears?.length > 0 && (
+          <ProductListings
+            title="Sports Wears"
+            products={data.sportsWears}
+          />
+        )}
       </div>
-      <br />
-      <div id="testimonials" className='py-2 sm:py-5 md:py-10 md:space-y-10 sm:p bg-slate-100 '>
-        <div
-          className="text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-bold text-center"
-        >
-          What Our Customer's Say
+
+      <div
+        id="testimonials"
+        className="py-2 sm:py-5 md:py-10 md:space-y-10 bg-slate-100"
+      >
+        <div className="text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-bold text-center">
+          What Our Customer&apos;s Say
         </div>
-        <TestimonialsCarousel testimonials={homePageData?.data?.reviews} />
-
-
+        <TestimonialsCarousel testimonials={homePageData.reviews} />
       </div>
-      <SlidingText velocity={100} className='text-black/60' texts={Array(1).fill([<h1 key={1} className='w-full'> MUSCLE<span className='text-red-600'>DENZ</span>&nbsp;|&nbsp;  </h1>])} />
-
+      <SlidingText
+        velocity={100}
+        className="text-black/60"
+        texts={[
+          <h1 key={1}>
+            MUSCLE<span className="text-red-600">DENZ</span>
+          </h1>,
+        ]}
+      />
     </div>
   );
 }
