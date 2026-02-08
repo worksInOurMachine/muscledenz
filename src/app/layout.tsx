@@ -22,56 +22,66 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
-  title: "Muscle Denz",
+  title: {
+    default: "MuscleDenz",
+    template: "%s | MuscleDenz",
+  },
+
   description:
-    "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
+    "MuscleDenz is a premium fitness and sports nutrition brand focused on quality supplements that support performance, strength, and recovery.",
+
+  metadataBase: new URL("https://muscledenz.com"),
+
   icons: {
     icon: "/logo/md-logo.png",
     shortcut: "/logo/md-logo.png",
     apple: "/logo/md-logo.png",
   },
+
   alternates: {
     canonical: "https://muscledenz.com",
   },
+
   openGraph: {
-    title: "Muscle Denz",
+    title: "MuscleDenz",
     description:
-      "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
-    url: "https://muscledenz.com/",
-    siteName: "Muscle Denz",
+      "Premium fitness and sports nutrition brand built for performance and recovery.",
+    siteName: "MuscleDenz",
+    url: "https://muscledenz.com",
+    type: "website",
     images: [
       {
-        url: "/logo/md-logo.png",
-        width: 800,
-        height: 600,
+        url: "/logo/md-logo.png", // 1200x630 recommended
+        width: 1200,
+        height: 630,
+        alt: "MuscleDenz Sports Nutrition Brand",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Muscle Denz",
+    title: "MuscleDenz",
     description:
-      "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
-    images: "/logo/md-logo.png",
+      "Premium fitness and sports nutrition brand focused on quality and performance.",
+    images: ["/logo/md-logo.png"],
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    minimumScale: 1,
-    userScalable: false,
-  },
+
   robots: {
     index: true,
     follow: true,
   },
+
   themeColor: "#008ED6",
+
+  category: "Health & Fitness",
+
   other: {
     keywords:
-      "Muscle Denz, Muscle Denz nutrition, Muscle Denz protein, fitness nutrition, high-protein recipes, clean eating, lean muscle, meal plans, healthy recipes, muscle building, fat-burning meals, energy-boosting meals, protein-rich meals, healthy lifestyle, meal prep, workout nutrition, fitness, nutrition, healthy eating",
+      "muscledenz, MuscleDenz,muscleDenz, fitness supplements, sports nutrition, whey protein, muscle building supplements",
   },
-
 };
 
 function SearchBarFallback() {

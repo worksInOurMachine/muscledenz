@@ -12,61 +12,37 @@ export const metadata: Metadata = {
   title: "MuscleDenz | Premium Fitness & Muscle Building Supplements",
 
   description:
-    "MuscleDenz offers premium fitness supplements crafted for muscle growth, strength, endurance, and faster recovery. Clean ingredients. Real results.",
-
-  keywords: [
-    "MuscleDenz",
-    "muscledenz",
-    "Muscle denz",
-    "muscledenz.com",
-    "fitness supplements",
-    "muscle building supplements",
-    "whey protein India",
-    "gym supplements",
-    "sports nutrition brand",
-    'muscledenz gym',
-    'mucledenz nutrition mandsaur',
-    'best gym mandsaur',
-    'best suppliments in india',
-    'natural suppliment brand',
-    'muscledenz protein',
-    'muscledenz whey protein',
-    'muscledenz creatine',
-    'muscledenz mass gainer',
-    'muscledenz pre workout',
-    'muscledenz post workout',
-    'muscledenz fat burner',
-    'muscledenz bcaa',
-    'muscledenz glutamine',
-    'muscledenz multivitamin',
-    'muscledenz omega 3',
-    'muscledenz joint support',
-    'muscledenz testosterone booster',
-    'muscledenz protein powder',
-    'muscledenz protein bar',
-    'muscledenz protein shake',
-    'muscledenz protein water',
-    'muscledenz protein cookie',
-    'muscledenz protein cookie',
-  ],
+    "MuscleDenz is a premium sports nutrition brand offering high-quality fitness supplements to support muscle growth, strength, endurance, and recovery.",
 
   metadataBase: new URL("https://muscledenz.com"),
+
+  alternates: {
+    canonical: "https://muscledenz.com",
+  },
 
   openGraph: {
     title: "MuscleDenz | Premium Fitness Supplements",
     description:
-      "Fuel your workouts with high-quality supplements for muscle growth, strength, and recovery.",
+      "Fuel your workouts with clean, high-quality supplements designed for muscle growth, strength, and recovery.",
     url: "https://muscledenz.com",
     siteName: "MuscleDenz",
+    type: "website",
     images: [
       {
-        url: "/logo/md-logo.png",
+        url: "/logo/md-logo.png", // ⚠️ Use lifestyle + product image
         width: 1200,
         height: 630,
-        alt: "MuscleDenz Fitness Supplements",
+        alt: "MuscleDenz Premium Fitness Supplements",
       },
     ],
-    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "MuscleDenz | Premium Fitness Supplements",
+    description:
+      "High-quality sports nutrition supplements crafted for performance and recovery.",
+    images: ["/logo/md-logo.png"],
   },
 
   robots: {
@@ -74,13 +50,14 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-  alternates: {
-    canonical: "https://muscledenz.com",
-  },
-
   category: "Health & Fitness",
-};
 
+  // Optional – keep it CLEAN if you insist
+  other: {
+    keywords:
+      "MuscleDenz, fitness supplements, muscle building supplements, whey protein India, sports nutrition brand",
+  },
+};
 
 const SlidingText = dynamic(
   () => import('@/components/AnimatedComponent/SlidingText'),
