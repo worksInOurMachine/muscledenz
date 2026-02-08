@@ -7,7 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from 'react-hot-toast';
 import { authOptions } from "../../auth";
 import "./globals.css";
 import { QueryProviders } from "@/components/Provider/query-provider";
@@ -23,73 +23,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title:
-    "Muscle Denz | High-Protein Recipes, Muscle Building Meals & Fitness Nutrition",
+  title: "Muscle Denz",
   description:
-    "Muscle Denz is your trusted hub for high-protein meals, clean diet tips, calorie-surplus bulking meals, fat-burning recipes, and science-based fitness nutrition for lean muscle. Discover healthy meal plans, gym diet guides, protein-rich Indian recipes, and evidence-backed nutrition for beginners and athletes.",
-  keywords: [
-    "Muscle Denz",
-    "Muscledenz",
-    "MuscleDenz",
-    "muscel denz",
-    "muscle denz",
-    "muscle dense",
-    "high protein recipes",
-    "high protien recipes",
-    "protien rich food",
-    "gym diet plan",
-    "muscle gain diet",
-    "lean muscle food",
-    "bulking diet",
-    "cutting diet",
-    "fat loss diet",
-    "indian high protein food",
-    "workout nutrition",
-    "meal prep ideas",
-    "healthy recipes",
-    "bodybuilding meals",
-    "protein diet plan",
-    "weight gain diet",
-    "calorie surplus meals",
-    "healthy lifestyle meals",
-    // Misspellings
-    "muscel denz",
-    "musle denz",
-    "protine foods",
-    "protien diets",
-    "gym protien meals",
-    "high protien food",
-  ],
+    "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
   icons: {
     icon: "/logo/md-logo.png",
     shortcut: "/logo/md-logo.png",
     apple: "/logo/md-logo.png",
   },
   alternates: {
-    canonical: "https://www.muscledenz.com",
+    canonical: "https://muscledenz.com",
   },
   openGraph: {
-    title:
-      "Muscle Denz | High-Protein Recipes, Muscle Building Meals & Fitness Nutrition",
+    title: "Muscle Denz",
     description:
-      "Explore high-protein meals, fat-loss recipes, healthy meal plans, and science-backed fitness nutrition designed to help you build muscle, burn fat, and stay energized.",
-    url: "https://www.muscledenz.com",
+      "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
+    url: "https://muscledenz.com/",
     siteName: "Muscle Denz",
     images: [
       {
         url: "/logo/md-logo.png",
-        width: 1200,
-        height: 630,
+        width: 800,
+        height: 600,
       },
     ],
-    type: "website",
-    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muscle Denz | High-Protein & Muscle-Building Recipes",
+    title: "Muscle Denz",
     description:
-      "High-protein recipes, muscle-building meal plans, fat-burning foods, and clean eating nutrition backed by science. Build lean muscle with Muscle Denz.",
+      "Fuel your gains with Muscle Denz — your go-to hub for high-protein recipes, clean eating tips, and meal plans designed to boost energy, burn fat, and build lean muscle.",
     images: "/logo/md-logo.png",
   },
   viewport: {
@@ -104,6 +67,11 @@ export const metadata: Metadata = {
     follow: true,
   },
   themeColor: "#008ED6",
+  other: {
+    keywords:
+      "Muscle Denz, Muscle Denz nutrition, Muscle Denz protein, fitness nutrition, high-protein recipes, clean eating, lean muscle, meal plans, healthy recipes, muscle building, fat-burning meals, energy-boosting meals, protein-rich meals, healthy lifestyle, meal prep, workout nutrition, fitness, nutrition, healthy eating",
+  },
+
 };
 
 function SearchBarFallback() {
@@ -126,83 +94,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script id="structured-data" type="application/ld+json">
-          {`
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://www.muscledenz.com/#organization",
-        "name": "Muscle Denz",
-        "url": "https://www.muscledenz.com",
-        "logo": "https://www.muscledenz.com/logo/md-logo.png",
-        "sameAs": [
-          "https://instagram.com/muscledenz",
-          "https://www.facebook.com/muscledenz",
-          "https://www.twitter.com/muscledenz"
-        ]
-      },
-      {
-        "@type": "Brand",
-        "@id": "https://www.muscledenz.com/#brand",
-        "name": "Muscle Denz",
-        "logo": "https://www.muscledenz.com/logo/md-logo.png",
-        "url": "https://www.muscledenz.com",
-        "description": "High-protein recipes, muscle-building meals, fitness nutrition tips, and clean eating guides for healthy muscle growth.",
-        "image": "https://www.muscledenz.com/logo/md-logo.png"
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://www.muscledenz.com/#website",
-        "url": "https://www.muscledenz.com",
-        "name": "Muscle Denz",
-        "publisher": {
-          "@id": "https://www.muscledenz.com/#organization"
-        },
-        "inLanguage": "en-US",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://www.muscledenz.com/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      },
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://www.muscledenz.com/#localbusiness",
-        "name": "Muscle Denz",
-        "image": "https://www.muscledenz.com/logo/md-logo.png",
-        "url": "https://www.muscledenz.com",
-        "telephone": "+91-7693017906",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IN"
-        },
-        "priceRange": "$$",
-        "description": "Fitness nutrition brand offering high-protein recipes, muscle-building plans, diet guides, and healthy meal ideas.",
-        "servesCuisine": ["Healthy", "High-Protein", "Fitness", "Muscle-Building"],
-        "sameAs": [
-          "https://instagram.com/muscledenz"
-        ]
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://www.muscledenz.com/#webpage",
-        "url": "https://www.muscledenz.com",
-        "name": "Muscle Denz | High-Protein Recipes & Muscle-Building Nutrition",
-        "description": "Discover science-backed high-protein recipes, lean muscle meal plans, calorie-surplus diets, and clean eating guides at Muscle Denz.",
-        "isPartOf": {
-          "@id": "https://www.muscledenz.com/#website"
-        },
-        "about": {
-          "@id": "https://www.muscledenz.com/#organization"
-        }
-      }
-    ]
-  }
-  `}
-        </Script>
-
         {/* Google Analytics Script */}
         <Script
           async
