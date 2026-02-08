@@ -73,7 +73,7 @@ export default function LoginPage() {
             const res = await signIn("credentials", {
                 redirect: false,
                 identifier,
-                otp,
+                otp,            
                 firstname: firstName,
                 lastname: lastName
             });
