@@ -14,7 +14,7 @@ const TopMarquee: React.FC<TopMarqueeProps> = ({ text }) => {
   const items = Array(10).fill(text);
 
   return (
-    <div className="w-full bg-[#111111] text-white py-2  overflow-hidden whitespace-nowrap border-b border-white/5 z-[60] relative">
+    <div className="w-full  bg-[#111111] text-white py-2  overflow-hidden whitespace-nowrap border-b border-white/5 z-[60] relative">
       <motion.div
         initial={{ x: 0 }}
         animate={{ x: "-50%" }}

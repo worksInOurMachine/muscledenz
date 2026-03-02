@@ -26,7 +26,6 @@ async function fetchFromStrapi(endpoint: string, query = '') {
 }
 
 export default async function HeadlineMarquee() {
-  // Use populate=* to ensure we get all fields including headLineText
   const homePage = await fetchFromStrapi('home-page', '?populate=*');
   const homePageData = homePage?.data;
   
