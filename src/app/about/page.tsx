@@ -1,12 +1,76 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Award, Dumbbell, Heart, Shield, Users } from "lucide-react"
+import type { Metadata } from "next"
 
 import { Button } from "@/components/ui/button"
 
+export const metadata: Metadata = {
+  title: "About Us | Premium Fitness & Sports Nutrition Brand",
+  description:
+    "Learn about MuscleDenz's journey from a garage startup to a global premium fitness supplements brand. Discover our values, mission, and commitment to quality nutrition.",
+  
+  metadataBase: new URL("https://muscledenz.com"),
+  
+  alternates: {
+    canonical: "https://muscledenz.com/about",
+  },
+  
+  openGraph: {
+    title: "About MuscleDenz | Our Story & Values",
+    description:
+      "Founded by fitness enthusiasts and nutritionists, MuscleDenz is dedicated to creating supplements that work with ingredients you can trust.",
+    url: "https://muscledenz.com/about",
+    siteName: "MuscleDenz",
+    type: "website",
+    images: [
+      {
+        url: "/logo/md-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "MuscleDenz - About Our Brand",
+      },
+    ],
+  },
+  
+  twitter: {
+    card: "summary_large_image",
+    title: "About MuscleDenz | Our Story & Values",
+    description:
+      "Discover how MuscleDenz became a trusted name in premium fitness supplements and sports nutrition.",
+    images: ["/logo/md-logo.png"],
+  },
+  
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 export default function AboutUs() {
+  // AboutPage Schema
+  const aboutPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About MuscleDenz',
+    description: 'Learn about MuscleDenz, a premium sports nutrition brand focused on quality supplements for muscle growth, strength, and recovery.',
+    url: 'https://muscledenz.com/about',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'MuscleDenz',
+      foundingDate: '2010',
+      description: 'Premium fitness and sports nutrition brand built for performance and recovery.',
+    },
+  };
+
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
+      
+      <div className="flex min-h-screen flex-col bg-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -320,7 +384,8 @@ export default function AboutUs() {
         </div>
       </section>
 
-    </div>
+      </div>
+    </>
   )
 }
 

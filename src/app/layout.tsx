@@ -67,6 +67,8 @@ export const metadata: Metadata = {
     description:
       "Premium fitness and sports nutrition brand focused on quality and performance.",
     images: ["/logo/md-logo.png"],
+    // site: "@muscledenz", // Add your Twitter handle here
+    // creator: "@muscledenz", // Add your Twitter handle here
   },
 
   robots: {
@@ -80,7 +82,7 @@ export const metadata: Metadata = {
 
   other: {
     keywords:
-      "muscledenz, MuscleDenz,muscleDenz, fitness supplements, sports nutrition, whey protein, muscle building supplements",
+      "fitness supplements, sports nutrition, whey protein, muscle building, protein powder, pre-workout, post-workout, creatine, BCAA, India supplements",
   },
 };
 

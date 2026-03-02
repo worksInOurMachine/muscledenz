@@ -2,38 +2,37 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: {
-    cartItems:JSON.parse(localStorage.getItem("cartItems")!)!  || []   //typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("cartItems")! || "[]")! : [] 
+    cartItems: typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("cartItems")! || "[]")! : []
   },
 };
 
-const addToCartSlice = createSlice({ 
+const addToCartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addTocart(state, action) { 
-       const item = action.payload;
-       const itemexist = current(state).cart.cartItems.filter(
-         (i: any) => i.product.documentId === item.product.documentId
-       );
-       if(itemexist.length){
-         state.cart.cartItems = current(state).cart.cartItems.map((i: any) =>
-           i.product.documentId === item.product.documentId ? item : i
-         );
-       }else{
-        state.cart.cartItems = [...state.cart.cartItems,item]
-       }
+    addTocart(state, action) {
+      const item = action.payload;
+      const itemexist = current(state).cart.cartItems.filter(
+        (i: any) => i.product.documentId === item.product.documentId
+      );
+      if (itemexist.length) {
+        state.cart.cartItems = current(state).cart.cartItems.map((i: any) =>
+          i.product.documentId === item.product.documentId ? item : i
+        );
+      } else {
+        state.cart.cartItems = [...state.cart.cartItems, item]
+      }
     },
-    revmoveToCart(state,action){
-        const item = action.payload;
-        const removeItem = current(state).cart.cartItems.filter((i:any)=>i.product.documentId !== item.documentId)
-        state.cart.cartItems = removeItem
+    revmoveToCart(state, action) {
+      const item = action.payload;
+      const removeItem = current(state).cart.cartItems.filter((i: any) => i.product.documentId !== item.documentId)
+      state.cart.cartItems = removeItem
     },
-   
+
 
   },
-}); 
+});
 
-export const {addTocart,revmoveToCart } = addToCartSlice.actions
+export const { addTocart, revmoveToCart } = addToCartSlice.actions
 
 export default addToCartSlice.reducer;
-  

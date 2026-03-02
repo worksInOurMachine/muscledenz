@@ -90,74 +90,123 @@ export default async function Home() {
 
   if (!data || !homePageData) return <Loading />;
 
+  // Organization Schema
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'MuscleDenz',
+    url: 'https://muscledenz.com',
+    logo: 'https://muscledenz.com/logo/md-logo.png',
+    description: 'MuscleDenz is a premium sports nutrition brand offering high-quality fitness supplements to support muscle growth, strength, endurance, and recovery.',
+    sameAs: [
+      // Add social media links here when available
+      // 'https://www.facebook.com/muscledenz',
+      // 'https://www.instagram.com/muscledenz',
+      // 'https://twitter.com/muscledenz',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'Customer Service',
+      availableLanguage: 'English',
+    },
+  };
+
+  // WebSite Schema with Search Action
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'MuscleDenz',
+    url: 'https://muscledenz.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://muscledenz.com/products?query={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
   return (
-    <div className="min-w-full py-5 space-y-5 min-h-full p-1">
-      <ImageSlider top_banners={homePageData.top_banners} />
-
-      <div id="training-programs" className="w-full space-y-0">
-        <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-700 font-bold text-center">
-          About Our Products
-        </div>
-        <ImageLayoutGrid about_us={homePageData.about_images} />
-      </div>
-
-      <div className="space-y-10">
-        {data.trending?.length > 0 && (
-          <ProductListings title="Trending Products" products={data.trending} />
-        )}
-
-        {data.popular?.length > 0 && (
-          <ProductListings title="Popular Products" products={data.popular} />
-        )}
-
-        {data.justLaunched?.length > 0 && (
-          <ProductListings title="Just Launched" products={data.justLaunched} />
-        )}
-
-        {data.ayurveda?.length > 0 && (
-          <ProductListings title="Ayurveda" products={data.ayurveda} />
-        )}
-
-        {data.cosmeticsAndSkincare?.length > 0 && (
-          <ProductListings
-            title="Cosmetics And Skincare"
-            products={data.cosmeticsAndSkincare}
-          />
-        )}
-
-        {data.proteinSupplements?.length > 0 && (
-          <ProductListings
-            title="Protein Supplements"
-            products={data.proteinSupplements}
-          />
-        )}
-
-        {data.sportsWears?.length > 0 && (
-          <ProductListings
-            title="Sports Wears"
-            products={data.sportsWears}
-          />
-        )}
-      </div>
-
-      <div
-        id="testimonials"
-        className="py-2 sm:py-5 md:py-10 md:space-y-10 bg-slate-100"
-      >
-        <div className="text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-bold text-center">
-          What Our Customer&apos;s Say
-        </div>
-        <TestimonialsCarousel testimonials={homePageData.reviews} />
-      </div>
-      <SlidingText
-        velocity={100}
-        className="text-black/60"
-        texts={[
-          <h1 key={1}>
-            MUSCLE<span className="text-red-600">DENZ</span>
-          </h1>,
-        ]}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-    </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      
+      <main className="min-w-full py-5 space-y-5 min-h-full p-1">
+        <ImageSlider top_banners={homePageData.top_banners} />
+
+        <section id="training-programs" className="w-full space-y-0" aria-label="About Our Products">
+          <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-700 font-bold text-center">
+            About Our Products
+          </div>
+          <ImageLayoutGrid about_us={homePageData.about_images} />
+        </section>
+
+        <section className="space-y-10" aria-label="Product Collections">
+          {data.trending?.length > 0 && (
+            <ProductListings title="Trending Products" products={data.trending} />
+          )}
+
+          {data.popular?.length > 0 && (
+            <ProductListings title="Popular Products" products={data.popular} />
+          )}
+
+          {data.justLaunched?.length > 0 && (
+            <ProductListings title="Just Launched" products={data.justLaunched} />
+          )}
+
+          {data.ayurveda?.length > 0 && (
+            <ProductListings title="Ayurveda" products={data.ayurveda} />
+          )}
+
+          {data.cosmeticsAndSkincare?.length > 0 && (
+            <ProductListings
+              title="Cosmetics And Skincare"
+              products={data.cosmeticsAndSkincare}
+            />
+          )}
+
+          {data.proteinSupplements?.length > 0 && (
+            <ProductListings
+              title="Protein Supplements"
+              products={data.proteinSupplements}
+            />
+          )}
+
+          {data.sportsWears?.length > 0 && (
+            <ProductListings
+              title="Sports Wears"
+              products={data.sportsWears}
+            />
+          )}
+        </section>
+
+        <section
+          id="testimonials"
+          className="py-2 sm:py-5 md:py-10 md:space-y-10 bg-slate-100"
+          aria-label="Customer Testimonials"
+        >
+          <div className="text-2xl sm:text-4xl lg:text-5xl text-gray-700 font-bold text-center">
+            What Our Customer&apos;s Say
+          </div>
+          <TestimonialsCarousel testimonials={homePageData.reviews} />
+        </section>
+        <SlidingText
+          velocity={100}
+          className="text-black/60"
+          texts={[
+            <h1 key={1}>
+              MUSCLE<span className="text-red-600">DENZ</span>
+            </h1>,
+          ]}
+        />
+      </main>
+    </>
   );
 }

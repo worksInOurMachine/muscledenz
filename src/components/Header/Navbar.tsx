@@ -69,7 +69,7 @@ const Navbar = () => {
           <a href={"/"}>
             <Image
               src={"/logo/md-logo1.jpg"}
-              alt="muscledenz"
+              alt="MuscleDenz - Premium Fitness Supplements Logo"
               height={50}
               width={100}
               className="xl:w-[154px] md:w-[120px] w-[80px] xl:h-[74px] lg:h-[60px] md:h-[60px] h-[50px] lg:pb-[10px] lg:pt-0 pt-[12px]---"

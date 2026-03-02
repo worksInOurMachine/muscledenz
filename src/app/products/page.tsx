@@ -53,7 +53,7 @@ export default function ProductListingPage() {
     fetchNextPage,
     hasNextPage,
     isLoading,
-  } = useInfiniteQuery({
+  } = useInfiniteQuery({    
     queryKey: ["products", { q, category }],
     queryFn: ({ pageParam }) => fetchProducts({ pageParam, query: q, category }),
     getNextPageParam: (lastPage) => lastPage.nextPage,
