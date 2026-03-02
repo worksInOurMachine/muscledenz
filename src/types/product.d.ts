@@ -12,14 +12,15 @@ export interface ProductResType {
   category: CategoryResType;
   tags: string[];
   collectionType:
-    | "popular"
-    | "trending"
-    | "fit-food"
-    | "life-style"
-    | "just-launched";
+  | "popular"
+  | "trending"
+  | "fit-food"
+  | "life-style"
+  | "just-launched";
   createdAt: string;
   updatedAt: string;
   isVeg: boolean;
   documentId: string;
+  ecomUrl: string;
   images: { url: string }[] | null;
 }

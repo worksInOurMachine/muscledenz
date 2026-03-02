@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Header/Navbar";
+import HeadlineMarquee from "@/components/Header/HeadlineMarquee";
 import AuthProvider from "@/components/Provider/provider";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -125,6 +126,7 @@ export default async function RootLayout({
           <AuthProvider session={session}>
             <QueryProviders>
               <Suspense fallback={<SearchBarFallback />}>
+                <HeadlineMarquee />
                 <Navbar />
               </Suspense>
               <NuqsAdapter>{children}</NuqsAdapter>

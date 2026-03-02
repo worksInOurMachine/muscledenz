@@ -264,7 +264,7 @@ export default function ProductDetailsPage() {
 
                 {/* Quantity Selector */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4">
+                  {/* <div className="flex items-center gap-4">
                     <span className="font-semibold">Quantity:</span>
                     <div className="flex items-center border rounded-md">
                       <Button
@@ -289,11 +289,10 @@ export default function ProductDetailsPage() {
                         <Plus className="w-4 h-4" />
                       </Button>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Action Buttons */}
-                  <div className="space-y-3">
-                    <Button
+                    {/* <Button
                       variant="outline"
                       size="lg"
                       className="w-full bg-transparent"
@@ -302,9 +301,9 @@ export default function ProductDetailsPage() {
                     >
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Add to Cart
-                    </Button>
+                    </Button> */}
 
-                    <Button
+                    {/* <Button
                       size="lg"
                       className="w-full"
                       disabled={product.stock === 0}
@@ -312,20 +311,30 @@ export default function ProductDetailsPage() {
                     >
                       <Zap className="w-4 h-4 mr-2" />
                       Buy Now - {currency(Number(discountedPrice))}
-                    </Button>
-                  </div>
+                    </Button> */}
+
+                 { product?.ecomUrl ?   <a
+                      className="text-center flex items-center justify-center gap-2 bg-black text-white px-5 py-2 rounded-[5px] mt-4"
+                      href={product?.ecomUrl || "#"}
+                      target="_blank"
+                    >
+                      <Zap className="w-4 h-4" />
+                      Buy Now - {currency(Number(discountedPrice))}
+                    </a> : <p className="text-center flex items-center justify-center gap-2 bg-black text-white px-5 py-2 rounded-[5px] mt-4">The Product Isn't Available Right Now</p>}
+
+
                 </div>
 
                 {/* Product Info Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                  <Card>
+                  {/* <Card>
                     <CardContent className="p-4 text-center">
                       <h4 className="font-semibold mb-1">Free Shipping</h4>
                       <p className="text-sm text-muted-foreground">
                         On orders over {currency(50)}{" "}
                       </p>
                     </CardContent>
-                  </Card>
+                  </Card> */}
                   {/* <Card>
                     <CardContent className="p-4 text-center">
                       <h4 className="font-semibold mb-1">Easy Returns</h4>
