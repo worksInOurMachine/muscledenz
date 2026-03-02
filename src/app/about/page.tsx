@@ -1,321 +1,263 @@
 import Image from "next/image"
-import Link from "next/link"
-import { ArrowRight, Award, Dumbbell, Heart, Shield, Users } from "lucide-react"
+import { ArrowRight, Leaf, ShieldCheck, Heart, Sparkles, Check, Activity, Dumbbell, TrendingUp, Zap, Flame } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function AboutUs() {
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
+    <div className="flex min-h-screen flex-col bg-white text-gray-800 font-sans selection:bg-red-100 selection:text-red-900">
+      {/* Gentle Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="absolute inset-0 z-0 opacity-40 mix-blend-multiply">
           <Image
-            src="https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt="Gym background"
+            src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Gym lifestyle background"
             fill
-            className="object-cover opacity-[.2]"
+            className="object-cover object-top filter grayscale opacity-20"
             priority
           />
         </div>
-        <div className="container relative z-10 mx-auto px-4 py-24 sm:px-6 lg:px-8">
+
+        <div className="container relative z-10 mx-auto px-4 py-24 sm:py-32 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-              Fueling Your <span className="text-red-600">Potential</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 text-sm font-medium mb-8 border border-red-100">
+              <Sparkles className="h-4 w-4" />
+              <span>Est. January 2025</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-gray-900 leading-[1.15]">
+              Real fitness needs <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-400 font-bold">
+                honest nutrition.
+              </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-600">
-              We're more than just supplements. We're your partner in the journey to become your best self.
+
+            <p className="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+              We believe wellness shouldn't be complicated. By blending modern clinical research with deeply rooted Ayurvedic wisdom, we create supplements you can actually trust.
             </p>
-            <div className="mt-10 flex justify-center gap-4">
-              <Button className="bg-red-600 px-10 hover:bg-red-700">
-                Our Products <ArrowRight className="ml-2 h-4 w-4" />
+
+            <div className="mt-10">
+              <Link href={"/products"} className="bg-red-600 text-white rounded-full px-8 py-4 text-base font-medium hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                Explore our collection
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Human Story Section */}
+      <section className="py-24 bg-white relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+              <div className="relative">
+                <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl relative z-10">
+                  <Image
+                    src={"/mh.jpeg"}
+                    alt="Authentic gym training"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                {/* Decorative blob behind image */}
+                <div className="absolute -top-10 -right-10 w-64 h-64 bg-rose-50 rounded-full blur-3xl -z-10"></div>
+                <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-gray-100 rounded-full blur-3xl -z-10"></div>
+
+                {/* Floating stat card */}
+                <div className="absolute bottom-10 -right-8 bg-white p-5 rounded-2xl shadow-xl border border-gray-100 z-20 max-w-xs hidden sm:block">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-red-50 p-3 rounded-full text-red-600">
+                      <Heart className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">Our Motivation</p>
+                      <p className="text-gray-900 font-semibold">Everyday people striving for better.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+                    MUSCLEDENZ's journey started in the gym.
+                  </h2>
+                  <div className="w-12 h-1 bg-red-600 mt-6 rounded-full"></div>
+                </div>
+
+                <div className="prose prose-lg text-gray-600">
+                  <p>
+                    We opened our fitness space in October 2021 and worked closely with real people, including beginners, gym lovers, and athletes. We all had the same problem:
+                  </p>
+                  <p className="font-medium text-gray-900 p-2">
+                    Either the supplements were too expensive or they weren't reliable.
+                  </p>
+                  <p>
+                    The official launch of MUSCLEDENZ took place in January 2025, and it had a clear goal:
+                  </p>
+                  <p className="text-xl font-bold text-gray-900">
+                    In India, we want to sell high-quality nutraceutical and Ayurvedic products at low prices.
+                  </p>
+                  <p>
+                    We carefully picked scientifically proven ingredients and mixed them with Ayurvedic ones that we know work to make products that help:
+                  </p>
+                  <ul className="space-y-2 mt-4 font-medium">
+                    <li className="flex items-center gap-2"><Check className="h-5 w-5 text-red-600" /> Building muscle</li>
+                    <li className="flex items-center gap-2"><Check className="h-5 w-5 text-red-600" /> Power and performance</li>
+                    <li className="flex items-center gap-2"><Check className="h-5 w-5 text-red-600" /> Losing weight</li>
+                    <li className="flex items-center gap-2"><Check className="h-5 w-5 text-red-600" /> Energy from nature</li>
+                    <li className="flex items-center gap-2"><Check className="h-5 w-5 text-red-600" /> Wellness as a whole</li>
+                  </ul>
+                  <p className="text-gray-900 font-medium text-xl border-l-4 border-red-200 pl-4 py-2 mt-8 italic">
+                    MUSCLEDENZ stands for power, performance, and purity today.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Purpose-Built Products */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Purpose-built for your journey.</h2>
+            <p className="text-lg text-gray-600">
+              Each product in our flagship line has been thoughtfully designed to support specific aspects of your wellness and performance.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                title: "Bulk Build Muscle Gainer",
+                desc: "muscledenz massive muscle ayurvedic weight gainer for men and women.",
+                icon: Dumbbell,
+                bgColor: "bg-amber-50",
+                iconColor: "text-amber-600"
+              },
+              {
+                title: "Massive Muscle Weight Gainer",
+                desc: "A balanced formula to help you safely achieve healthy weight gain and overall volume.",
+                icon: TrendingUp,
+                bgColor: "bg-emerald-50",
+                iconColor: "text-emerald-600"
+              },
+              {
+                title: "Creatine HCl + Nitrate",
+                desc: "Enhanced absorption for raw, explosive power and better athletic performance.",
+                icon: Zap,
+                bgColor: "bg-blue-50",
+                iconColor: "text-blue-600"
+              },
+              {
+                title: "Fat Burner",
+                desc: "A natural blend designed to support healthy weight management and active fat loss.",
+                icon: Flame,
+                bgColor: "bg-rose-50",
+                iconColor: "text-rose-600"
+              },
+              {
+                title: "Pure Shilajit",
+                desc: "Sourced purely to provide your body with deep, natural energy, stamina, and vitality.",
+                icon: Activity,
+                bgColor: "bg-indigo-50",
+                iconColor: "text-indigo-600"
+              },
+              {
+                title: "ALOEFIT Aloe Vera Juice",
+                desc: "A daily ritual for gentle detoxifying, digestive health, and inner balance.",
+                icon: Leaf,
+                bgColor: "bg-teal-50",
+                iconColor: "text-teal-600"
+              }
+            ].map((product, idx) => (
+              <div key={idx} className="group p-8 rounded-3xl bg-white border border-gray-100 hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300">
+                <div className={`w-14 h-14 rounded-2xl ${product.bgColor} flex items-center justify-center mb-6`}>
+                  <product.icon className={`h-7 w-7 ${product.iconColor}`} />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{product.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{product.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values & Promises */}
+      <section className="py-24 bg-white text-gray-900 relative overflow-hidden">
+        {/* Soft background glow */}
+        <div className="absolute top-0 right-0 w-full h-full opacity-50 select-none pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-red-50 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-16">
+
+              <div className="lg:col-span-5 space-y-8">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+                  Doing things the right way.
+                </h2>
+                <p className="text-xl text-gray-600">
+                  At MUSCLEDENZ, we believe in deep roots and smart innovation. We don't cut corners because we know real bodies are relying on our products.
+                </p>
+                <div className="space-y-5 pt-4">
+                  {[
+                    "Premium, hand-selected raw materials",
+                    "Formulas backed by clinical science",
+                    "Honest pricing for everyday people",
+                    "Authentic results without the marketing fluff"
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-4">
+                      <div className="mt-1 bg-red-50 p-1 rounded-full text-red-600 border border-red-100">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-lg text-gray-700">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 bg-white border border-gray-100 shadow-xl shadow-gray-200/40 p-8 sm:p-12 rounded-3xl h-full flex flex-col justify-center relative">
+                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-red-50 rounded-full blur-2xl -z-10"></div>
+                <ShieldCheck className="h-10 w-10 text-red-500 mb-6" />
+                <h3 className="text-3xl font-semibold mb-6">Our Promise to You</h3>
+                <p className="text-xl text-gray-600 leading-relaxed mb-8">
+                  Whether you're stepping into the gym for the first time to lose a few pounds, or you're an athlete pushing for a new personal best, we are here to support your transformation.
+                </p>
+                <p className="text-2xl text-gray-900 font-medium">
+                  We promise to help you find better strength, better confidence, and better performance.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing Call to action */}
+      <section className="py-24 bg-white text-center">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto space-y-8">
+            <h2 className="text-3xl sm:text-5xl font-bold text-gray-900 tracking-tight">
+              Build with confidence. <br />
+              <span className="text-red-600">Build with MUSCLEDENZ.</span>
+            </h2>
+            <p className="text-xl text-gray-500">
+              Join a community that values honest health and real results.
+            </p>
+        {/*     <div className="pt-4">
+              <Button className="bg-gray-900 text-white rounded-full px-10 py-6 text-lg hover:bg-gray-800 transition-colors">
+                Start your journey
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              {/* <Button variant="outline" className="border-red-600 text-red-600 hover:bg-red-50">
-                Find a Gym
-              </Button> */}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Story Section */}
-      <section className="bg-white py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 lg:items-center">
-              <div>
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Story</h2>
-                <div className="mt-2 h-1 w-20 bg-red-600"></div>
-                <p className="mt-6 text-lg text-gray-600">
-                  Founded in 2010 by a team of fitness enthusiasts and nutritionists, our journey began with a simple
-                  mission: to create supplements that actually work, with ingredients you can trust.
-                </p>
-                <p className="mt-4 text-lg text-gray-600">
-                  What started as a small operation in a garage has grown into a global brand, but our core values
-                  remain the same. We believe in quality, transparency, and results.
-                </p>
-                <p className="mt-4 text-lg text-gray-600">
-                  In 2015, we expanded our vision by opening our first gym, creating a complete ecosystem for fitness
-                  and nutrition. Today, we operate in 12 countries, helping thousands achieve their fitness goals.
-                </p>
-              </div>
-              <div className="relative h-[400px] overflow-hidden rounded-xl">
-                <Image
-                  src="https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="Our founders in the lab"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="bg-gray-50 py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Values</h2>
-            <div className="mx-auto mt-2 h-1 w-20 bg-red-600"></div>
-            <p className="mt-6 text-lg text-gray-600">
-              These core principles guide everything we do, from formulating our supplements to training our gym staff.
-            </p>
-          </div>
-          <div className="mx-auto mt-12 max-w-7xl">
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-lg bg-white p-8 shadow-sm transition-all hover:shadow-md">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-                  <Shield className="h-6 w-6 text-red-600" />
-                </div>
-                <h3 className="mt-6 text-xl font-bold text-gray-900">Quality First</h3>
-                <p className="mt-4 text-gray-600">
-                  We never compromise on ingredients. Every product is rigorously tested to ensure it meets our high
-                  standards.
-                </p>
-              </div>
-              <div className="rounded-lg bg-white p-8 shadow-sm transition-all hover:shadow-md">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-                  <Heart className="h-6 w-6 text-red-600" />
-                </div>
-                <h3 className="mt-6 text-xl font-bold text-gray-900">Holistic Approach</h3>
-                <p className="mt-4 text-gray-600">
-                  We believe in addressing all aspects of fitness—nutrition, training, recovery, and mindset—for optimal
-                  results.
-                </p>
-              </div>
-              <div className="rounded-lg bg-white p-8 shadow-sm transition-all hover:shadow-md">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-                  <Users className="h-6 w-6 text-red-600" />
-                </div>
-                <h3 className="mt-6 text-xl font-bold text-gray-900">Community</h3>
-                <p className="mt-4 text-gray-600">
-                  We're building more than a brand—we're creating a community of like-minded individuals supporting each
-                  other.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What We Offer Section */}
-      <section className="bg-white py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">What We Offer</h2>
-            <div className="mx-auto mt-2 h-1 w-20 bg-red-600"></div>
-          </div>
-          <div className="mx-auto mt-16 max-w-7xl">
-            <div className="grid gap-12 lg:grid-cols-2">
-              <div className="relative overflow-hidden rounded-xl">
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600/90 to-red-800/90"></div>
-                <Image
-                  src="https://images.pexels.com/photos/1212845/pexels-photo-1212845.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="Premium supplements"
-                  width={800}
-                  height={600}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-8">
-                  <Award className="h-12 w-12 text-white" />
-                  <h3 className="mt-4 text-2xl font-bold text-white">Premium Supplements</h3>
-                  <p className="mt-2 text-white/90">
-                    Science-backed formulations for performance, recovery, and overall health.
-                  </p>
-                  <Link href="#" className="mt-6 flex items-center text-white hover:underline">
-                    Explore our range <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-              <div className="relative overflow-hidden rounded-xl">
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600/90 to-red-800/90"></div>
-                <Image
-                  src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="State-of-the-art gyms"
-                  width={800}
-                  height={600}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-8">
-                  <Dumbbell className="h-12 w-12 text-white" />
-                  <h3 className="mt-4 text-2xl font-bold text-white">State-of-the-art Gyms</h3>
-                  <p className="mt-2 text-white/90">
-                    Modern facilities with expert trainers to guide your fitness journey.
-                  </p>
-                  <Link href="#" className="mt-6 flex items-center text-white hover:underline">
-                    Find a location <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="bg-gray-50 py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">What Our Community Says</h2>
-            <div className="mx-auto mt-2 h-1 w-20 bg-red-600"></div>
-          </div>
-          <div className="mx-auto mt-12 max-w-7xl">
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-lg bg-white p-6 shadow-sm">
-                <div className="flex items-center">
-                  <div className="h-12 w-12 overflow-hidden rounded-full">
-                    <Image
-                      src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      alt="Customer"
-                      width={100}
-                      height={100}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="font-medium text-gray-900">Sarah Johnson</h4>
-                    <p className="text-sm text-gray-500">Fitness Competitor</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-gray-600">
-                  "Their protein has been my go-to for 3 years now. Clean ingredients, mixes well, and tastes amazing.
-                  The results speak for themselves."
-                </p>
-              </div>
-              <div className="rounded-lg bg-white p-6 shadow-sm">
-                <div className="flex items-center">
-                  <div className="h-12 w-12 overflow-hidden rounded-full">
-                    <Image
-                      src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      alt="Customer"
-                      width={100}
-                      height={100}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="font-medium text-gray-900">Michael Chen</h4>
-                    <p className="text-sm text-gray-500">Gym Member</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-gray-600">
-                  "The trainers at their gyms are next level. They've helped me transform my physique and my confidence
-                  in just 6 months."
-                </p>
-              </div>
-              <div className="rounded-lg bg-white p-6 shadow-sm">
-                <div className="flex items-center">
-                  <div className="h-12 w-12 overflow-hidden rounded-full">
-                    <Image
-                      src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      alt="Customer"
-                      width={100}
-                      height={100}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="font-medium text-gray-900">Emma Rodriguez</h4>
-                    <p className="text-sm text-gray-500">Nutritionist</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-gray-600">
-                  "As a professional in the field, I appreciate their commitment to quality. I recommend their products
-                  to all my clients."
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="bg-white py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Meet Our Team</h2>
-            <div className="mx-auto mt-2 h-1 w-20 bg-red-600"></div>
-            <p className="mt-6 text-lg text-gray-600">The passionate experts behind our products and services.</p>
-          </div>
-          <div className="mx-auto mt-12 max-w-7xl">
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  name: "Dr. James Wilson",
-                  role: "Founder & CEO",
-                  bio: "Former athlete with a PhD in Nutritional Science",
-                },
-                {
-                  name: "Lisa Chen",
-                  role: "Head of Product Development",
-                  bio: "Biochemist with 15+ years in supplement formulation",
-                },
-                {
-                  name: "Marcus Johnson",
-                  role: "Fitness Director",
-                  bio: "Olympic trainer and exercise physiologist",
-                },
-                {
-                  name: "Dr. Sophia Patel",
-                  role: "Chief Medical Officer",
-                  bio: "Specializes in sports medicine and performance",
-                },
-              ].map((member, index) => (
-                <div key={index} className="text-center">
-                  <div className="mx-auto h-48 w-48 overflow-hidden rounded-full">
-                    <Image
-                      src={`https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`}
-                      alt={member.name}
-                      width={200}
-                      height={200}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <h3 className="mt-6 text-xl font-bold text-gray-900">{member.name}</h3>
-                  <p className="text-red-600">{member.role}</p>
-                  <p className="mt-2 text-gray-600">{member.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-red-600 py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Join Our Community</h2>
-            <p className="mt-6 text-xl text-white/90">
-              Start your journey to a stronger, healthier you with our premium supplements and world-class gyms.
-            </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button className="bg-white text-red-600 hover:bg-gray-100">Explore Products</Button>
-              {/* <Button variant="outline" className="border-white text-white hover:bg-red-700">
-                Find a Gym Near You
-              </Button> */}
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -323,4 +265,3 @@ export default function AboutUs() {
     </div>
   )
 }
-
