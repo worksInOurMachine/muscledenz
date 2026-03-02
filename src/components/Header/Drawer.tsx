@@ -50,17 +50,17 @@ const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActi
 
                 </div>
                 <div className='flex gap-2 justify-between'>
-                    {
+                    {/* {
                         status != "loading" ? <>
                             {
-                                session?.user.id ? <>{/* <Link onClick={() => closeDrawerAndUpdateLinks("/profile")} href="/profile" className="font-bold text-[16px]">
+                                session?.user.id ? <> <Link onClick={() => closeDrawerAndUpdateLinks("/profile")} href="/profile" className="font-bold text-[16px]">
                                     <UserIcon />
-                                </Link> */} </>: <Link onClick={() => closeDrawerAndUpdateLinks("/login")} href="/login" className="font-bold text-[16px]">
+                                </Link> </>: <Link onClick={() => closeDrawerAndUpdateLinks("/login")} href="/login" className="font-bold text-[16px]">
                                     <LogInIcon />
                                 </Link>
                             }
                         </> : ""
-                    }
+                    } */}
 
                     {/* <Link onClick={() => closeDrawerAndUpdateLinks("/cart")} href="/cart" className="font-bold text-[16px]">
                         <ShoppingCartIcon />

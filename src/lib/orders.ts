@@ -33,6 +33,7 @@ function mapStrapiProduct(entity: any): ProductResType {
       updatedAt: "",
       isVeg: false,
       documentId: "",
+      ecomUrl: "",
     };
   }
 
@@ -68,6 +69,7 @@ function mapStrapiProduct(entity: any): ProductResType {
     createdAt: a.createdAt ?? "",
     updatedAt: a.updatedAt ?? "",
     isVeg: Boolean(a.isVeg ?? false),
+    ecomUrl: a.ecomUrl ?? "",
     documentId: a.documentId ?? entity.documentId ?? "",
   };
 
@@ -88,8 +90,8 @@ function mapStrapiOrder(entity: any): OrderResType {
     amount: Number(a.amount ?? 0),
     paymentMethod: a.paymentMethod ?? "COD",
     documentId: a.documentId ?? entity.documentId ?? "",
-    address:a.address,
-    couponDiscount:Number(a.couponDiscount) || 0,
+    address: a.address,
+    couponDiscount: Number(a.couponDiscount) || 0,
   };
 }
 
