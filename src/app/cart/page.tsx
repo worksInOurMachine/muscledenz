@@ -187,12 +187,12 @@ export default function ShoppingCart() {
                                                 <span className="text-primary">₹{total.toFixed(2)}</span>
                                             </div>
                                         </div>
-
+{/* 
                                         {subtotal < 50 && (
                                             <div className="text-sm text-muted-foreground bg-muted p-3 rounded-lg">
                                                 Add ₹{(50 - subtotal).toFixed(2)} more for free shipping!
                                             </div>
-                                        )}
+                                        )} */}
                                     </CardContent>
                                     <CardFooter className="pt-4">
                                         <Button className="w-full" size="lg" onClick={handleCheckout}>

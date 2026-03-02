@@ -42,11 +42,11 @@ const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActi
                         ))
                     }
 
-                    {
+                    {/* {
                         session?.user?.id ? <Link onClick={() => updateActiveLinks("/orders")} href="/orders" className={clsx(" font-bold text-[16px]", activeLink === "/orders" && "text-[#FD0808]")}>
                             Order
                         </Link> : ""
-                    }
+                    } */}
 
                 </div>
                 <div className='flex gap-2 justify-between'>
@@ -62,9 +62,9 @@ const Drawer: React.FC<DrawerPropsTypes> = ({ isOpen, toggleFunction, updateActi
                         </> : ""
                     }
 
-                    <Link onClick={() => closeDrawerAndUpdateLinks("/cart")} href="/cart" className="font-bold text-[16px]">
+                    {/* <Link onClick={() => closeDrawerAndUpdateLinks("/cart")} href="/cart" className="font-bold text-[16px]">
                         <ShoppingCartIcon />
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>

@@ -26,6 +26,7 @@ const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [query, setQuery] = useState(searchParams.get("query") || "")
   const { data: session, status } = useSession() as any;
+  
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -106,9 +107,9 @@ const Navbar = () => {
               {
 
                 session?.user.id ? <>
-                  <Link onClick={() => updateActiveLinks("/orders")} href="/orders" className={clsx("text-center font-bold text-[16px]", activeLink === "/orders" && "text-[#FD0808]")}>
+                  {/* <Link onClick={() => updateActiveLinks("/orders")} href="/orders" className={clsx("text-center font-bold text-[16px]", activeLink === "/orders" && "text-[#FD0808]")}>
                     Order
-                  </Link>
+                  </Link> */}
               {/*     <Link onClick={() => updateActiveLinks("/profile")} href="/profile" className={clsx("text-center font-bold text-[16px]", activeLink === "/profile" && "text-[#FD0808]")}>
                     <UserIcon />
                   </Link> */}
@@ -118,9 +119,9 @@ const Navbar = () => {
               }
             </> : ""
           }
-          <Link onClick={() => updateActiveLinks("/cart")} href="/cart" className={clsx("text-center font-bold text-[16px]", activeLink === "/cart" && "text-[#FD0808]")}>
+          {/* <Link onClick={() => updateActiveLinks("/cart")} href="/cart" className={clsx("text-center font-bold text-[16px]", activeLink === "/cart" && "text-[#FD0808]")}>
             <ShoppingCartIcon />
-          </Link>
+          </Link> */}
 
         </div>
 
