@@ -10,13 +10,11 @@ function Index({
 }) {
 
   return (
-    <div className="w-full my-5 space-y-8 sm:space-y-10">
-      <p
-        className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-700 font-bold text-center  py-4 "
-      >
-        {title}
-      </p>
-      <div className="max-w-7xl mx-auto px-2--- sm:px-4 lg:px-8">
+    <div className="w-full mt-4">
+      {title && (
+        <p className="section-title mb-6">{title}</p>
+      )}
+      <div className="max-w-7xl mx-auto">
         <ProductCarousel products={products} />
       </div>
     </div>

@@ -2,27 +2,13 @@ import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ProductResType } from "@/types/product";
-import { Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { useSession } from "next-auth/react";
-import toast from "react-hot-toast";
 
 export default function ProductCard({ product, addToCart }: { product: ProductResType, addToCart: any }) {
   const { data } = useSession();
-
-  // const  handleBuyNow = () => {
-  //   if (!data?.user.id) {
-  //     localStorage.setItem(
-  //       "redirectRoute",
-  //       JSON.stringify(`/checkout/${product.documentId}`)
-  //     );
-  //     window.location.href = "/login";
-  //     return
-  //   }
-  //   window.location.href = `/checkout/${product.documentId}`;
-  // };
 
   const handleBuyNow = () => {
     if (!product.ecomUrl) {
@@ -33,78 +19,59 @@ export default function ProductCard({ product, addToCart }: { product: ProductRe
   };
 
   return (
-    <Card className="relative border-0 shadow-md bg-slate-100 flex flex-col p-4 min-h-[360px] sm:min-h-[420px] md:min-h-[450px] lg:min-h-[480px]">
+    <Card className="group relative flex flex-col bg-card border border-border/60 overflow-hidden min-h-[380px] sm:min-h-[420px] md:min-h-[440px]">
       {/* Discount Badge */}
       {product.discount > 0 && (
-        <div className="absolute top-2 left-2 z-10">
-          <Badge className="bg-green-600/80 hover:bg-green-700 text-white text-xs sm:text-sm">
+        <div className="absolute top-3 left-3 z-10">
+          <Badge className="bg-success text-white text-xs font-bold px-2.5 py-1 rounded-md border-none shadow-sm">
             {product.discount}% OFF
           </Badge>
         </div>
       )}
 
-      {/* Wishlist Button */}
-      {/* <button className="absolute top-4 right-4 z-10 p-1 hover:scale-110 transition-transform">
-        <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
-      </button> */}
+      {/* Image */}
+      <Link href={`/products/${product.documentId}`} className="block">
+        <div className="relative w-full bg-muted/40 flex items-center justify-center p-6 overflow-hidden aspect-square">
+          <Image
+            src={product.thumbnail?.url || "/images/dummy.jpg"}
+            alt={product.name}
+            width={400}
+            height={400}
+            className="object-contain w-[85%] h-[85%] transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+      </Link>
 
-      {/* Product Image */}
-      <div className="relative w-full flex justify-center items-center  rounded-lg overflow-hidden  bg-white p-2">
-        <Image
-          src={
-            product.thumbnail?.url ||
-            "/images/dummy.jpg"
-          }
-          alt={product.name}
-          width={400}
-          height={400}
-          className="object-contain w-[80%] h-[150px] sm:h-[180px] md:h-[200px] lg:h-[220px]"
-        />
-      </div>
-
-      {/* Product Details */}
-      <div className="flex flex-col flex-grow px-1 justify-between">
-        {/* Product Name & Description */}
-
-        <Link href={`/products/${product.documentId}`}>
-          <div className="mt-3 space-y-2">
-            <h3 className="font-semibold text-gray-900 text-lg  md:text-lg line-clamp-2">
-              {product.name}
-            </h3>
-            <p className="text-sm text-gray-500 line-clamp-2">
-              {product.description}
-            </p>
-          </div>
+      {/* Details */}
+      <div className="flex flex-col flex-grow p-4 gap-2">
+        <Link href={`/products/${product.documentId}`} className="space-y-1">
+          <h3 className="font-bold text-foreground text-base sm:text-lg leading-snug line-clamp-1 group-hover:text-primary transition-colors duration-200">
+            {product.name}
+          </h3>
+          <p className="text-muted-foreground text-xs sm:text-sm line-clamp-2 leading-relaxed">
+            {product.description}
+          </p>
         </Link>
 
-        {/* Pricing & Discount */}
-        <div className="mt-3">
-          <div className="flex items-center gap-2">
-            <span className="text-base sm:text-lg font-semibold">
+        <div className="mt-auto pt-3 space-y-3">
+          {/* Price */}
+          <div>
+            <span className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">Price</span>
+            <div className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight">
               <DiscountedPrice
                 price={product.price}
                 discountPercentage={product.discount}
               />
-            </span>
+            </div>
           </div>
-        </div>
 
-        {/* Add to Cart Button - Now opens WhatsApp */}
-        <div className=" w-full flex justify-between gap-2">
+          {/* Buy Button */}
           <Button
-            className=" w-full bg-red-600 hover:bg-red-500 text-white text-sm sm:text-base py-2 mt-3 flex items-center justify-center gap-2"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-5 rounded-xl btn-premium text-sm"
             onClick={handleBuyNow}
           >
-          
             Buy Now
           </Button>
-
-          {/* <Button
-            className=" bg-white text-black border-2 hover:bg-gray-200 border-black text-sm sm:text-base py-2 mt-3 flex items-center justify-center gap-2"
-            onClick={() => addToCart(product)}
-          >
-            <ShoppingCart />
-          </Button> */}
         </div>
       </div>
     </Card>

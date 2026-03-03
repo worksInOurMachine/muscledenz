@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { setActiveLink } from "@/redux/slices/active-link-slice";
 import clsx from "clsx";
-import { LogInIcon, Search, ShoppingCartIcon, UserIcon } from "lucide-react";
+import { Search } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,7 @@ const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [query, setQuery] = useState(searchParams.get("query") || "")
   const { data: session, status } = useSession() as any;
-  
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -34,13 +34,18 @@ const Navbar = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const toggleFunction = () => {
     setIsOpen((prev) => !prev);
   };
 
   const updateActiveLinks = (href: string) => {
-    dispatch(setActiveLink(href))
-      ;
+    dispatch(setActiveLink(href));
   };
 
   const placeholders = [
@@ -59,26 +64,30 @@ const Navbar = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //router.push(`/products?query=${query}`)
     window.location.href = `/products?query=${query}`;
   };
 
   return (
-    <nav className="h-fit min-w-full lg:pt-[10px] px-[5px] shadow-xl shadow-black/10 lg:bg-white bg-[#E7E7E7]--- bg-white sticky top-0 left-0 z-50 py-2 md:py-0">
-      <div className="h-full w-full flex justify-between items-center">
-        <div className="flex ml-[4%] h-full">
-          <a href={"/"}>
-            <Image
-              src={"/logo/md-logo1.jpg"}
-              alt="muscledenz"
-              height={50}
-              width={100}
-              className="xl:w-[154px] md:w-[120px] w-[80px] xl:h-[74px] lg:h-[60px] md:h-[60px] h-[50px] lg:pb-[10px] lg:pt-0 pt-[12px]---"
-            />
-          </a>
-        </div>
+    <nav
+      className={clsx(
+        "sticky top-0 left-0 z-50 w-full transition-all duration-300 bg-background/95 backdrop-blur-md border-b",
+        scrolled ? "border-border shadow-sm" : "border-transparent"
+      )}
+    >
+      <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-[72px] flex items-center justify-between gap-6">
+        {/* Logo */}
+        <Link href="/" className="flex-shrink-0">
+          <Image
+            src={"/logo/md-logo1.jpg"}
+            alt="muscledenz"
+            height={56}
+            width={110}
+            className="w-[80px] md:w-[110px] h-auto object-contain"
+          />
+        </Link>
 
-        <div className="w-full lg:flex hidden">
+        {/* Desktop Search */}
+        <div className="flex-grow max-w-xl hidden lg:block">
           <PlaceholdersAndVanishInput
             placeholders={placeholders}
             onChange={handleChange}
@@ -86,8 +95,8 @@ const Navbar = () => {
           />
         </div>
 
-        {/* NavLinks For Desktop */}
-        <div className="h-full justify-end gap-10 mr-10 items-center lg:flex hidden">
+        {/* Desktop NavLinks */}
+        <div className="hidden lg:flex items-center gap-7">
           {NavLinks &&
             NavLinks.map((link, index) => (
               <Link
@@ -95,50 +104,38 @@ const Navbar = () => {
                 href={link.href}
                 key={index}
                 className={clsx(
-                  `font-[700] text-[#333333] text-[16px] capitalize`,
-                  activeLink === link.href && "text-[#FD0808]"
+                  "relative text-[13px] font-bold uppercase tracking-wider transition-colors duration-200",
+                  activeLink === link.href
+                    ? "text-primary"
+                    : "text-foreground/70 hover:text-foreground"
                 )}
               >
                 {link.text}
+                {activeLink === link.href && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-primary rounded-full" />
+                )}
               </Link>
             ))}
-          {/* {
-            status != "loading" ? <>
-              {
-
-                session?.user.id ? <>
-                  <Link onClick={() => updateActiveLinks("/orders")} href="/orders" className={clsx("text-center font-bold text-[16px]", activeLink === "/orders" && "text-[#FD0808]")}>
-                    Order
-                  </Link>
-                  <Link onClick={() => updateActiveLinks("/profile")} href="/profile" className={clsx("text-center font-bold text-[16px]", activeLink === "/profile" && "text-[#FD0808]")}>
-                    <UserIcon />
-                  </Link>
-                </> : <Link onClick={() => updateActiveLinks("/login")} href="/login" className={clsx("text-center font-bold text-[16px]", activeLink === "/login" && "text-[#FD0808]")}>
-                  <LogInIcon />
-                </Link>
-              }
-            </> : ""
-          } */}
-          {/* <Link onClick={() => updateActiveLinks("/cart")} href="/cart" className={clsx("text-center font-bold text-[16px]", activeLink === "/cart" && "text-[#FD0808]")}>
-            <ShoppingCartIcon />
-          </Link> */}
-
         </div>
 
-        {/* NavLinks For Mobile */}
-        <div className="float-right h-full min-w-[20%] justify-evenly gap-4 items-center lg:hidden flex">
-          <span onClick={() => handleShowSearch()} className="">
-            {!showSearch ? <Search /> : <FaX />}
-          </span>
-          {/* <a href="/login" className="sm:text-[30px] text-[20px]">
-            <FaUser />
-          </a> */}
+        {/* Mobile Icons */}
+        <div className="flex items-center gap-1 lg:hidden">
           <button
-            className="sm:text-[40px] text-[25px]"
-            onClick={toggleFunction}
+            onClick={() => handleShowSearch()}
+            className="p-2.5 hover:bg-muted rounded-lg transition-colors"
+            aria-label="Toggle search"
           >
-            <RxHamburgerMenu />
+            {!showSearch ? <Search size={20} /> : <FaX size={16} />}
           </button>
+
+          <button
+            className="p-2.5 hover:bg-muted rounded-lg transition-colors"
+            onClick={toggleFunction}
+            aria-label="Open menu"
+          >
+            <RxHamburgerMenu size={22} />
+          </button>
+
           <Drawer
             isOpen={isOpen}
             toggleFunction={toggleFunction}
@@ -149,8 +146,10 @@ const Navbar = () => {
           />
         </div>
       </div>
+
+      {/* Mobile Search Bar */}
       {showSearch && (
-        <div className="w-full px-2">
+        <div className="px-4 pb-3 lg:hidden">
           <PlaceholdersAndVanishInput
             placeholders={placeholders}
             onChange={handleChange}

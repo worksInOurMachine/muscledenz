@@ -25,7 +25,7 @@ const ImageSlider = ({
   top_banners: { url: string; id: number }[] | undefined | [];
 }) => {
   return (
-    <div className="w-full h-fit">
+    <div className="w-full h-[30vh] md:h-fit">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={10}
@@ -34,7 +34,7 @@ const ImageSlider = ({
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop
-        className="rounded-lg shadow-lg h-full"
+        className=" shadow-lg h-full"
       >
         {
     top_banners && top_banners?.length > 0 ? top_banners?.map((banner) => (
@@ -42,7 +42,7 @@ const ImageSlider = ({
               <img
                 src={banner.url}
                 alt={`Slide ${banner.id}`}
-                className="w-full h-full object-fill rounded-lg"
+                className="w-full h-full object-fill"
               />
             </SwiperSlide>
           )) : default_banner.map((banner) => (
@@ -50,7 +50,7 @@ const ImageSlider = ({
               <img
                 src={banner.url}
                 alt={`Slide ${banner.id}`}
-                className="w-full h-full object-fill rounded-lg"
+                className="w-full h-full object-fill"
               />
             </SwiperSlide>
           ))
