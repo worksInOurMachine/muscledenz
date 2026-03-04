@@ -19,7 +19,7 @@ const TopMarquee: React.FC<TopMarqueeProps> = ({ text }) => {
         initial={{ x: 0 }}
         animate={{ x: "-50%" }}
         transition={{
-          duration: 35, // Adjust speed for premium feel
+          duration: 10, // Adjust speed for premium feel
           repeat: Infinity,
           ease: "linear",
         }}

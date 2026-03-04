@@ -61,21 +61,14 @@ const Drawer: React.FC<DrawerPropsTypes> = ({
             {isOpen && (
                 <>
                     {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/60 z-[999]"
-                        onClick={toggleFunction}
-                    />
-
+                 
                     {/* Drawer Content */}
                     <motion.div
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="drawer open fixed top-0 right-0 h-[100dvh] bg-neutral-950 z-[1000] p-6 shadow-2xl overflow-y-auto w-[80%] sm:w-[400px]"
+                        className="drawer open fixed top-0 right-0 h-[100dvh] bg-neutral-950 z-[1000] p-6 overflow-y-auto w-[80%] sm:w-[400px]"
                     >
                         <div className="flex flex-col h-full">
                             {/* Header */}
