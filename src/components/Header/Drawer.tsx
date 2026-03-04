@@ -111,7 +111,7 @@ const Drawer: React.FC<DrawerPropsTypes> = ({
 
                             <div className="mt-auto pt-8 border-t border-white/10">
                                 {/* Account Section */}
-                                {status === "authenticated" ? (
+                                {/* {status === "authenticated" ? (
                                     <div className="flex flex-col gap-3">
                                         <div className="px-4 mb-2">
                                             <p className="text-xs text-white/40 uppercase tracking-widest font-bold">Logged in as</p>
@@ -146,7 +146,7 @@ const Drawer: React.FC<DrawerPropsTypes> = ({
                                             <span>Login / Register</span>
                                         </Link>
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         </div>
                     </motion.div>
