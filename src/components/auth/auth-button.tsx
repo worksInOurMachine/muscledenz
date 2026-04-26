@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { Button } from "@/components/ui/button"
-import { Loader2 } from "lucide-react"
+import { Dumbbell } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface AuthButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -37,8 +37,8 @@ export function AuthButton({
             )}
             {...props}
         >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {loading ? loadingText || "Loading..." : children}
+            {loading && <Dumbbell className="mr-2 h-4 w-4 animate-[spin_1.5s_linear_infinite]" strokeWidth={2.5} />}
+            {loading ? loadingText || "Forging..." : children}
         </Button>
     )
 }

@@ -13,6 +13,8 @@ import { authOptions } from "../../auth";
 import "./globals.css";
 import { QueryProviders } from "@/components/Provider/query-provider";
 import { ReduxProviders } from "@/redux/provider";
+import { Dumbbell } from 'lucide-react';
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -75,7 +77,7 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-  themeColor: "#008ED6",
+  themeColor: "#C41616",
 
   category: "Health & Fitness",
 
@@ -87,10 +89,12 @@ export const metadata: Metadata = {
 
 function SearchBarFallback() {
   return (
-    <div className="flex justify-center items-center w-full h-fit">
-      <div className="flex flex-col items-center space-y-2">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-sm text-gray-600">Loading...</p>
+    <div className="flex justify-center items-center w-full h-fit py-4">
+      <div className="flex flex-col items-center gap-2">
+        <div className="animate-[spin_2s_linear_infinite]">
+          <Dumbbell className="w-6 h-6 text-primary" strokeWidth={2.5} />
+        </div>
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Forging Results...</p>
       </div>
     </div>
   );

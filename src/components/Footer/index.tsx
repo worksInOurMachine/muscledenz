@@ -1,5 +1,4 @@
 "use client";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
@@ -7,12 +6,8 @@ import { useStrapi } from "@/hooks/useStrapi";
 import { useMemo } from "react";
 
 export default function Footer() {
-  const { data, isLoading, isError } = useStrapi("categories");
-  const {
-    data: products,
-    isLoading: isLoadingProducts,
-    isError: isErrorProducts,
-  } = useStrapi("products", {
+  const { data } = useStrapi("categories");
+  const { data: products } = useStrapi("products", {
     field: ["id", "title", "slug", "documentId"],
     sort: ["createdAt:desc"],
     pagination: { page: 1, pageSize: 10 },
@@ -42,58 +37,54 @@ export default function Footer() {
   );
 
   return (
-    <footer className="relative bg-black  text-white pt-16 pb-6 overflow-hidden">
-      <div className="container max-w-5xl mx-auto px-4 relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-600 pb-4 md:pb-10">
-        {footerLinks.map((section, index) => (
-          <div key={index}>
-            <h3 className="font-bold text-lg mb-4">{section.title}</h3>
-            <ul className="space-y-2">
-              {section.links.map((link: any, i: number) => (
-                <li key={i}>
-                  <Link
-                    href={link.href}
-                    className="text-gray-400 hover:text-white text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+    <footer className="bg-foreground text-background">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Main Grid */}
+        <div className="py-12 md:py-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          {footerLinks.map((section, index) => (
+            <div key={index}>
+              <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-background/80">{section.title}</h3>
+              <ul className="space-y-2.5">
+                {section.links.map((link: any, i: number) => (
+                  <li key={i}>
+                    <Link
+                      href={link.href}
+                      className="text-background/50 hover:text-primary text-sm transition-colors duration-200"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
-        <div className="col-span-2 md:col-span-1">
-          <h3 className="font-bold text-lg mb-4">Contact Details</h3>
-          {/* <div className="flex mb-4">
-            <Input
-              type="email"
-              placeholder="Your Email"
-              className="bg-transparent border-gray-700 rounded-r-none focus:ring-yellow-500 text-white"
-            />
-            <Button className="bg-yellow-500 hover:bg-yellow-600 text-black rounded-l-none">
-              Submit
-            </Button>
-          </div> */}
-
-          <div className="flex items-center gap-2 mb-3 mt-6">
-            <Phone className="h-4 w-4" />
-            <span className="text-sm">+91 7693017906</span>
-          </div>
-          <div className="flex items-center gap-2 mb-6">
-            <Mail className="h-4 w-4" />
-            {/* <span className="text-sm">info@MuscleDenz.com</span> */}
-            <a href="mailto:denzmuscle@gmail.com" className="text-sm">
-              denzmuscle@gmail.com{" "}
-            </a>
+          <div className="col-span-2 md:col-span-1">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 text-background/80">Contact</h3>
+            <div className="space-y-3">
+              <a href="tel:+917693017906" className="flex items-center gap-2.5 text-background/50 hover:text-primary text-sm transition-colors">
+                <Phone className="h-4 w-4 flex-shrink-0" />
+                <span>+91 7693017906</span>
+              </a>
+              <a href="mailto:denzmuscle@gmail.com" className="flex items-center gap-2.5 text-background/50 hover:text-primary text-sm transition-colors">
+                <Mail className="h-4 w-4 flex-shrink-0" />
+                <span>denzmuscle@gmail.com</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="w-full">
-        <p className="text-center mt-6 text-gray-500">
-          All MuscleDenz products are manufactured at FSSAI approved
-          manufacturing facilities and are not intended to diagnose, treat,
-          cure, or prevent any disease.
-        </p>
+
+        {/* Bottom bar */}
+        <div className="border-t border-background/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-background/30 text-xs text-center sm:text-left">
+            All MuscleDenz products are manufactured at FSSAI approved
+            manufacturing facilities and are not intended to diagnose, treat,
+            cure, or prevent any disease.
+          </p>
+          <p className="text-background/30 text-xs whitespace-nowrap">
+            &copy; {new Date().getFullYear()} MuscleDenz
+          </p>
+        </div>
       </div>
     </footer>
   );
