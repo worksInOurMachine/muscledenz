@@ -29,6 +29,29 @@ export async function GET(request: Request) {
     }
     if (collectionType) query.collectionType = collectionType;
 
+    // Handle search query / $or filters from frontend (Strapi-like)
+    const orFilter = searchParams.get('$or');
+    if (orFilter) {
+      try {
+        const parsedOr = JSON.parse(orFilter);
+        query.$or = parsedOr.map((condition: any) => {
+          const transformedCondition: any = {};
+          Object.entries(condition).forEach(([key, value]: [string, any]) => {
+            if (value && typeof value === 'object' && value.$containsi) {
+              // Escape regex special characters
+              const escapedValue = value.$containsi.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              transformedCondition[key] = { $regex: escapedValue, $options: 'i' };
+            } else {
+              transformedCondition[key] = value;
+            }
+          });
+          return transformedCondition;
+        });
+      } catch (e) {
+        console.error("Error parsing $or filter:", e);
+      }
+    }
+
     const products = await Product.find(query).populate('category');
     
     const transformedProducts = products.map((p: any) => {
