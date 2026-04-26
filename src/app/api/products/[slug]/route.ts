@@ -1,0 +1,28 @@
+import { NextResponse } from 'next/server';
+import dbConnect from '@/lib/mongodb';
+import Product from '@/models/Product';
+
+export async function GET(
+  request: Request,
+  { params }: { params: { slug: string } }
+) {
+  try {
+    await dbConnect();
+    const product = await Product.findOne({ ecomUrl: params.slug }).populate('category');
+    if (!product) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+    }
+
+    const transformedProduct = {
+      ...product.toObject(),
+      id: product._id.toString(),
+      documentId: product._id.toString(),
+      thumbnail: typeof product.thumbnail === 'string' ? { url: product.thumbnail } : product.thumbnail,
+      images: product.images?.map((img: any) => typeof img === 'string' ? { url: img } : img)
+    };
+
+    return NextResponse.json({ data: transformedProduct });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

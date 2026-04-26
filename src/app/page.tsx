@@ -63,18 +63,17 @@ const SlidingText = dynamic(
   () => import('@/components/AnimatedComponent/SlidingText'),
 );
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL!;
-const STRAPI_TOKEN = process.env.NEXT_PUBLIC_STRAPI_AUTH_TOKEN!;
+const API_URL = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-async function fetchFromStrapi(endpoint: string, query = '') {
-  const res = await fetch(`${STRAPI_URL}/api/${endpoint}${query}`, {
-    headers: {
-      Authorization: `Bearer ${STRAPI_TOKEN}`,
-    },
+async function fetchFromApi(endpoint: string, query = '') {
+  const res = await fetch(`${API_URL}/api/${endpoint}${query}`, {
     next: { revalidate: 60 },
   });
 
-  if (!res.ok) throw new Error('Failed to fetch');
+  if (!res.ok) {
+    console.error(`Failed to fetch from ${endpoint}: ${res.statusText}`);
+    return { data: null };
+  }
 
   return res.json();
 }
@@ -108,8 +107,8 @@ function SectionHeader({ title, subtitle, align = 'left' }: { title: string; sub
 
 export default async function Home() {
   const [collections, homePage] = await Promise.all([
-    fetchFromStrapi('products/collections'),
-    fetchFromStrapi('home-page', '?populate=*'),
+    fetchFromApi('products/collections'),
+    fetchFromApi('homepage', '?populate=*'),
   ]);
 
   const data = collections?.data;

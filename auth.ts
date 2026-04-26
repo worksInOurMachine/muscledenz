@@ -1,6 +1,11 @@
-import api from "@/lib/axios";
+import dbConnect from "@/lib/mongodb";
+import User from "@/models/User";
+import OTP from "@/models/OTP";
+import jwt from "jsonwebtoken";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+const JWT_SECRET = process.env.NEXTAUTH_SECRET || 'fallback-secret';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,26 +21,53 @@ export const authOptions: NextAuthOptions = {
         try {
           if (!credentials?.identifier || !credentials?.otp) return null;
 
-          const res = await api.post(`/otp/verify`, {
-            identifier: credentials.identifier,
-            otp: credentials.otp,
-            firstname: credentials?.firstname ? credentials.firstname : "",
-            lastname: credentials?.lastname ? credentials.lastname : "",
+          await dbConnect();
+          
+          const otpDoc = await OTP.findOne({ 
+            identifier: credentials.identifier, 
+            otp: credentials.otp 
           });
 
-          const data = res.data;
-
-          if (data?.jwt && data?.user) {
-            return {
-              id: String(data.user.id),
-              identifier: data.user.identifier,
-              jwt: data.jwt,
-            };
+          if (!otpDoc || otpDoc.expiresAt < new Date()) {
+            return null;
           }
 
-          return null;
+          // OTP is valid
+          await OTP.deleteOne({ _id: otpDoc._id });
+
+          let user = await User.findOne({ 
+            $or: [
+              { email: credentials.identifier }, 
+              { phone: credentials.identifier }, 
+              { identifier: credentials.identifier }
+            ] 
+          });
+
+          if (!user) {
+            user = await User.create({
+              username: credentials.identifier,
+              email: credentials.identifier.includes('@') ? credentials.identifier : `${credentials.identifier}@example.com`,
+              phone: !credentials.identifier.includes('@') ? credentials.identifier : undefined,
+              identifier: credentials.identifier,
+              firstname: credentials?.firstname || '',
+              lastname: credentials?.lastname || '',
+              confirmed: true
+            });
+          }
+
+          const token = jwt.sign(
+            { id: user._id, email: user.email },
+            JWT_SECRET,
+            { expiresIn: '30d' }
+          );
+
+          return {
+            id: user._id.toString(),
+            identifier: user.identifier,
+            jwt: token,
+          };
         } catch (err: any) {
-          console.error("OTP login failed", err.response?.data || err.message);
+          console.error("OTP login failed", err.message);
           return null;
         }
       },
@@ -47,12 +79,13 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.jwt = (user as any).jwt;
         token.identifier = (user as any).identifier;
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
       session.user = {
-        id: token.sub as string,
+        id: token.id as string,
         identifier: token.identifier as string,
       };
       session.jwt = token.jwt as string;
@@ -64,5 +97,5 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 
-  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 };

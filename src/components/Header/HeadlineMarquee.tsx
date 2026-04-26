@@ -1,15 +1,11 @@
 
 import TopMarquee from "./TopMarquee";
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL!;
-const STRAPI_TOKEN = process.env.NEXT_PUBLIC_STRAPI_AUTH_TOKEN!;
+const API_URL = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-async function fetchFromStrapi(endpoint: string, query = '') {
+async function fetchFromApi(endpoint: string, query = '') {
   try {
-    const res = await fetch(`${STRAPI_URL}/api/${endpoint}${query}`, {
-      headers: {
-        Authorization: `Bearer ${STRAPI_TOKEN}`,
-      },
+    const res = await fetch(`${API_URL}/api/${endpoint}${query}`, {
       next: { revalidate: 60 },
     });
 
@@ -17,19 +13,18 @@ async function fetchFromStrapi(endpoint: string, query = '') {
        return null;
     }
 
-    const json = await res.json();
-    return json;
+    return await res.json();
   } catch (error) {
-    console.error("Failed to fetch from Strapi for marquee:", error);
+    console.error("Failed to fetch from API for marquee:", error);
     return null;
   }
 }
 
 export default async function HeadlineMarquee() {
-  const homePage = await fetchFromStrapi('home-page', '?populate=*');
+  const homePage = await fetchFromApi('homepage', '?populate=*');
   const homePageData = homePage?.data;
   
-  const headline = homePageData?.headLineText;
+  const headline = homePageData?.headlineText;
 
   if (!headline) {
     return null;

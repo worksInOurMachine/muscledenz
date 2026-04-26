@@ -50,8 +50,13 @@ export class StrapiClient {
   private defaultHeaders: HeadersInit;
 
   constructor(baseURL?: string) {
-    this.baseURL =
-      baseURL || process.env.STRAPI_API_URL || "http://localhost:1337/api";
+    if (baseURL) {
+      this.baseURL = baseURL;
+    } else {
+      const isServer = typeof window === 'undefined';
+      const root = isServer ? (process.env.NEXTAUTH_URL || 'http://localhost:3000') : '';
+      this.baseURL = `${root}/api`;
+    }
     this.defaultHeaders = {
       "Content-Type": "application/json",
     };
