@@ -1,16 +1,17 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
-
+ 
 export async function GET() {
   try {
     await dbConnect();
     
-    const [trending, popular, justLaunched, ayurveda] = await Promise.all([
+    const [trending, popular, justLaunched, ayurveda, ] = await Promise.all([
       Product.find({ collectionType: 'trending' }).populate('category'),
       Product.find({ collectionType: 'popular' }).populate('category'),
       Product.find({ collectionType: 'just-launched' }).populate('category'),
       Product.find({ collectionType: 'life-style' }).populate('category'), // Mapping ayurveda to life-style or whatever matches
+      Product.find({ collectionType: 'ayurveda' }).populate('category'), // Mapping ayurveda to life-style or whatever matches
     ]);
 
     const transform = (products: any[]) => products.map((p: any) => {
