@@ -6,9 +6,10 @@ import { authOptions } from "@/../auth";
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await dbConnect();
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -17,7 +18,7 @@ export async function PUT(
 
     const body = await request.json();
     const address = await Address.findOneAndUpdate(
-      { _id: params.id, user: session.user.id },
+      { _id: id, user: session.user.id },
       body,
       { new: true }
     );
@@ -34,16 +35,17 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await dbConnect();
     const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const address = await Address.findOneAndDelete({ _id: params.id, user: session.user.id });
+    const address = await Address.findOneAndDelete({ _id: id, user: session.user.id });
 
     if (!address) {
       return NextResponse.json({ error: 'Address not found' }, { status: 404 });

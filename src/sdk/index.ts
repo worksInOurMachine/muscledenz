@@ -20,7 +20,7 @@ class AppSdk {
     return data;
   }
 
-  async find(collection: string, query: any = {}) {
+  async find<T = any>(collection: string, query: any = {}) {
     const searchParams = new URLSearchParams();
     if (query.filters) {
       // Basic filter handling - you might need more complex logic for nested filters
@@ -62,7 +62,7 @@ class AppSdk {
     };
   }
 
-  async findOne(collection: string, id: string | number, query: any = {}) {
+  async findOne<T = any>(collection: string, id: string | number, query: any = {}) {
     const res = await this.request(`/${collection}/${id}`);
     return {
       data: {
@@ -73,7 +73,7 @@ class AppSdk {
     };
   }
 
-  async create(collection: string, data: any) {
+  async create<T = any>(collection: string, data: any) {
     const res = await this.request(`/${collection}`, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -87,7 +87,7 @@ class AppSdk {
     };
   }
 
-  async update(collection: string, id: string | number, data: any) {
+  async update<T = any>(collection: string, id: string | number, data: any) {
     const res = await this.request(`/${collection}/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),

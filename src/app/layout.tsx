@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Header/Navbar";
 import HeadlineMarquee from "@/components/Header/HeadlineMarquee";
 import AuthProvider from "@/components/Provider/provider";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { getServerSession } from "next-auth";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
@@ -77,14 +77,16 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-  themeColor: "#C41616",
-
   category: "Health & Fitness",
 
   other: {
     keywords:
       "muscledenz, fitness supplements, sports nutrition, whey protein, muscle building supplements",
   },
+};
+ 
+export const viewport: Viewport = {
+  themeColor: "#C41616",
 };
 
 function SearchBarFallback() {

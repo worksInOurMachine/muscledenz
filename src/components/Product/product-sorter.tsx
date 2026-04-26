@@ -25,7 +25,7 @@ export function ProductSorter() {
                     <SelectContent>
                         {
                             data?.data.length > 0 && data?.data.map((ct: any, i: any) => (
-                                <SelectItem key={i} value={`${ct.slug}`}>{ct.name}</SelectItem>
+                                <SelectItem key={i} value={ct.slug}>{ct.name}</SelectItem>
                             ))
                         }
                     </SelectContent>

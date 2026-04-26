@@ -22,8 +22,13 @@ const fetchProducts = async ({ pageParam = 1, query, category }: { pageParam?: n
     ];
   };
   if (category) {
-    filters.category = {
-      slug: category,
+    const isId = /^[0-9a-fA-F]{24}$/.test(category);
+    if (isId) {
+      filters.category = category;
+    } else {
+      filters.category = {
+        slug: category,
+      }
     }
   }
 

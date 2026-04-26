@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
+import Category from '@/models/Category';
 
 export async function GET(request: Request) {
   try {
@@ -10,7 +11,22 @@ export async function GET(request: Request) {
     const collectionType = searchParams.get('collectionType');
     
     let query: any = {};
-    if (category) query.category = category;
+    if (category) {
+      if (category.startsWith('{')) {
+        try {
+          const catFilter = JSON.parse(category);
+          if (catFilter.slug) {
+            const cat = await Category.findOne({ slug: catFilter.slug });
+            if (cat) query.category = cat._id;
+            else query.category = '000000000000000000000000'; // Not found
+          }
+        } catch (e) {
+          query.category = category;
+        }
+      } else {
+        query.category = category;
+      }
+    }
     if (collectionType) query.collectionType = collectionType;
 
     const products = await Product.find(query).populate('category');

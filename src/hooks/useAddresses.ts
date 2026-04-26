@@ -13,7 +13,7 @@ export const useAddresses = () => {
   const addressesQuery = useQuery({
     queryKey: ["addresses"],
     queryFn: async () => {
-      const res = await strapi.find<AddressType[]>("addresses", {
+      const res = await strapi.find<AddressType>("addresses", {
         // Only fetch addresses for the current user
         filters: {
           user: userDocumentId

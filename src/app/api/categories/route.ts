@@ -12,6 +12,7 @@ export async function GET() {
         ...category,
         id: category._id.toString(),
         documentId: category._id.toString(),
+        slug: category.slug || category.name.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, ''),
         thumbnail: typeof category.thumbnail === 'string' ? { url: category.thumbnail } : category.thumbnail
       };
     });
