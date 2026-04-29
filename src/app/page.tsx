@@ -116,6 +116,7 @@ export default async function Home() {
 
 
   if (!data || !homePageData) return <Loading />;
+  
 
   return (
     <main className="min-w-full overflow-x-hidden">
