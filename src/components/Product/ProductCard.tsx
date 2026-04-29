@@ -1,5 +1,5 @@
 import DiscountedPrice from "@/components/Product/calculateDiscountedPrice";
-import { Button } from "@/components/ui/button";
+
 import { Card } from "@/components/ui/card";
 import { ProductResType } from "@/types/product";
 import Image from "next/image";
@@ -10,13 +10,9 @@ import { useSession } from "next-auth/react";
 export default function ProductCard({ product, addToCart }: { product: ProductResType, addToCart: any }) {
   const { data } = useSession();
 
-  const handleBuyNow = () => {
-    if (!product.ecomUrl) {
-      window.open("https://www.amazon.in/s?k=Muscledenz&ref=bl_dp_s_web_0", "_blank");
-      return;
-    }
-    window.open(product.ecomUrl, "_blank");
-  };
+  const buyNowUrl = product.ecomUrl
+    ? (product.ecomUrl.startsWith('http') ? product.ecomUrl : `https://${product.ecomUrl}`)
+    : "https://www.amazon.in/s?k=Muscledenz&ref=bl_dp_s_web_0";
 
   return (
     <Card className="group relative flex flex-col bg-card border border-border/60 overflow-hidden min-h-[380px] sm:min-h-[420px] md:min-h-[440px]">
@@ -66,12 +62,14 @@ export default function ProductCard({ product, addToCart }: { product: ProductRe
           </div>
 
           {/* Buy Button */}
-          <Button
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-5 rounded-xl btn-premium text-sm"
-            onClick={handleBuyNow}
+          <a
+            href={buyNowUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 rounded-xl btn-premium text-sm"
           >
             Buy Now
-          </Button>
+          </a>
         </div>
       </div>
     </Card>
