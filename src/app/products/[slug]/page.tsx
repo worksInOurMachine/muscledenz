@@ -217,8 +217,9 @@ export default function ProductDetailsPage() {
             <div className="space-y-6 pt-6">
               {product?.ecomUrl ? (
                 <a
-                  href={product.ecomUrl}
+                  href={product.ecomUrl.startsWith('http') ? product.ecomUrl : `https://${product.ecomUrl}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-premium w-full text-center flex items-center justify-center gap-3 text-lg py-6 group"
                 >
                   <Zap size={22} className="transition-transform group-hover:scale-125 group-hover:text-amber-400" />

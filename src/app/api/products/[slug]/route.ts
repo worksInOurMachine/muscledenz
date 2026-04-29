@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
+import mongoose from 'mongoose';
 
 export async function GET(
   request: Request,
@@ -9,7 +10,10 @@ export async function GET(
   try {
     const { slug } = await params;
     await dbConnect();
-    const product = await Product.findOne({ ecomUrl: slug }).populate('category');
+    
+    const query = mongoose.isValidObjectId(slug) ? { _id: slug } : { ecomUrl: slug };
+    const product = await Product.findOne(query).populate('category');
+    
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
