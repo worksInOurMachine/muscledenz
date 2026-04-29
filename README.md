@@ -19,7 +19,7 @@ Welcome to **Gains Hub**, where we lift weights and lift spirits! If you're here
 ```bash
 cd gym-site
 npm install
-npm run dev
+npm run dev   
 
 
 
