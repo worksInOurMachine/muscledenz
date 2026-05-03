@@ -20,7 +20,15 @@ export async function GET() {
       id: homePage._id.toString(),
       documentId: homePage._id.toString(),
       top_banners: homePage.top_banners?.map((img: string) => ({ url: img })),
-      about_images: homePage.about_images?.map((img: string) => ({ url: img }))
+      about_images: homePage.about_images?.map((img: any) => {
+        if (typeof img === 'string') return { url: img };
+        return {
+          url: img.url,
+          title: img.title,
+          description: img.description,
+          _id: img._id?.toString()
+        };
+      })
     };
 
     return NextResponse.json({ data: transformedHomePage });
@@ -39,7 +47,15 @@ export async function PUT(request: Request) {
       id: homePage._id.toString(),
       documentId: homePage._id.toString(),
       top_banners: homePage.top_banners?.map((img: string) => ({ url: img })),
-      about_images: homePage.about_images?.map((img: string) => ({ url: img }))
+      about_images: homePage.about_images?.map((img: any) => {
+        if (typeof img === 'string') return { url: img };
+        return {
+          url: img.url,
+          title: img.title,
+          description: img.description,
+          _id: img._id?.toString()
+        };
+      })
     };
     return NextResponse.json({ data: transformedHomePage });
   } catch (error: any) {
