@@ -13,6 +13,8 @@ Welcome to **Gains Hub**, where we lift weights and lift spirits! If you're here
 - You love fitness 🏃  
 - You love code 👨‍💻  
 
+
+
 - You love staring at a gym website instead of actually working out 🤡  
 
 ## 🛠️ How to Set Up (a.k.a. No Excuses)
