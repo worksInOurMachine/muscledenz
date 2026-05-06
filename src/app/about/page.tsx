@@ -54,8 +54,8 @@ function SectionHeader({ title, subtitle, align = 'left', light = false }: { tit
 }
 
 export default async function AboutUs() {
-/*   const homePage = await fetchFromApi('homepage', '?populate=*');
-  const homePageData = homePage?.data; */
+  /*   const homePage = await fetchFromApi('homepage', '?populate=*');
+    const homePageData = homePage?.data; */
 
   return (
     <main className="min-h-screen overflow-x-hidden">
@@ -101,11 +101,21 @@ export default async function AboutUs() {
       <section className="py-24 md:py-32 relative">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            
-            <div className="relative group animate-reveal">
+            <div className=" group relative">
+              <div className="aspect-[4/2]">
+                <Image
+                  src="/about-page-images/ab01.jpeg"
+                  alt="Our Story"
+                  fill
+                  className="object-cover group-hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
+            </div>
+
+            {/*             <div className="relative group animate-reveal">
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden border border-border shadow-2xl relative z-10">
                 <Image
-                  src="/mh.jpeg"
+                  src="/about-page-images/ab01.jpeg"
                   alt="Our Story"
                   fill
                   className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
@@ -113,13 +123,13 @@ export default async function AboutUs() {
               </div>
               <div className="absolute -top-10 -right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
             </div>
-
+ */}
             <div className="space-y-8 animate-reveal" style={{ animationDelay: '0.1s' }}>
-              <SectionHeader 
-                title="Our Story" 
-                subtitle="Founded with a simple yet powerful purpose — to offer trusted, high-performance supplements in a market where quality and transparency are often compromised." 
+              <SectionHeader
+                title="Our Story"
+                subtitle="Founded with a simple yet powerful purpose — to offer trusted, high-performance supplements in a market where quality and transparency are often compromised."
               />
-              
+
               <div className="prose prose-lg text-muted-foreground font-medium space-y-6">
                 <p>
                   Recognizing the growing demand for authentic, result-oriented nutrition, we set out to create a brand that people can rely on — whether they are fitness enthusiasts, athletes, or individuals focused on everyday health.
@@ -136,11 +146,11 @@ export default async function AboutUs() {
       {/* ─── Our Philosophy ─── */}
       <section className="py-24 md:py-32 bg-foreground text-background relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,rgba(255,0,0,0.1),transparent)]" />
-        
+
         <div className="container relative z-10 mx-auto px-4 text-center">
-          <SectionHeader 
-            title="Our Philosophy" 
-            subtitle="We believe that true fitness is a balance of strength, nutrition, and natural wellness." 
+          <SectionHeader
+            title="Our Philosophy"
+            subtitle="We believe that true fitness is a balance of strength, nutrition, and natural wellness."
             align="center"
             light
           />
@@ -163,7 +173,7 @@ export default async function AboutUs() {
       </section>
 
       {/* ─── About Images (From API) ─── */}
-{/*       {homePageData?.about_images && homePageData.about_images.length > 0 && (
+      {/*       {homePageData?.about_images && homePageData.about_images.length > 0 && (
         <section className="py-24 md:py-32 bg-background">
           <div className="max-w-7xl mx-auto px-4">
             <SectionHeader
@@ -179,9 +189,9 @@ export default async function AboutUs() {
       {/* ─── Our Product Portfolio ─── */}
       <section className="py-24 md:py-32 bg-muted/30">
         <div className="container mx-auto px-4">
-          <SectionHeader 
-            title="Our Product Portfolio" 
-            subtitle="Our carefully curated range is designed to meet diverse fitness and wellness needs." 
+          <SectionHeader
+            title="Our Product Portfolio"
+            subtitle="Our carefully curated range is designed to meet diverse fitness and wellness needs."
             align="center"
           />
 
@@ -291,7 +301,7 @@ export default async function AboutUs() {
       <section className="py-24 md:py-32 bg-background">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-16">
-            
+
             <div className="space-y-8 animate-reveal">
               <SectionHeader title="Availability" subtitle="Muscledenz products are easily accessible across leading online platforms:" />
               <div className="flex flex-wrap gap-4">
